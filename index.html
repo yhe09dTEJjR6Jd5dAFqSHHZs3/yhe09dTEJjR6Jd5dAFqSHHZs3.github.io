@@ -11,6 +11,7 @@
 @media(max-width:380px){.wrap{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}header{gap:6px}.brand{gap:8px}.mark{width:36px;height:36px;border-radius:12px}h1{font-size:19px}.header-tools{gap:0}.header-tools .icon-button{width:36px}.header-tools select{margin-left:2px;max-width:98px;padding:8px 5px}.prompt-card,.session-panel{padding:18px}.checks{grid-template-columns:1fr 1fr}dialog{padding:20px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media(forced-colors:active){.card,button,select,dialog{border:1px solid CanvasText}.empty-art span,.orb i,.dot{background:CanvasText}}
+.feedback-button{min-height:32px;padding:4px 0;font-size:11px;font-weight:500;margin-top:5px}.feedback-quote{max-height:20vh;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--surface-2);padding:12px;border-radius:12px}#feedbackInput{border:1px solid var(--line);padding:12px;background:var(--surface-2)}.session-bottom>.button-row{justify-content:flex-end}.session-bottom{flex-wrap:wrap}#cancelPack{color:var(--danger)}.button-link{display:inline-flex;padding:9px 15px;border:1px solid var(--line);border-radius:12px;color:var(--accent);font-size:12px;margin-top:12px;text-decoration:none}
 </style></head><body>
 <main class="wrap">
 <header>
@@ -35,7 +36,8 @@
     <details id="setup" class="card setup-card" open>
       <summary><span data-i18n="setupTitle">本地模型</span><span id="setupSummary" class="small muted"></span></summary>
       <div class="detail-body">
-        <p data-i18n="setupInfo">准备时下载所需模型文件并显示实际大小。准备完成后，本页仅使用本地缓存，不再联网。</p>
+        
+        <details class="panel"><summary data-i18n="importModels">导入模型</summary><div class="detail-body"><div class="button-row"><button id="exportModels" data-i18n="exportModels">备份模型</button><button id="importModels" data-i18n="importModels">导入模型</button><button id="cancelPack" data-i18n="cancelPack" hidden>取消迁移</button></div><a id="modelPackDownload" class="button-link" data-i18n="saveModelPack" download hidden>保存模型备份</a><input id="modelPackFile" type="file" accept=".aichat-models,application/octet-stream" hidden></div></details>
         <div class="checks">
           <div id="checkBrowser" class="check"><b>·</b><span data-i18n="checkBrowser">浏览器</span></div>
           <div id="checkStorage" class="check"><b>·</b><span data-i18n="checkStorage">存储</span></div>
@@ -53,7 +55,7 @@
     <div class="live-head"><div id="orb" class="orb" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><div><div id="statusTitle" class="status-title" role="status" aria-live="polite">准备开始</div><div id="statusHelp" class="status-help"></div></div><span class="session-tag" data-i18n="voiceChat">语音对话</span></div>
     <div id="empty" class="empty"><div class="empty-art" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div><p data-i18n="empty">从一句话开始</p></div>
     <div id="chat" class="chat" role="log" aria-live="off" aria-label="对话记录 / Transcript"></div>
-    <div class="session-bottom"><span id="saveStatus" data-i18n="localOnly">自动保存到本机</span><div class="button-row"><button id="exportCurrent" class="quiet" data-i18n="exportText" hidden>导出</button><button id="pendingAudioCurrent" class="quiet" data-i18n="audioLabel" hidden>导出待转写语音</button><button id="retrySave" data-i18n="retrySave" hidden>重试保存</button></div></div>
+    <div class="session-bottom"><span id="saveStatus" data-i18n="localOnly">自动保存到本机</span><div class="button-row"><button id="copyTranscript" class="quiet" data-i18n="copyTranscript" hidden>复制文字</button><button id="exportCurrent" class="quiet" data-i18n="exportText" hidden>导出</button><button id="pendingAudioCurrent" class="quiet" data-i18n="audioLabel" hidden>导出待转写语音</button><button id="retrySave" data-i18n="retrySave" hidden>重试保存</button></div></div>
     <button id="resume" class="primary" data-i18n="resume" hidden>继续对话</button>
     <details id="textDetails" class="text-compose" hidden><summary data-i18n="textSupplement">输入文字</summary><div class="compose-row"><textarea id="textInput" rows="2" data-placeholder="textPlaceholder" placeholder="补充一条消息…" aria-label="文字消息 / Text message"></textarea><button id="sendText" class="primary" data-i18n="send">发送</button></div></details>
   </section>
@@ -63,7 +65,7 @@
   <div class="dialog-head"><h2 id="settingsTitle" data-i18n="settingsTitle">设置</h2><button id="closeSettings" class="icon-button" data-title="close" aria-label="关闭">×</button></div>
   <div class="setting-row"><label for="speechLanguage" data-i18n="speechLanguageLabel">识别语言</label><select id="speechLanguage"><option value="auto" data-i18n="speechAuto">自动</option><option value="zh-CN">简体中文</option><option value="en">English</option></select></div>
   <div class="setting-row"><label for="theme" data-i18n="themeLabel">外观</label><select id="theme"><option value="auto" data-i18n="themeAuto">跟随系统</option><option value="light" data-i18n="themeLight">浅色</option><option value="dark" data-i18n="themeDark">深色</option></select></div>
-  <details id="experiencePanel" class="panel"><summary data-i18n="experienceTitle">本地经验</summary><div class="detail-body"><p data-i18n="experienceInfo">AI 可参考已保存对话中的经验，调整后续对话、语音检测和朗读策略。这是历史经验复用，不是模型权重训练，也不保证效果持续提升。删除历史记录会同时删除对应经验。</p><div class="setting-row"><label for="experienceUse" data-i18n="experienceUseLabel">参考历史经验</label><select id="experienceUse"><option value="yes" data-i18n="experienceOn">启用</option><option value="no" data-i18n="experienceOff">关闭</option></select></div><p id="experienceStatus" role="status"></p></div></details>
+  <details id="experiencePanel" class="panel"><summary data-i18n="experienceTitle">本地经验</summary><div class="detail-body"><div class="setting-row"><label for="experienceUse" data-i18n="experienceUseLabel">参考历史经验</label><select id="experienceUse"><option value="yes" data-i18n="experienceOn">启用</option><option value="no" data-i18n="experienceOff">关闭</option></select></div><p id="experienceStatus" role="status"></p></div></details>
   <details id="folderPanel" class="panel"><summary data-i18n="folderTitle">保存位置</summary><div class="detail-body"><p id="folderStatus" role="status"></p><div class="button-row"><button id="chooseFolder" data-i18n="chooseFolder">选择文件夹</button><button id="forgetFolder" data-i18n="forgetFolder" hidden>取消绑定</button></div></div></details>
   <details id="historyPanel" class="panel"><summary><span data-i18n="historyTitle">历史记录</span><span id="historyCount" class="small muted"></span></summary><div class="detail-body"><div id="historyList"></div><div class="button-row"><button id="backupAll" data-i18n="backupAll">备份记录</button><button id="importBackup" data-i18n="importBackup">导入备份</button></div><input type="file" id="backupFile" accept="application/json,.json" hidden></div></details>
   <details id="diagnosticsPanel" class="panel"><summary data-i18n="diagnosticsTitle">诊断</summary><div class="detail-body"><p id="voiceCapabilities"></p><div class="button-row"><button id="recheck" data-i18n="recheck">检查环境</button><button id="exportDiagnostics" data-i18n="exportDiagnostics">导出诊断</button></div><pre id="diagnostics"></pre><details id="decisionPanel" class="panel" hidden><summary><span data-i18n="decisionTitle">AI 决策</span><span id="decisionSummary" class="small muted"></span></summary><pre id="decisionText"></pre></details></div></details>
@@ -72,13 +74,14 @@
 <dialog id="endDialog" aria-labelledby="endDialogTitle"><h2 id="endDialogTitle" data-i18n="confirmTitle">结束对话？</h2><p data-i18n="confirmInfo">停止收音与朗读，并保存记录。</p><div class="button-row dialog-actions"><button id="cancelEnd" data-i18n="keepTalking" autofocus>继续聊</button><button id="confirmEnd" class="primary" data-i18n="confirmEnd">结束并保存</button></div></dialog>
 <dialog id="networkDialog" aria-labelledby="networkDialogTitle"><h2 id="networkDialogTitle" data-i18n="networkTitle">重新准备模型？</h2><p data-i18n="networkInfo">将重新载入页面，允许下载缺失的资源。已有对话保留。</p><div class="button-row dialog-actions"><button id="cancelNetwork" data-i18n="cancelPrepare" autofocus>取消</button><button id="confirmNetwork" class="primary" data-i18n="networkConfirm">重新准备</button></div></dialog>
 <dialog id="historyDialog" class="history-dialog" aria-labelledby="historyDialogTitle"><h2 id="historyDialogTitle" data-i18n="historyTitle">历史记录</h2><pre id="historyText"></pre><div id="historyAudio" class="button-row"></div><div class="button-row dialog-actions"><button id="retryHistoryAudio" data-i18n="retryAudio" hidden>本地补转写</button><button id="historyExport" data-i18n="exportText">导出</button><button id="historyClose" class="primary" data-i18n="close">关闭</button></div></dialog>
+<dialog id="feedbackDialog" aria-labelledby="feedbackTitle"><h2 id="feedbackTitle" data-i18n="feedbackTitle">你的纠正与反馈</h2><p id="feedbackQuote" class="feedback-quote"></p><div class="setting-row"><label for="feedbackKind" data-i18n="feedbackKindLabel">反馈类型</label><select id="feedbackKind"><option value="note" data-i18n="feedbackNote">偏好或说明</option><option value="dialogue_positive" data-i18n="feedbackDialogueGood">回答有帮助</option><option value="dialogue_negative" data-i18n="feedbackDialogueBad">回答需改进</option><option value="asr_positive" data-i18n="feedbackASRGood">转写正确</option><option value="asr_negative" data-i18n="feedbackASRBad">转写有误</option><option value="vad_positive" data-i18n="feedbackVADGood">打断正确</option><option value="vad_negative" data-i18n="feedbackVADBad">打断误触</option><option value="delivery_positive" data-i18n="feedbackTTSGood">朗读合适</option><option value="delivery_negative" data-i18n="feedbackTTSBad">朗读需改进</option></select></div><textarea id="feedbackInput" rows="5" data-placeholder="feedbackPlaceholder" placeholder="写下你的纠正或偏好。内容会原样保存，不会改写已发生的对话。" aria-labelledby="feedbackTitle"></textarea><div class="button-row dialog-actions"><button id="cancelFeedback" data-i18n="cancelPrepare">取消</button><button id="saveFeedback" class="primary" data-i18n="saveFeedback">保存反馈</button></div></dialog><dialog id="packTrustDialog" aria-labelledby="packTrustTitle"><h2 id="packTrustTitle" data-i18n="packTrustTitle">导入可信模型备份？</h2><p data-i18n="packTrustInfo">该文件包含会在本机执行的运行库。只导入你自己导出或明确可信的备份；校验和只能检查完整性，不能证明来源可信。</p><div class="button-row dialog-actions"><button id="cancelPackTrust" data-i18n="cancelPrepare" autofocus>取消</button><button id="confirmPackTrust" class="primary" data-i18n="packTrustContinue">选择可信文件</button></div></dialog>
 <noscript><div class="notice error">请启用 JavaScript / JavaScript is required.</div></noscript>
 
 
 <script id="sharedCode">
-const BUILD = '2026-09-29.3';
+const BUILD = '2026-09-29.5';
 const DB_NAME = 'AIChat-local-v1';
-const STORES = ['meta','files','chunks','sessions','audio','sessionMessages','sessionDecisions'];
+const STORES = ['meta','files','chunks','sessions','audio','sessionMessages','sessionDecisions','learningEvents'];
 const PACK = {
   transformers: 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.2/dist/',
   transformersVersion: '3.7.2',
@@ -94,7 +97,7 @@ const PACK = {
 
 const AUDIO_SPEC = {rate:16000, frame:512, context:64, stateLayers:2, stateWidth:128};
 const SAFETY = {chunkBytes:4*1024*1024, idleNetworkMs:90000, dbOpenMs:15000,
-  endGraceMs:15000, voiceWaitMs:5000, speechWatchdogMs:120000, contextHardMax:4096, streamCheckpointMs:1500};
+  endGraceMs:15000, voiceWaitMs:5000, speechWatchdogMs:120000, streamCheckpointMs:1500};
 
 const EMPTY_POLICY = Object.freeze({action:null,revisit_seconds:null,pause_seconds:null,speech_probability:null,
   minimum_voice_seconds:null,speech_rate:null,speech_pitch:null,speech_volume:null,
@@ -104,7 +107,7 @@ function dbOpen(){
   if(dbPromise)return dbPromise;
   dbPromise=new Promise((resolve,reject)=>{
     if(!globalThis.indexedDB){reject(new Error('STORAGE_UNAVAILABLE'));return;}
-    const r=indexedDB.open(DB_NAME,2);let settled=false;
+    const r=indexedDB.open(DB_NAME,3);let settled=false;
     const fail=error=>{if(settled)return;settled=true;clearTimeout(timer);reject(error);};
     const timer=setTimeout(()=>fail(new Error('STORAGE_OPEN_TIMEOUT')),SAFETY.dbOpenMs);
     r.onupgradeneeded=()=>{for(const name of STORES)if(!r.result.objectStoreNames.contains(name))r.result.createObjectStore(name);};
@@ -154,23 +157,32 @@ function assetRevision(url){
   if(url.startsWith('https://huggingface.co/'+PACK.asr+'/resolve/'+PACK.asrRevision+'/'))return PACK.asrRevision;
   return null;
 }
-function cacheHash(meta){const hashes=meta?.hashes?Object.values(meta.hashes):[];return hashes.length?'sha256-chunks:'+hashes.join('.'):'none';}
+function cacheHash(meta){const hashes=Array.isArray(meta?.parts)?meta.parts.map(key=>meta.hashes?.[key]).filter(Boolean):[];return hashes.length?'sha256-chunks:'+hashes.join('.'):'none';}
 async function collectAssetManifest(){const out=[];for(const [url,m] of await dbEntries('files'))if(m?.complete&&(m.status===200||m.status===404)){const revision=assetRevision(String(url));if(revision)out.push({url:String(url),revision,status:m.status,size:m.size||0,hash:cacheHash(m)});}out.sort((a,b)=>a.url.localeCompare(b.url));return out;}
+
+function requiredAssets(){
+  const llm='https://huggingface.co/'+PACK.llm+'/resolve/'+PACK.llmRevision+'/';
+  const asr='https://huggingface.co/'+PACK.asr+'/resolve/'+PACK.asrRevision+'/';
+  return [PACK.transformers+'transformers.min.js',PACK.transformers+'ort-wasm-simd-threaded.jsep.mjs',PACK.transformers+'ort-wasm-simd-threaded.jsep.wasm',PACK.ort+'ort.wasm.min.mjs',PACK.ort+'ort-wasm-simd-threaded.mjs',PACK.ort+'ort-wasm-simd-threaded.wasm',PACK.vad,llm+'config.json',llm+'tokenizer.json',llm+'tokenizer_config.json',llm+'onnx/model_quantized.onnx',asr+'config.json',asr+'tokenizer.json',asr+'tokenizer_config.json',asr+'preprocessor_config.json',asr+'onnx/encoder_model_quantized.onnx',asr+'onnx/decoder_model_merged_quantized.onnx'];
+}
+function manifestComplete(manifest){return Array.isArray(manifest)&&requiredAssets().every(url=>manifest.some(item=>item?.url===url&&item.status===200&&item.size>0));}
+
 async function verifyAssetManifest(manifest){
-  if(!Array.isArray(manifest)||!manifest.length)return false;
-  const seen=new Set();
+  if(!manifestComplete(manifest))return false;
+  for(const url of executableAssets())if(!validExecutableTrust(await dbGet('meta',executableTrustKey(url)),url))return false;
+  const seen=new Set(),chunkKeys=new Set(await dbKeys('chunks'));
   for(const item of manifest){
     if(!item||typeof item.url!=='string'||seen.has(item.url)||!assetRevision(item.url)||assetRevision(item.url)!==item.revision)return false;
     seen.add(item.url);
     const m=await dbGet('files',item.url);
     if(!m?.complete||m.status!==item.status||m.size!==item.size||cacheHash(m)!==item.hash)return false;
-    if(m.status===200){try{await checkedAssetParts(m,item.url);}catch(e){if(errText(e).startsWith('CACHE_DAMAGED'))return false;throw e;}}
+    if(m.status===200){if(!validAssetMetadata(m)||!m.parts.every(key=>chunkKeys.has(key)))return false;}
     else if(m.status!==404||m.size!==0||!Array.isArray(m.parts)||m.parts.length)return false;
   }
   return true;
 }
 async function cleanupAssetCache(dropAll=false){
-  const meta=await dbEntries('meta');for(const [key,parts] of meta){if(typeof key==='string'&&key.startsWith('partial:')){for(const part of Array.isArray(parts)?parts:[])await dbDelete('chunks',part).catch(()=>{});await dbDelete('meta',key).catch(()=>{});}}
+  const referenced=new Set((await dbEntries('files')).filter(([,m])=>m?.complete).flatMap(([,m])=>m.parts||[]));const meta=await dbEntries('meta');for(const [key,parts] of meta){if(typeof key==='string'&&key.startsWith('partial:')){for(const part of Array.isArray(parts)?parts:[])if(!referenced.has(part))await dbDelete('chunks',part).catch(()=>{});await dbDelete('meta',key).catch(()=>{});}}
   const files=await dbEntries('files');if(dropAll){for(const [url,m] of files){for(const part of m?.parts||[])await dbDelete('chunks',part).catch(()=>{});await dbDelete('files',url).catch(()=>{});}}
   const keep=new Set();for(const [,m] of await dbEntries('files'))for(const part of m?.parts||[])keep.add(part);
   for(const key of await dbKeys('chunks'))if(!keep.has(key))await dbDelete('chunks',key).catch(()=>{});
@@ -182,7 +194,9 @@ async function preparationSpaceCheck(){
   return {estimateAvailable:!!estimate,...estimate,cachedCurrentBytes,availableBytes:estimate&&Number.isFinite(estimate.quota)&&Number.isFinite(estimate.usage)?Math.max(0,estimate.quota-estimate.usage):null};
 }
 function errText(e){return String(e?.message||e||'Unknown error');}
-const NET={allowed:false, role:'page', notify:()=>{}, controllers:new Set()};
+const NET={allowed:false,role:'page',notify:()=>{},controllers:new Set(),stats:{cachedReads:0,networkRequests:0,blockedRequests:0}};
+function auditNetwork(key){NET.stats[key]++;NET.notify({type:'network-stats',role:NET.role,stats:{...NET.stats}});}
+function networkBlocked(message){auditNetwork('blockedRequests');return new Error(message);}
 function setNetworkAccess(allowed){NET.allowed=allowed===true;NET.notify({type:'network',role:NET.role,allowed:NET.allowed});}
 function closeNetwork(){setNetworkAccess(false);for(const c of NET.controllers)c.abort();NET.controllers.clear();}
 const nativeFetch=globalThis.fetch.bind(globalThis);
@@ -201,16 +215,43 @@ async function sha256Blob(blob){
   const digest=await crypto.subtle.digest('SHA-256',await blob.arrayBuffer());
   return Array.from(new Uint8Array(digest),x=>x.toString(16).padStart(2,'0')).join('');
 }
-async function checkedAssetParts(meta,url){
+function isExecutableAsset(url){return /\.(?:m?js|wasm)$/.test(new URL(url).pathname);}
+function executableAssets(){return requiredAssets().filter(isExecutableAsset);}
+function executableTrustKey(url){return 'executable-trust-v1:'+url;}
+function validExecutableTrust(trust,url){return trust?.version===1&&trust.source==='pinned-https-download'&&trust.revision===assetRevision(url)&&Number.isSafeInteger(trust.size)&&trust.size>0&&/^[a-f0-9]{64}$/.test(trust.sha256||'');}
+async function verifyExecutable(url,blob){
+  if(!isExecutableAsset(url))return;
+  if(!executableAssets().includes(url))throw new Error('EXECUTABLE_NOT_ALLOWED: '+url);
+  const trust=await dbGet('meta',executableTrustKey(url));
+  if(!validExecutableTrust(trust,url))throw new Error('EXECUTABLE_TRUST_REQUIRED: '+url);
+  if(blob.size!==trust.size||await sha256Blob(blob)!==trust.sha256)throw new Error('EXECUTABLE_INTEGRITY_FAILED: '+url);
+}
+async function trustDownloadedExecutable(url,parts,size){
+  if(!isExecutableAsset(url))return;
+  if(!executableAssets().includes(url))throw new Error('EXECUTABLE_NOT_ALLOWED: '+url);
+  const blobs=[];for(const key of parts){const blob=await dbGet('chunks',key);if(!(blob instanceof Blob))throw new Error('CACHE_DAMAGED: '+url);blobs.push(blob);}
+  const blob=new Blob(blobs);if(blob.size!==size)throw new Error('CACHE_DAMAGED: '+url);
+  const key=executableTrustKey(url),known=await dbGet('meta',key),sha256=await sha256Blob(blob);
+  if(validExecutableTrust(known,url)){if(known.size!==size||known.sha256!==sha256)throw new Error('EXECUTABLE_INTEGRITY_FAILED: '+url);return;}
+  await dbPut('meta',key,{version:1,source:'pinned-https-download',revision:assetRevision(url),size,sha256,at:new Date().toISOString()});
+}
+const verifiedAssets=new Map();
+function validAssetMetadata(meta){
+  return Number.isSafeInteger(meta?.size)&&meta.size>0&&Array.isArray(meta.parts)&&meta.parts.length>0&&new Set(meta.parts).size===meta.parts.length&&meta.parts.every(key=>typeof key==='string'&&/^[a-f0-9]{64}$/.test(meta.hashes?.[key]||''));
+}
+async function checkedAssetParts(meta,url,force=false){
   const damaged=()=>new Error('CACHE_DAMAGED: '+url);
-  if(!Number.isSafeInteger(meta.size)||meta.size<1||!Array.isArray(meta.parts)||!meta.parts.length||new Set(meta.parts).size!==meta.parts.length)throw damaged();
+  if(!validAssetMetadata(meta))throw damaged();
+  const signature=JSON.stringify([BUILD,meta.size,meta.parts,cacheHash(meta)]),verified=!force&&verifiedAssets.get(url)===signature;
   const parts=[];let size=0;
   for(const key of meta.parts){
-    const part=await dbGet('chunks',key),hash=meta.hashes?.[key];
-    if(!(part instanceof Blob)||!part.size||typeof hash!=='string'||!/^[a-f0-9]{64}$/.test(hash)||await sha256Blob(part)!==hash)throw damaged();
+    const part=await dbGet('chunks',key);if(!(part instanceof Blob)||!part.size)throw damaged();
+    if(!verified&&!isExecutableAsset(url)&&await sha256Blob(part)!==meta.hashes[key])throw damaged();
     size+=part.size;if(size>meta.size)throw damaged();parts.push(part);
   }
-  if(size!==meta.size)throw damaged();return parts;
+  if(size!==meta.size)throw damaged();
+  if(!verified)await verifyExecutable(url,new Blob(parts));
+  verifiedAssets.set(url,signature);return parts;
 }
 async function resourceResponse(url){
   const m=await dbGet('files',url);if(!m?.complete)return null;
@@ -224,7 +265,8 @@ async function deleteIncompleteParts(url){
   if(partial){for(const key of partial)await dbDelete('chunks',key);await dbDelete('meta','partial:'+url);}
 }
 async function downloadResource(url){
-  if(!NET.allowed)throw new Error('OFFLINE_ASSET_MISSING: '+url);
+  if(isExecutableAsset(url)&&!executableAssets().includes(url))throw new Error('EXECUTABLE_NOT_ALLOWED: '+url);
+  if(!NET.allowed)throw networkBlocked('OFFLINE_ASSET_MISSING: '+url);
   await deleteIncompleteParts(url);
   const controller=new AbortController();NET.controllers.add(controller);
   let timer,reader,response;
@@ -237,7 +279,7 @@ async function downloadResource(url){
     for(const candidate of candidates){
       guard();touch();
       try{
-        response=await nativeFetch(candidate,{signal:controller.signal,credentials:'omit',referrerPolicy:'no-referrer',cache:'no-store'});
+        auditNetwork('networkRequests');response=await nativeFetch(candidate,{signal:controller.signal,credentials:'omit',referrerPolicy:'no-referrer',cache:'no-store'});
         guard();if(response.ok||response.status===404&&candidates.length===1)break;
         last=new Error('HTTP '+response.status);await response.body?.cancel().catch(()=>{});response=null;
       }catch(e){last=e;if(controller.signal.aborted||!NET.allowed)throw e;}
@@ -269,8 +311,9 @@ async function downloadResource(url){
     }else{touch();const data=await response.arrayBuffer();clearTimeout(timer);guard();fragments=[data];buffered=loaded=data.byteLength;}
     if(!loaded||knownLength&&loaded!==declared)throw new Error('DOWNLOAD_INCOMPLETE: '+url);
     await flush();guard();
+    await trustDownloadedExecutable(url,parts,loaded);guard();
     await dbPut('files',url,{complete:true,status:200,parts,hashes,size:loaded,type});
-    await dbDelete('meta','partial:'+url);NET.notify({type:'download',url,loaded,total:loaded,done:true});
+    verifiedAssets.delete(url);await dbDelete('meta','partial:'+url);NET.notify({type:'download',url,loaded,total:loaded,done:true});
   }catch(e){controller.abort(e);await reader?.cancel(e).catch(()=>{});throw e;}
   finally{clearTimeout(timer);reader?.releaseLock();NET.controllers.delete(controller);}
 }
@@ -283,11 +326,11 @@ async function cachedFetch(input,options={}){
   const url=parsed.href;
   let response;
   try{response=await resourceResponse(url);}catch(e){
-    if(!NET.allowed||!errText(e).startsWith('CACHE_DAMAGED'))throw e;
+    if(!NET.allowed||!['CACHE_DAMAGED','EXECUTABLE_TRUST_REQUIRED'].some(prefix=>errText(e).startsWith(prefix)))throw e;
     const broken=await dbGet('files',url);for(const key of broken?.parts||[])await dbDelete('chunks',key);await dbDelete('files',url);
   }
-  if(response)return response;
-  if(!NET.allowed)throw new Error('OFFLINE_ASSET_MISSING: '+url);
+  if(response){auditNetwork('cachedReads');return response;}
+  if(!NET.allowed)throw networkBlocked('OFFLINE_ASSET_MISSING: '+url);
   if(!inflightAssets.has(url))inflightAssets.set(url,downloadResource(url).finally(()=>inflightAssets.delete(url)));
   await inflightAssets.get(url);response=await resourceResponse(url);
   if(!response)throw new Error('CACHE_WRITE_FAILED: '+url);return response;
@@ -295,7 +338,7 @@ async function cachedFetch(input,options={}){
 async function assetBlob(url){const r=await cachedFetch(url);if(!r.ok)throw new Error('HTTP '+r.status+': '+url);return r.blob();}
 async function assetModule(url){const b=await assetBlob(url),u=URL.createObjectURL(new Blob([b],{type:'text/javascript'}));return u;}
 async function assetBinaryURL(url){const u=URL.createObjectURL(await assetBlob(url));return u;}
-function validPolicy(raw,windowSeconds,previous=null,event='start',voices=[],deviceContextLimit=SAFETY.contextHardMax){
+function validPolicy(raw,windowSeconds,previous=null,event='start',voices=[],deviceContextLimit=Number.MAX_SAFE_INTEGER,constraints={}){
   const normalized=[];
   const validObject=!!raw&&typeof raw==='object'&&!Array.isArray(raw);
   raw=validObject?{...raw}:{};
@@ -315,12 +358,12 @@ function validPolicy(raw,windowSeconds,previous=null,event='start',voices=[],dev
     speech_pitch:x=>typeof x==='number'&&x>=0&&x<=2,
     speech_volume:x=>typeof x==='number'&&x>=0&&x<=1,
     revisit_seconds:x=>x===null||(typeof x==='number'&&x>=0&&Number.isFinite(x*1000)),
-    recognition_language:x=>['auto','zh-CN','en'].includes(x),
+    recognition_language:x=>['auto','zh-CN','en'].includes(x)&&(!constraints.recognition_language||x===constraints.recognition_language),
     history_tokens:x=>x===null||(Number.isSafeInteger(x)&&x>0&&x<=deviceContextLimit),
     temperature:x=>x===null||(typeof x==='number'&&x>=0),
     top_p:x=>x===null||(typeof x==='number'&&x>0&&x<=1),
     output_tokens:x=>x===null||(Number.isSafeInteger(x)&&x>0),
-    voice:x=>x==='auto'||voices.some(v=>v.id===x)||voices.filter(v=>v.name===x).length===1,
+    voice:x=>typeof x==='string'&&voices.some(v=>v.id===x),
     guidance:x=>typeof x==='string',experience_note:x=>typeof x==='string',interrupt_on_voice:x=>typeof x==='boolean',action:x=>x==='speak'||x==='listen'
   };
   const valid=(key,x)=>(typeof x!=='number'||Number.isFinite(x))&&validators[key](x);
@@ -346,9 +389,25 @@ function speechParts(text,lang){
   return out;
 }
 function voiceIdentity(voice){return JSON.stringify([voice.voiceURI||'',voice.lang||'',voice.name||'']);}
+const DELIVERY_FIELDS={voice:'one exact available voice id',rate:'number >= 0.1 and <= 10',pitch:'number >= 0 and <= 2',volume:'number >= 0 and <= 1',pause_after:'finite seconds >= 0; pause after this segment'};
+function validDeliveryItem(item,index,voices){
+  return !!item&&typeof item==='object'&&item.segment===index&&voices.some(v=>v.id===item.voice)&&
+    Number.isFinite(item.rate)&&item.rate>=0.1&&item.rate<=10&&Number.isFinite(item.pitch)&&item.pitch>=0&&item.pitch<=2&&
+    Number.isFinite(item.volume)&&item.volume>=0&&item.volume<=1&&Number.isFinite(item.pause_after)&&item.pause_after>=0&&Number.isFinite(item.pause_after*1000);
+}
+function validDeliveryPlan(raw,parts,voices){
+  return Array.isArray(parts)&&parts.length>0&&parts.every(part=>typeof part==='string')&&Array.isArray(raw?.delivery_plan)&&raw.delivery_plan.length===parts.length&&raw.delivery_plan.every((item,index)=>validDeliveryItem(item,index,voices));
+}
+function hasMutedSpeech(message){return Array.isArray(message.deliveryPlan)?message.deliveryPlan.some(item=>item.volume===0):message.voiceSettings?.speech_volume===0;}
+function audibleDeliveryText(message){
+  const parts=message.speechSegments||speechParts(message.text),end=message.delivery==='spoken'?parts.length:message.spokenParts||0,offset=message.spokenOffset||0;
+  return parts.map((part,index)=>message.deliveryPlan[index]?.volume>0?(index<end?part:index===end?part.slice(0,offset):''):'').join('');
+}
+
 function deliveredText(message){
   if(!message||typeof message.text!=='string')return '';
   if(message.role!=='assistant')return message.text;
+  if(Array.isArray(message.deliveryPlan))return audibleDeliveryText(message);
   if(message.voiceSettings?.speech_volume===0)return '';
   if(message.delivery==='spoken')return message.text;
   if(typeof message.spokenText==='string'&&message.text.startsWith(message.spokenText))return message.spokenText;
@@ -367,22 +426,137 @@ function deadlineTimer(callback,delayMs){
   tick();return ()=>{cancelled=true;clearTimeout(handle);};
 }
 
+function runtimeEnvironment(){
+  return JSON.stringify([PACK.llmRevision,PACK.asrRevision,PACK.vadRevision,PACK.transformersVersion,PACK.ortVersion,globalThis.navigator?.userAgent||'',globalThis.navigator?.platform||'',globalThis.navigator?.hardwareConcurrency||null]);
+}
+function learningSettings(values={}){
+  return Object.fromEntries(['action','pause_seconds','speech_probability','minimum_voice_seconds','speech_rate','speech_pitch','speech_volume','voice','recognition_language','interrupt_on_voice','history_tokens','temperature','top_p','output_tokens','revisit_seconds'].filter(key=>Object.hasOwn(values,key)).map(key=>[key,values[key]]));
+}
+function learningFeatures(settings={},context={}){
+  const x=Object.create(null);x.bias=1;
+  for(const [key,value] of Object.entries(learningSettings(settings))){
+    if(typeof value==='number'&&Number.isFinite(value))x['p:'+key]=value/(1+Math.abs(value));
+    else if(typeof value==='boolean')x['p:'+key]=value?1:-1;
+    else if(typeof value==='string')x['p:'+key+'='+value]=1;
+  }
+  for(const [key,value] of Object.entries(context||{}))if(typeof value==='number'&&Number.isFinite(value))x['c:'+key]=value/(1+Math.abs(value));
+  return x;
+}
+function adaptiveProbability(model,x){
+  let z=0;for(const [key,value] of Object.entries(x))z+=(model?.weights?.[key]||0)*value;
+  return z>=0?1/(1+Math.exp(-z)):Math.exp(z)/(1+Math.exp(z));
+}
+function updateAdaptiveModel(model,x,y){
+  const p=adaptiveProbability(model,x),norm=Math.sqrt(Object.values(x).reduce((sum,v)=>sum+v*v,0))||1;
+  for(const [key,value] of Object.entries(x)){
+    const gradient=(p-y)*value/norm;
+    const total=model.gradients[key]=(model.gradients[key]||0)+gradient*gradient;
+    if(total>0)model.weights[key]=(model.weights[key]||0)-gradient/Math.sqrt(total);
+  }
+  model.samples++;return model;
+}
+function emptyAdaptiveModel(){return {weights:Object.create(null),gradients:Object.create(null),samples:0};}
+function evidenceLabel(row){
+  if(!row||!['runtime','user'].includes(row.source)||typeof row.result?.success!=='boolean'||row.result.censored===true)return null;
+  return Number(row.result.success);
+}
+function fitAdaptiveRows(rows){const model=emptyAdaptiveModel();for(const row of rows)updateAdaptiveModel(model,learningFeatures(row.settings,row.context),evidenceLabel(row));return model;}
+function evaluateAdaptiveRows(model,baseline,rows){
+  let gain=0,squared=0,loss=0,baselineLoss=0;
+  for(const row of rows){const y=evidenceLabel(row),p=adaptiveProbability(model,learningFeatures(row.settings,row.context));const a=(p-y)**2,b=(baseline-y)**2,d=b-a;loss+=a;baselineLoss+=b;gain+=d;squared+=d*d;}
+  const n=rows.length,mean=n?gain/n:0,standardError=n>1?Math.sqrt(Math.max(0,squared-gain*gain/n)/(n*(n-1))):Infinity;
+  return {count:n,loss:n?loss/n:null,baseline_loss:n?baselineLoss/n:null,gain:mean,standard_error:Number.isFinite(standardError)?standardError:null,accepted:n>1&&mean>standardError&&Number.isFinite(loss)};
+}
+function trainAdaptiveHead(rows){
+  const holdout=Math.ceil(Math.sqrt(rows.length)),split=rows.length-holdout;
+  if(split<1)return {model:null,validation:{count:0,accepted:false},shadow_samples:rows.length};
+  const prefix=rows.slice(0,split),validation=rows.slice(split),baseline=(prefix.reduce((sum,row)=>sum+evidenceLabel(row),0)+1)/(prefix.length+2);
+  const recentStart=Math.max(0,prefix.length-Math.ceil(Math.sqrt(prefix.length)));
+  const candidates=[{mode:'all',start:0},{mode:'recent',start:recentStart}].map(candidate=>{
+    const trial=fitAdaptiveRows(prefix.slice(candidate.start));return {...candidate,validation:evaluateAdaptiveRows(trial,baseline,validation)};
+  }).sort((a,b)=>(a.validation.loss??Infinity)-(b.validation.loss??Infinity));
+  const selected=candidates[0],model=selected.validation.accepted?fitAdaptiveRows(rows.slice(selected.start)):null;
+  return {model,validation:selected.validation,mode:selected.mode,shadow_samples:rows.length};
+}
+
 function installNetworkGuards(){
   globalThis.fetch=cachedFetch;
   for(const name of ['XMLHttpRequest','WebSocket','EventSource','WebTransport','RTCPeerConnection','webkitRTCPeerConnection','SpeechRecognition','webkitSpeechRecognition']){
-    if(typeof globalThis[name]==='function')try{Object.defineProperty(globalThis,name,{value:class{constructor(){throw new Error('NETWORK_API_BLOCKED');}},writable:false,configurable:false});}catch{}
+    if(typeof globalThis[name]==='function')try{Object.defineProperty(globalThis,name,{value:class{constructor(){throw networkBlocked('NETWORK_API_BLOCKED');}},writable:false,configurable:false});}catch{}
   }
-  if(globalThis.navigator?.sendBeacon)try{Object.defineProperty(navigator,'sendBeacon',{value:()=>false,writable:false,configurable:false});}catch{}
+  if(globalThis.navigator?.sendBeacon)try{Object.defineProperty(navigator,'sendBeacon',{value:()=>{auditNetwork('blockedRequests');return false;},writable:false,configurable:false});}catch{}
 }
 installNetworkGuards();
 </script>
 <script id="engineCode" type="text/plain">
 NET.notify=data=>postMessage(data);
 globalThis.fetch=cachedFetch;
-let tf,asr,llm,stopper,limits,policy,contextLimit=SAFETY.contextHardMax;
+let tf,asr,llm,stopper,limits,policy,contextLimit=0;
 let queue=Promise.resolve(),cancelledSessions=new Set(),softInterrupted=false,operationEpoch=0;
 function progress(x){if(['initiate','done','ready'].includes(x.status))postMessage({type:'model-progress',...x});}
-async function initialize(allowNetwork){
+let capabilityKey='',capabilityRecord=null,controllerMinimum=0;
+function memoryFailure(error){return /out of memory|\boom\b|allocation failed|failed to allocate|cannot allocate|could not allocate|memory access out of bounds|memory\.grow|bad_alloc|Array buffer allocation|invalid array length/i.test(errText(error));}
+function disposeResult(value){
+  if(!value||typeof value!=='object')return;
+  if(typeof value.dispose==='function'){value.dispose();return;}
+  for(const item of Object.values(value))if(item&&typeof item==='object'&&(typeof item.dispose==='function'||Array.isArray(item)))disposeResult(item);
+}
+function minimumControllerContext(voices){
+  const {schema,system}=controllerInstructions();
+  const payload={user_goal:'Local capability test',event:'start',user_constraints:{},trained_adaptation:null,silence_seconds:0,observations:{vad:{rate:AUDIO_SPEC.rate,frame:AUDIO_SPEC.frame},asr:{window_seconds:limits.windowSeconds}},recent_dialogue:[{role:'user',content:'Check a complete conversation decision.'}],audio_window_seconds:limits.windowSeconds,available_voices:compactVoices(voices),previous_settings:null,omitted_dialogue_messages:0,device_context_limit:limits.modelMax,local_experience:[]};
+  return tokenCount(chatString([{role:'system',content:system},{role:'user',content:JSON.stringify(payload)}]))+tokenCount(JSON.stringify(EMPTY_POLICY))*2+tokenCount(JSON.stringify(schema));
+}
+async function probeContextLength(tokens){
+  const size=tokens-1,id=Number(llm.tokenizer.encode(' test',{add_special_tokens:false})[0]);
+  if(size<1||!Number.isSafeInteger(id))throw new Error('LLM_CONTEXT_PROBE_INVALID');
+  const input=new tf.Tensor('int64',new BigInt64Array(size).fill(BigInt(id)),[1,size]);
+  const mask=new tf.Tensor('int64',new BigInt64Array(size).fill(1n),[1,size]);let result;
+  const started=performance.now();
+  try{result=await llm.model.generate({input_ids:input,attention_mask:mask,max_new_tokens:1,do_sample:false});return {tokens,elapsed_ms:performance.now()-started};}
+  finally{disposeResult(result);input.dispose?.();mask.dispose?.();}
+}
+async function measureContext(voices){
+  controllerMinimum=minimumControllerContext(voices);
+  if(controllerMinimum>limits.modelMax)throw new Error('MODEL_CONTROLLER_CONTEXT_UNAVAILABLE');
+  capabilityKey='capability:'+runtimeEnvironment();
+  const saved=await dbGet('meta',capabilityKey);
+  capabilityRecord=saved?.modelMax===limits.modelMax?saved:{modelMax:limits.modelMax,good:0,failedUpper:null,probes:[]};
+  if(capabilityRecord.pending){const interrupted=capabilityRecord.pending;capabilityRecord.failedUpper=Math.min(capabilityRecord.failedUpper||Infinity,interrupted);if(capabilityRecord.good>=interrupted)capabilityRecord.good=Math.floor(interrupted/2);capabilityRecord.recovery=true;delete capabilityRecord.pending;await dbPut('meta',capabilityKey,capabilityRecord);}
+  if(capabilityRecord.good>=controllerMinimum){
+    const target=Math.min(capabilityRecord.good,limits.modelMax);
+    try{capabilityRecord.pending=target;await dbPut('meta',capabilityKey,capabilityRecord);const measured=await probeContextLength(target);delete capabilityRecord.pending;capabilityRecord.lastVerification=measured;await dbPut('meta',capabilityKey,capabilityRecord);contextLimit=target;limits.contextProbe={reused:true,measured:target,modelMax:limits.modelMax};return;}
+    catch(e){if(!memoryFailure(e))throw e;await reduceContext(e,target);throw new Error('ENGINE_CONTEXT_RETRY');}
+  }
+  let target=controllerMinimum;
+  if(capabilityRecord.failedUpper&&target>=capabilityRecord.failedUpper)throw new Error('MODEL_CONTROLLER_MEMORY_UNAVAILABLE');
+  for(;;){
+    capabilityRecord.pending=target;await dbPut('meta',capabilityKey,capabilityRecord);postMessage({type:'context-probe',tokens:target,modelMax:limits.modelMax});
+    let sample;
+    try{sample=await probeContextLength(target);}
+    catch(e){
+      if(!memoryFailure(e))throw e;
+      capabilityRecord.failedUpper=Math.min(capabilityRecord.failedUpper||Infinity,target);delete capabilityRecord.pending;capabilityRecord.recovery=true;await dbPut('meta',capabilityKey,capabilityRecord);
+      if(capabilityRecord.good<controllerMinimum)throw new Error('MODEL_CONTROLLER_MEMORY_UNAVAILABLE');
+      throw new Error('ENGINE_CONTEXT_RETRY');
+    }
+    const previous=capabilityRecord.probes.at(-1);capabilityRecord.good=target;capabilityRecord.probes.push(sample);delete capabilityRecord.pending;await dbPut('meta',capabilityKey,capabilityRecord);
+    const next=Math.min(limits.modelMax,target*2,(capabilityRecord.failedUpper||limits.modelMax+1)-1);
+    const steep=previous?.elapsed_ms>0&&sample.elapsed_ms/previous.elapsed_ms>(target/previous.tokens)**2;
+    if(next<=target||steep||capabilityRecord.recovery)break;
+    target=next;
+  }
+  contextLimit=capabilityRecord.good;limits.contextProbe={reused:false,measured:contextLimit,modelMax:limits.modelMax,probes:capabilityRecord.probes};
+}
+async function reduceContext(error,failed=contextLimit){
+  const upper=Math.min(failed,contextLimit||failed),next=Math.floor(upper/2);
+  capabilityRecord||={modelMax:limits.modelMax,good:0,probes:[]};
+  capabilityRecord.failedUpper=Math.min(capabilityRecord.failedUpper||Infinity,upper);capabilityRecord.good=next;capabilityRecord.recovery=true;capabilityRecord.lastFailure={at:new Date().toISOString(),tokens:upper,error:errText(error)};delete capabilityRecord.pending;
+  await dbPut('meta',capabilityKey,capabilityRecord);
+  contextLimit=next;limits.contextLimit=next;postMessage({type:'context-limit',contextLimit:next,previous:upper});
+  if(next<controllerMinimum)throw new Error('MODEL_CONTROLLER_MEMORY_UNAVAILABLE');
+}
+
+async function initialize(allowNetwork,{voices=[],speechLanguage='auto'}={}){
   NET.role='engine';setNetworkAccess(allowNetwork);
   await dbPut('meta','worker-probe',BUILD);
   if(await dbGet('meta','worker-probe')!==BUILD)throw new Error('WORKER_STORAGE_UNAVAILABLE');
@@ -408,13 +582,7 @@ async function initialize(allowNetwork){
   if(rate!==AUDIO_SPEC.rate||!Number.isFinite(windowSeconds)||windowSeconds<=0)throw new Error('ASR_AUDIO_CONFIG_UNSUPPORTED');
   const modelMax=llm.model.config.max_position_embeddings;
   if(!Number.isSafeInteger(modelMax)||modelMax<1)throw new Error('LLM_CONTEXT_CONFIG_MISSING');
-  const config=llm.model.config,headDim=config.head_dim||(config.hidden_size/config.num_attention_heads);
-  const kvPerToken=2*config.num_hidden_layers*(config.num_key_value_heads||config.num_attention_heads)*headDim*4;
-  const memoryHint=Number(globalThis.navigator?.deviceMemory);
-
-  const memoryBound=memoryHint>0&&Number.isFinite(kvPerToken)&&kvPerToken>0?Math.floor(memoryHint*1024**3/16/kvPerToken):SAFETY.contextHardMax;
-  contextLimit=Math.min(modelMax,SAFETY.contextHardMax,Math.max(1024,memoryBound));
-  limits={rate,windowSeconds,modelMax,contextLimit,llmRevision,asrRevision,device:'wasm',dtype:'q8'};
+  contextLimit=modelMax;limits={rate,windowSeconds,modelMax,contextLimit,llmRevision,asrRevision,device:'wasm',dtype:'q8'};
   closeNetwork();
   postMessage({type:'stage',key:'modelTest'});
 
@@ -422,12 +590,21 @@ async function initialize(allowNetwork){
   if(typeof test?.[0]?.generated_text!=='string'||!test[0].generated_text.trim())throw new Error('LLM_SELF_TEST_FAILED');
   const audioTest=await asr(new Float32Array(rate),{language:'english',task:'transcribe',max_new_tokens:8});
   if(typeof audioTest?.text!=='string')throw new Error('ASR_SELF_TEST_FAILED');
-  limits.controllerProbe=await controllerProbe();policy=null;
+  await measureContext(voices);limits.contextLimit=contextLimit;
+  limits.controllerProbe=await controllerProbe(voices,speechLanguage);policy=null;softInterrupted=false;await optimizeLocal();
   return limits;
 }
 function chatString(messages){return llm.tokenizer.apply_chat_template(messages,{tokenize:false,add_generation_prompt:true});}
 function tokenCount(text){return llm.tokenizer.encode(text,{add_special_tokens:false}).length;}
-function historyText(messages){return (messages||[]).filter(m=>m.role==='user'||m.role==='assistant').map(m=>({role:m.role,content:deliveredText(m)})).filter(m=>m.content.trim());}
+function historyText(messages){
+  const out=[];
+  for(const m of messages||[]){
+    if(!['user','assistant'].includes(m.role))continue;
+    const content=deliveredText(m);if(content.trim())out.push({role:m.role,content});
+    if(typeof m.userFeedback?.text==='string'&&m.userFeedback.text.trim())out.push({role:'user',content:'Feedback about the preceding message (not a replacement transcript): '+m.userFeedback.text});
+  }
+  return out;
+}
 function dropExchange(history){
   if(history.length<=1)return 0;
   let latestUser=-1;for(let i=history.length-1;i>=0;i--)if(history[i].role==='user'){latestUser=i;break;}
@@ -439,12 +616,12 @@ function compactVoices(voices){return voices.map((v,index)=>({id:'v'+index,name:
 function expandVoiceDecision(raw,voices){
   const result={...raw};
   if(typeof result.voice==='string'&&/^v(?:0|[1-9]\d*)$/.test(result.voice)){
-    const voice=voices[Number(result.voice.slice(1))];if(voice)result.voice=voice.id||voice.name;
+    const voice=voices[Number(result.voice.slice(1))];if(voice)result.voice=voice.id;
   }
   return result;
 }
 function compactVoiceDecision(raw,voices){
-  if(!raw)return null;const result={...raw},index=voices.findIndex(v=>v.id===raw.voice||v.name===raw.voice);
+  if(!raw)return null;const result={...raw},index=voices.findIndex(v=>v.id===raw.voice);
   if(index>=0)result.voice='v'+index;return result;
 }
 function choiceProcessor(alternatives,{terminal=false}={}){
@@ -512,33 +689,85 @@ function experienceTerms(text){
   else for(const item of normalized.match(/[a-z0-9]+|[\u3400-\u9fff]/g)||[])words.add(item);
   return words;
 }
-async function recallExperience(sessionId,query,enabled){
-  if(enabled===false)return [];
-  const wanted=experienceTerms(query),entries=[];
-  for(const [id,s] of await dbEntries('sessions')){
-    const e=s?.experience;
-    if(id===sessionId||!['ended','interrupted'].includes(s?.state)||typeof e?.note!=='string'||!e.note.trim())continue;
-    const terms=experienceTerms((s.prompt||'')+' '+e.note+' '+(e.evidence||''));
-    let overlap=0;for(const term of wanted)if(terms.has(term))overlap++;
-    entries.push({source_session:id,at:e.at||s.updatedAt,goal:s.prompt||'',note:e.note,evidence:typeof e.evidence==='string'?e.evidence:'',observed_settings:e.settings||null,observed_outcomes:s.runtimeObservations||null,score:wanted.size&&terms.size?overlap/Math.sqrt(wanted.size*terms.size):0});
+let localAdapter=null,adapterRevision=null,adapterEpoch=null;
+async function optimizeLocal(){
+  const revision=await dbGet('meta','learning-revision'),epoch=(await dbGet('meta','learning-epoch'))??null,environment=runtimeEnvironment(),key='adapter:'+environment;
+  if(revision===adapterRevision&&adapterEpoch===epoch&&localAdapter)return localAdapter;
+  const cached=await dbGet('meta',key);
+  if(cached?.version===2&&cached.revision===revision&&cached.epoch===epoch){localAdapter=cached;adapterRevision=revision;adapterEpoch=epoch;return cached;}
+  const sessions=new Set((await dbKeys('sessions')).map(String));
+  const rows=(await dbEntries('learningEvents')).map(([,row])=>row).filter(row=>row.environment===environment&&sessions.has(row.sessionId)&&evidenceLabel(row)!==null);
+  rows.sort((a,b)=>String(a.at).localeCompare(String(b.at))||String(a.id).localeCompare(String(b.id)));
+  const groups=new Map();for(const row of rows){const group=row.kind+':'+row.source;if(!groups.has(group))groups.set(group,[]);groups.get(group).push(row);}
+  const artifact={version:2,environment,revision,epoch,trainedAt:new Date().toISOString(),samples:rows.length,heads:{},sources:Array.from(new Set(rows.map(row=>row.sessionId)))};
+  for(const [group,samples] of groups){
+    if(softInterrupted)throw new Error('CANCELLED');
+    const trained=trainAdaptiveHead(samples),prototypes=[];
+    if(trained.model){
+      const seen=new Set();for(const row of samples){const settings=learningSettings(row.settings),signature=JSON.stringify(settings);if(seen.has(signature))continue;seen.add(signature);prototypes.push({settings,context:row.context,sessionId:row.sessionId});}
+    }
+    artifact.heads[group]={...trained,prototypes,observed_successes:samples.reduce((sum,row)=>sum+evidenceLabel(row),0),observed_attempts:samples.length};
+    await new Promise(resolve=>setTimeout(resolve,0));
   }
-  entries.sort((a,b)=>b.score-a.score||String(b.at).localeCompare(String(a.at)));
-  return entries.map(({score,...entry})=>entry);
+  if(await dbGet('meta','learning-revision')!==revision||((await dbGet('meta','learning-epoch'))??null)!==epoch)return null;
+  await dbPut('meta',key,artifact);localAdapter=artifact;adapterRevision=revision;adapterEpoch=epoch;
+  postMessage({type:'adaptation',samples:artifact.samples,accepted:Object.entries(artifact.heads).filter(([,head])=>head.model).map(([name,head])=>({name,validation:head.validation})),mode:'offline-validated-adapter-training',baseModelWeightsChanged:false});
+  return artifact;
+}
+function adaptationContext(observations={}){
+  return {mean_probability:observations.detector?.meanProbability,probability_variance:observations.detector?.variance,audio_seconds:observations.lastUtteranceSeconds,context_capacity:observations.contextCapacity,pending_audio:observations.pendingAudioSegments};
+}
+async function learnedAdvice(settings,observations,enabled){
+  if(enabled===false)return null;
+  const epoch=(await dbGet('meta','learning-epoch'))??null;
+  if(!localAdapter||adapterEpoch!==epoch){localAdapter=await dbGet('meta','adapter:'+runtimeEnvironment());adapterEpoch=epoch;if(localAdapter?.version!==2||localAdapter?.epoch!==epoch)localAdapter=null;adapterRevision=localAdapter?.revision??null;}
+  if(!localAdapter)return null;
+  const context=adaptationContext(observations),estimates=[];
+  for(const [objective,head] of Object.entries(localAdapter.heads)){
+    if(!head.model)continue;
+    const features=learningFeatures(settings||{},context);let nearest=null,distance=Infinity;
+    for(const prototype of head.prototypes){const px=learningFeatures(prototype.settings,prototype.context),keys=new Set([...Object.keys(px),...Object.keys(features)]);let d=0;for(const key of keys)d+=((px[key]||0)-(features[key]||0))**2;if(d<distance){distance=d;nearest=prototype;}}
+    let best=nearest,bestScore=nearest?adaptiveProbability(head.model,learningFeatures(nearest.settings,context)):null;
+    for(const prototype of head.prototypes){const p=adaptiveProbability(head.model,learningFeatures(prototype.settings,context));if(p>bestScore){best=prototype;bestScore=p;}}
+    estimates.push({objective,attempts:head.observed_attempts,predicted_success:adaptiveProbability(head.model,features),support_distance:Math.sqrt(distance),validation:head.validation,
+      supported_alternative:best?{settings:best.settings,predicted_success:bestScore}:null});
+  }
+  return estimates.length?{kind:'trained_local_policy_predictors',claims:'Runtime labels measure execution, not correctness or user satisfaction. Predictions are observational, not causal. Unseen settings have uncertain support; choose yourself.',estimates}:null;
+}
+
+async function recallExperience(sessionId,query,enabled){
+  const wanted=experienceTerms(query);if(enabled===false||!wanted.size)return [];
+  const entries=[];
+  for(const [id,s] of await dbEntries('sessions')){
+    if(id===sessionId||!['ended','interrupted'].includes(s?.state))continue;
+    const feedback=Array.isArray(s.userFeedback)?s.userFeedback.filter(x=>typeof x?.text==='string'&&x.text.trim()):[];
+    const e=s.experience;
+    const records=[...feedback.map(x=>({tier:0,kind:'explicit_user_feedback',text:x.text,original:x.original||'',at:x.at,messageId:x.messageId})),...(e?.note?.trim()?[{tier:2,kind:'unverified_ai_hypothesis',text:e.note,at:e.at}]:[])];
+    for(const record of records){
+      const terms=experienceTerms((s.prompt||'')+' '+record.text+' '+(record.original||''));
+      let overlap=0;for(const term of wanted)if(terms.has(term))overlap++;
+      if(!overlap)continue;
+      entries.push({source_session:id,goal:s.prompt||'',...record,score:overlap/Math.sqrt(wanted.size*terms.size)});
+    }
+  }
+  entries.sort((a,b)=>a.tier-b.tier||b.score-a.score||String(b.at).localeCompare(String(a.at)));
+  return entries.map(({tier,score,...entry})=>entry);
 }
 function fitExperience(makeChat,candidates,reserve){
   const used=[];let text=makeChat(used);
   for(const entry of candidates){const trial=makeChat([...used,entry]);if(tokenCount(trial)+reserve<contextLimit){used.push(entry);text=trial;}}
   return {text,sources:used.map(x=>x.source_session),tokens:tokenCount(text)};
 }
-async function controllerProbe(){
-  const prefix='{"action":"';
-  const chat=chatString([{role:'system',content:'Choose whether to speak now or keep listening. Return a JSON action: speak or listen.'},
-    {role:'user',content:'This is a local inference capability check. Make your own choice.'}])+prefix;
-  const grammar=choiceProcessor(['speak"}','listen"}'],{terminal:true});
-  const r=await llm(chat,{return_full_text:false,do_sample:false,max_new_tokens:grammar.maxTokens,logits_processor:grammar.list});
-  const checked=validPolicy(recoverPolicyObject(prefix+(r[0]?.generated_text||'')),limits.windowSeconds);
-  if(!checked.validAction)throw new Error('MODEL_CONTROLLER_ACTION_PROBE_FAILED');
-  return {validAction:true,decisionSource:'ai',protocol:'constrained-action-v1'};
+async function controllerProbe(voices,speechLanguage='auto'){
+  const sessionId='capability-probe',constraints=speechLanguage==='auto'?{}:{recognition_language:speechLanguage};
+  const result=await plan({prompt:'Perform a local readiness decision. No real user is present.',language:'en',speechLanguage,sessionId,
+    messages:[{role:'user',text:'Check the complete voice conversation protocol.'}],event:'start',voices,previous:null,useExperience:false,
+    observations:{detector:{frames:0,meanProbability:0,variance:0},vad:{sample_rate:AUDIO_SPEC.rate,frame_samples:AUDIO_SPEC.frame},asr:{window_seconds:limits.windowSeconds},contextCapacity:contextLimit}});
+  const checked=validPolicy(result.values,limits.windowSeconds,null,'start',voices,contextLimit,constraints);
+  if(!result.ready||!checked.ready||!checked.completeObject)throw new Error('MODEL_CONTROLLER_FULL_PROBE_FAILED');
+  const delivery=await planDelivery({sessionId,text:'本地测试。Local check.',voices,settings:result,useExperience:false});
+  if(!validDeliveryPlan(delivery,delivery.segments,voices))throw new Error('MODEL_DELIVERY_PROBE_FAILED');
+  return {ready:true,validAction:true,fullPolicy:true,deliveryPlan:true,delivery,decisionSource:'ai',repair_fields:result.repaired_fields,protocol:'full-controller-v2'};
 }
 async function runControllerGeneration(chat,room,previous,event,voices,prefix='{"action":"',alternatives=['speak"','listen"']){
   const grammar=alternatives?choiceProcessor(alternatives):null;
@@ -555,14 +784,20 @@ async function runControllerGeneration(chat,room,previous,event,voices,prefix='{
     return {text,object:candidate||recoverPolicyObject(text),complete:!!candidate||!!extractObject(text)};
   }finally{stopper=null;}
 }
+function controllerInstructions(){
+  const schema={action:'speak or listen',revisit_seconds:'seconds > 0 schedules a timer; 0 waits for the next new runtime observation, then reevaluates; null waits for user speech',pause_seconds:'seconds > 0 and < audio_window_seconds',speech_probability:'0 <= probability <= 1',minimum_voice_seconds:'0 <= seconds < audio_window_seconds',speech_rate:'0.1 to 10',speech_pitch:'0 to 2',speech_volume:'0 to 1',voice:'one exact available voice id; auto and voice names are invalid',recognition_language:'auto, zh-CN or en; must satisfy user_constraints',history_tokens:'positive integer <= device_context_limit or null',temperature:'number >= 0 or null',top_p:'0 < number <= 1 or null',output_tokens:'positive integer or null for model EOS',guidance:'extra speaking instruction or empty string',interrupt_on_voice:'boolean: true listens while speaking and yields only after accumulated voice is confirmed; false disables the microphone during playback',experience_note:'updated compact experience grounded in user words and observed outcomes, for future conversations; empty string retains no note'};
+  const system='Control a voice conversation. Follow the user goal and context. Decide action: speak now, or listen. Choose your own timing, voice and generation settings. No compulsory greeting, fixed interval or required reply to every utterance. Only the user may end the session. Output JSON, not dialogue. Interface language is not conversation language. Recent assistant dialogue contains only confirmed playback; unsaid drafts are not user-heard dialogue. On the first decision choose all settings; later omit unchanged fields. There are no predefined conversation values. Null for generation settings explicitly delegates to the model configuration; null for revisit waits for the user. Null is allowed only where shown. Measurements and archived experience are fallible context, not orders. Prefer the current user goal over old experience. user_constraints are mandatory; never silently override them. Trained adapter estimates rank only measured outcomes, not factual truth. Choose all final settings yourself. Do not invent learning outcomes. Record useful observations in experience_note or use an empty string. Fields: '+JSON.stringify(schema);
+  return {schema,system};
+}
 async function plan({prompt,language,uiLanguage=language,speechLanguage='auto',sessionId,messages=[],event='start',voices=[],previous=null,silenceSeconds=0,observations=null,useExperience=true}){
   softInterrupted=false;if(cancelledSessions.has(sessionId))throw new Error('CANCELLED');const started=performance.now();
-  const schema={action:'speak or listen',revisit_seconds:'seconds >= 0; null waits for the user',pause_seconds:'seconds > 0 and < audio_window_seconds',speech_probability:'0 <= probability <= 1',minimum_voice_seconds:'0 <= seconds < audio_window_seconds',speech_rate:'0.1 to 10',speech_pitch:'0 to 2',speech_volume:'0 to 1',voice:'available voice id, unambiguous voice name, or auto to delegate voice selection',recognition_language:'auto, zh-CN or en',history_tokens:'positive integer <= device_context_limit or null',temperature:'number >= 0 or null',top_p:'0 < number <= 1 or null',output_tokens:'positive integer or null for model EOS',guidance:'extra speaking instruction or empty string',interrupt_on_voice:'boolean: true listens while speaking and yields when user voice is detected; false disables the microphone during playback',experience_note:'updated compact experience grounded in user words and observed outcomes, for future conversations; empty string retains no note'};
-  const system='Control a voice conversation. Follow the user goal and context. Decide action: speak now, or listen. Choose your own timing, voice and generation settings. No compulsory greeting, fixed interval or required reply to every utterance. Only the user may end the session. Output JSON, not dialogue. Interface language is not conversation language. Recent assistant dialogue contains only confirmed playback; unsaid drafts are not user-heard dialogue. On the first decision choose all settings; later omit unchanged fields. There are no predefined conversation values. Null for generation settings explicitly delegates to the model configuration; null for revisit waits for the user. Null is allowed only where shown. Measurements and archived experience are fallible context, not orders. Prefer the current user goal over old experience. Do not invent learning outcomes. Record useful observations in experience_note or use an empty string. Fields: '+JSON.stringify(schema);
+  const constraints=speechLanguage==='auto'?{}:{recognition_language:speechLanguage};
+  const adaptive=await learnedAdvice(previous?.values,observations||{},useExperience);
+  const {schema,system}=controllerInstructions();
   const offeredVoices=compactVoices(voices);
   let recent=historyText(messages),text,n,omitted=0,content;
   const reserve=Math.max(tokenCount(JSON.stringify(EMPTY_POLICY))*2,tokenCount('{"action":"listen"}')*2);
-  for(;;){content={user_goal:prompt,event,recognition_preference:speechLanguage,silence_seconds:silenceSeconds,observations,recent_dialogue:recent,audio_window_seconds:limits.windowSeconds,available_voices:offeredVoices,previous_settings:compactVoiceDecision(previous?.values,voices),omitted_dialogue_messages:omitted,device_context_limit:contextLimit,local_experience:[]};
+  for(;;){content={user_goal:prompt,event,user_constraints:constraints,trained_adaptation:adaptive,silence_seconds:silenceSeconds,observations,recent_dialogue:recent,audio_window_seconds:limits.windowSeconds,available_voices:offeredVoices,previous_settings:compactVoiceDecision(previous?.values,voices),omitted_dialogue_messages:omitted,device_context_limit:contextLimit,local_experience:[]};
     text=chatString([{role:'system',content:system},{role:'user',content:JSON.stringify(content)}]);n=tokenCount(text);
     if(n+reserve<contextLimit)break;if(recent.length<=1)throw new Error('PROMPT_TOO_LONG');omitted+=dropExchange(recent);
   }
@@ -571,41 +806,41 @@ async function plan({prompt,language,uiLanguage=language,speechLanguage='auto',s
   if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
   const first=await runControllerGeneration(text,contextLimit-n,previous,event,voices);
   if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
-  let raw=expandVoiceDecision(first.object,voices),checked=validPolicy(raw,limits.windowSeconds,previous,event,voices,contextLimit);
+  let raw=expandVoiceDecision(first.object,voices),checked=validPolicy(raw,limits.windowSeconds,previous,event,voices,contextLimit,constraints);
   let repairAttempted=false,repairSucceeded=false,repairedFields=[];
 
   if(!checked.ready){
     repairAttempted=true;
     const wanted=checked.unresolved;
     const repairSchema=Object.fromEntries(Object.entries(schema).filter(([k])=>k==='action'||wanted.includes(k)));
-    const payload={user_goal:prompt,fields:repairSchema,valid_decision:compactVoiceDecision(raw,voices),audio_window_seconds:limits.windowSeconds,device_context_limit:contextLimit,available_voices:offeredVoices};
+    const payload={user_goal:prompt,fields:repairSchema,valid_decision:compactVoiceDecision(raw,voices),audio_window_seconds:limits.windowSeconds,device_context_limit:contextLimit,available_voices:offeredVoices,user_constraints:constraints};
     const repairSystem='Complete this voice controller JSON with your own decisions. Output one JSON object. Keep the valid action. Choose only missing or invalid values. No dialogue.';
     let repairChat=chatString([{role:'system',content:repairSystem},{role:'user',content:JSON.stringify(payload)}]),rn=tokenCount(repairChat);
     if(rn+reserve>=contextLimit){delete payload.valid_decision;repairChat=chatString([{role:'system',content:repairSystem},{role:'user',content:JSON.stringify(payload)}]);rn=tokenCount(repairChat);}
     if(rn+reserve<contextLimit){
       const second=await runControllerGeneration(repairChat,contextLimit-rn,previous,event,voices);
       if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
-      const repaired=validPolicy(expandVoiceDecision(second.object,voices),limits.windowSeconds,previous,event,voices,contextLimit);
+      const repaired=validPolicy(expandVoiceDecision(second.object,voices),limits.windowSeconds,previous,event,voices,contextLimit,constraints);
       for(const key of wanted)if(repaired.source[key]==='ai'){raw[key]=repaired.values[key];repairedFields.push(key);}
-      checked=validPolicy(raw,limits.windowSeconds,previous,event,voices,contextLimit);repairSucceeded=repairedFields.length>0;
+      checked=validPolicy(raw,limits.windowSeconds,previous,event,voices,contextLimit,constraints);repairSucceeded=repairedFields.length>0;
     }
   }
   for(const key of checked.unresolved){
     repairAttempted=true;postMessage({type:'policy-progress',sessionId,field:key});
     const payload={user_goal:prompt,event,setting:key,requirement:schema[key],current_decision:compactVoiceDecision(checked.values,voices),observations,
-      audio_window_seconds:limits.windowSeconds,device_context_limit:contextLimit,available_voices:key==='voice'?offeredVoices:undefined};
+      audio_window_seconds:limits.windowSeconds,device_context_limit:contextLimit,available_voices:key==='voice'?offeredVoices:undefined,user_constraints:constraints};
     const chat=chatString([{role:'system',content:'Decide the requested setting yourself for this voice conversation. Return a JSON object containing only that setting. No explanation and no example.'},{role:'user',content:JSON.stringify(payload)}]);
     const room=contextLimit-tokenCount(chat);
     if(room<=tokenCount(JSON.stringify({[key]:schema[key]})))continue;
-    const choices=key==='action'?['"speak"}','"listen"}']:key==='recognition_language'?['"auto"}','"zh-CN"}','"en"}']:key==='voice'?['"auto"}',...offeredVoices.map(v=>JSON.stringify(v.id)+'}')]:key==='interrupt_on_voice'?['true}','false}']:null;
+    const choices=key==='action'?['"speak"}','"listen"}']:key==='recognition_language'?(constraints.recognition_language?[JSON.stringify(constraints.recognition_language)+'}']:['"auto"}','"zh-CN"}','"en"}']):key==='voice'?offeredVoices.map(v=>JSON.stringify(v.id)+'}'):key==='interrupt_on_voice'?['true}','false}']:null;
     const result=await runControllerGeneration(chat,room,previous,event,voices,'{'+JSON.stringify(key)+':',choices);
     if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
-    const field=validPolicy(expandVoiceDecision(result.object,voices),limits.windowSeconds,null,event,voices,contextLimit);
-    if(field.source[key]==='ai'){raw[key]=field.values[key];repairedFields.push(key);checked=validPolicy(raw,limits.windowSeconds,previous,event,voices,contextLimit);}
+    const field=validPolicy(expandVoiceDecision(result.object,voices),limits.windowSeconds,null,event,voices,contextLimit,constraints);
+    if(field.source[key]==='ai'){raw[key]=field.values[key];repairedFields.push(key);checked=validPolicy(raw,limits.windowSeconds,previous,event,voices,contextLimit,constraints);}
   }
   repairSucceeded=repairedFields.length>0;
   policy={...checked,experience_sources:fitted.sources,elapsed_ms:performance.now()-started,omitted,repair_attempted:repairAttempted,repair_succeeded:repairSucceeded,repaired_fields:repairedFields,
-    decision_source:!checked.ready?'unresolved':repairedFields.length?'ai_with_repair':checked.completeObject?'ai':'ai_patch',protocol:'constrained-action-v1'};
+    decision_source:!checked.ready?'unresolved':repairedFields.length?'ai_with_repair':checked.completeObject?'ai':'ai_patch',protocol:'full-controller-v2'};
   return policy;
 }
 
@@ -644,6 +879,51 @@ async function generate({messages,prompt,language,sessionId,messageId,settings,u
     return {text:answer,interrupted,limited:hitBudget,limitSource:requested&&requested<=capacity?'ai':'device',outputBudget:room};
   }finally{stopper=null;}
 }
+async function planDelivery({sessionId,messageId,text,prompt='',voices=[],settings,useExperience=true}){
+  if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
+  const parts=speechParts(text),offered=compactVoices(voices),items=[];
+  if(!parts.length||!voices.length)throw new Error('DELIVERY_PLAN_UNAVAILABLE');
+  for(let index=0;index<parts.length;index++){
+    const schema={segment:index,...DELIVERY_FIELDS};
+    const payload={user_goal:prompt,segment:index,text:parts[index],previous_segment:parts[index-1]||'',next_segment:parts[index+1]||'',available_voices:offered,controller_direction:compactVoiceDecision(settings?.values||settings,voices),fields:schema,
+      trained_adaptation:await learnedAdvice(settings?.values||settings,{},useExperience)};
+    const system='You direct the expression of this exact speech segment. Decide its voice, rate, pitch, volume and pause_after for the current context. Never change the words. All numbers are your decisions, not browser defaults. Return a JSON object with segment, voice, rate, pitch, volume, pause_after. Choose an available voice id, never auto.';
+    let chat=chatString([{role:'system',content:system},{role:'user',content:JSON.stringify(payload)}]);
+    const reserve=tokenCount(JSON.stringify(schema))*2;
+    if(tokenCount(chat)+reserve>=contextLimit){delete payload.previous_segment;delete payload.next_segment;delete payload.trained_adaptation;chat=chatString([{role:'system',content:system},{role:'user',content:JSON.stringify(payload)}]);}
+    let room=contextLimit-tokenCount(chat);if(room<reserve)throw new Error('PROMPT_TOO_LONG');
+    const generated=await runControllerGeneration(chat,room,null,'delivery',voices,'{',null);
+    let item=expandVoiceDecision(generated.object,voices);item.segment=index;
+    if(!validDeliveryItem(item,index,voices)){
+      for(const key of Object.keys(DELIVERY_FIELDS)){
+        if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
+        const instruction={text:parts[index],field:key,requirement:DELIVERY_FIELDS[key],user_goal:prompt,available_voices:key==='voice'?offered:undefined,current:compactVoiceDecision(item,voices)};
+        const repair=chatString([{role:'system',content:'Choose the requested speech delivery value yourself. Return one JSON object with only that field.'},{role:'user',content:JSON.stringify(instruction)}]);
+        room=contextLimit-tokenCount(repair);if(room<=tokenCount(JSON.stringify({[key]:DELIVERY_FIELDS[key]})))throw new Error('PROMPT_TOO_LONG');
+        const result=await runControllerGeneration(repair,room,null,'delivery',voices,'{'+JSON.stringify(key)+':',key==='voice'?offered.map(v=>JSON.stringify(v.id)+'}'):null);
+        const value=expandVoiceDecision(result.object,voices);if(Object.hasOwn(value,key))item[key]=value[key];
+      }
+    }
+    if(!validDeliveryItem(item,index,voices))throw new Error('DELIVERY_PLAN_INVALID:'+index);
+    if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
+    items.push(Object.fromEntries(['segment',...Object.keys(DELIVERY_FIELDS)].map(key=>[key,item[key]])));
+  }
+  const result={delivery_plan:items,segments:parts};
+  if(!validDeliveryPlan(result,parts,voices))throw new Error('DELIVERY_PLAN_INVALID');
+  return result;
+}
+
+async function planRecognition({prompt='',speechLanguage='auto',sessionId,messages=[]}){
+  const allowed=['auto','zh-CN','en'].filter(value=>speechLanguage==='auto'||value===speechLanguage);
+  if(!allowed.length)throw new Error('CONTROLLER_SETTINGS_UNRESOLVED:recognition_language');
+  const payload={goal:prompt,user_constraint:speechLanguage,available:allowed,recent:historyText(messages).slice(-2)};
+  let text=chatString([{role:'system',content:'Choose the recognition_language for this saved audio. Respect the user constraint. Return only {"recognition_language":value}. Auto means the ASR model detects the language.'},{role:'user',content:JSON.stringify(payload)}]);
+  if(tokenCount(text)+tokenCount(JSON.stringify({recognition_language:'zh-CN'}))>=contextLimit){delete payload.recent;text=chatString([{role:'system',content:'Choose recognition_language from available, obeying user_constraint. Return only a JSON object.'},{role:'user',content:JSON.stringify(payload)}]);}
+  const room=contextLimit-tokenCount(text);if(room<=0)throw new Error('PROMPT_TOO_LONG');
+  const result=await runControllerGeneration(text,room,null,'recognition',[], '{"recognition_language":',allowed.map(value=>JSON.stringify(value)+'}'));
+  const value=result.object?.recognition_language;if(!allowed.includes(value))throw new Error('CONTROLLER_SETTINGS_UNRESOLVED:recognition_language');
+  return {recognition_language:value};
+}
 async function transcribe({audio,speechLanguage='auto'}){
   if(!asr)throw new Error('MODELS_NOT_LOADED');
   if(!(audio instanceof ArrayBuffer)||audio.byteLength%Float32Array.BYTES_PER_ELEMENT)throw new Error('AUDIO_BUFFER_INVALID');
@@ -662,24 +942,30 @@ onmessage=event=>{
   const requestEpoch=operationEpoch;
   queue=queue.then(async()=>{
     try{let result;
-      if(['plan','generate'].includes(m.op)&&(requestEpoch!==operationEpoch||cancelledSessions.has(m.sessionId)))throw new Error('CANCELLED');
-      if(m.op==='init')result=await initialize(m.allowNetwork);
+      if(['plan','generate','delivery'].includes(m.op)&&(requestEpoch!==operationEpoch||cancelledSessions.has(m.sessionId)))throw new Error('CANCELLED');
+      if(m.op==='init')result=await initialize(m.allowNetwork,m.capabilities);
+      else if(m.op==='optimize'){softInterrupted=false;result=await optimizeLocal();}
       else if(m.op==='plan')result=await plan(m);
       else if(m.op==='generate')result=await generate(m);
+      else if(m.op==='delivery'){softInterrupted=false;result=await planDelivery(m);}
+      else if(m.op==='recognition'){softInterrupted=false;result=await planRecognition(m);}
       else if(m.op==='transcribe')result=await transcribe(m);
       else throw new Error('UNKNOWN_ENGINE_OPERATION');
       postMessage({id:m.id,ok:true,result});
-    }catch(e){postMessage({id:m.id,ok:false,error:errText(e)});}
+    }catch(e){
+      if(['plan','generate','delivery'].includes(m.op)&&memoryFailure(e)){try{await reduceContext(e);e=new Error('ENGINE_CONTEXT_RETRY');}catch(recovery){e=recovery;}}
+      postMessage({id:m.id,ok:false,error:errText(e)});
+    }
   });
 };
 </script>
 <script id="vadCode" type="text/plain">
 NET.notify=data=>postMessage(data);globalThis.fetch=cachedFetch;
 let ort,model,recurrent,context,enabled=false,serial=Promise.resolve();
-let values=null,windowSamples,pre=[],parts=[],voiced=0,silence=0,size=0,turn=0,segment=0,open=false,hadChunk=false,lastCaptureSequence=0;
+let values=null,windowSamples,pre=[],parts=[],voiced=0,silence=0,size=0,turn=0,segment=0,open=false,confirmed=false,hadChunk=false,lastCaptureSequence=0;
 const {rate,frame,stateLayers,stateWidth}=AUDIO_SPEC;
 function resetModel(){recurrent=new Float32Array(stateLayers*stateWidth);context=new Float32Array(AUDIO_SPEC.context);}
-function clearTurn(){parts=[];voiced=0;silence=0;size=0;pre=[];open=false;hadChunk=false;segment=0;}
+function clearTurn(){parts=[];voiced=0;silence=0;size=0;pre=[];open=false;confirmed=false;hadChunk=false;segment=0;}
 async function init(allowNetwork){
   NET.role='vad';setNetworkAccess(allowNetwork);await dbPut('meta','vad-worker-probe',BUILD);
   ort=await import(await assetModule(PACK.ort+'ort.wasm.min.mjs'));
@@ -705,9 +991,9 @@ async function predict(audio){
 }
 function emit(continued,forced=false){
   if(!open)return;
-  if(!hadChunk&&voiced<values.minimum_voice_seconds*rate&&!forced){clearTurn();postMessage({type:'voice-discarded'});return;}
+  if(!confirmed){const discarded={type:'voice-discarded',turn,voiced_seconds:voiced/rate,forced};clearTurn();postMessage(discarded);return;}
   const joined=new Float32Array(size);let off=0;for(const p of parts){joined.set(p.audio,off);off+=p.audio.length;}
-  postMessage({type:'segment',turn,segment:segment++,continued,captureThrough:parts.at(-1)?.captureSequence,audio:joined.buffer},[joined.buffer]);
+  postMessage({type:'segment',turn,segment:segment++,continued,confirmed:true,voiced_seconds:voiced/rate,captureThrough:parts.at(-1)?.captureSequence,audio:joined.buffer},[joined.buffer]);
   parts=[];size=0;hadChunk=true;
   if(!continued){enabled=false;clearTurn();}
 }
@@ -715,10 +1001,10 @@ async function processFrame(audio,captureSequence){
   if(!enabled||!model)return;
   const input=audio.length===frame?audio:(()=>{const x=new Float32Array(frame);x.set(audio);return x;})();
   const p=await predict(input);
-  postMessage({type:'level',probability:p});
   if(p>=values.speech_probability){
     if(!open){open=true;turn++;parts=pre.slice();size=pre.reduce((n,x)=>n+x.audio.length,0);pre=[];postMessage({type:'voice-start',turn});}
     voiced+=audio.length;silence=0;
+    if(!confirmed&&voiced>=values.minimum_voice_seconds*rate){confirmed=true;postMessage({type:'voice-confirmed',turn,voiced_seconds:voiced/rate});}
   }else if(open)silence+=audio.length;
   if(open){parts.push({audio,captureSequence});size+=audio.length;
     if(silence>=values.pause_seconds*rate){emit(false);}
@@ -729,6 +1015,7 @@ async function processFrame(audio,captureSequence){
     const lead=Math.min(windowSamples-frame,Math.max(frame,values.minimum_voice_seconds*rate));
     while(pre.length>Math.ceil(lead/frame))pre.shift();
   }
+  postMessage({type:'level',probability:p,captureSequence});
 }
 onmessage=event=>{
   const m=event.data;
@@ -736,13 +1023,13 @@ onmessage=event=>{
     try{let result=true;
       if(m.op==='init')result=await init(m.allowNetwork);
       else if(m.op==='configure'){
-        const checked=validPolicy(m.values,m.windowSeconds,null,'start',[],m.contextLimit||SAFETY.contextHardMax);
+        const checked=validPolicy(m.values,m.windowSeconds,null,'start',[],m.contextLimit||Number.MAX_SAFE_INTEGER);
         for(const key of ['pause_seconds','speech_probability','minimum_voice_seconds'])if(checked.source[key]!=='ai')throw new Error('CONTROLLER_SETTINGS_UNRESOLVED:'+key);
         values=checked.values;windowSamples=Math.floor(m.windowSeconds*rate/frame)*frame;
       }
       else if(m.op==='enable'){if(!values)throw new Error('CONTROLLER_SETTINGS_UNRESOLVED');enabled=true;clearTurn();resetModel();}
       else if(m.op==='disable'){enabled=false;}
-      else if(m.op==='status'){result={speaking:open,enabled};}
+      else if(m.op==='status'){result={speaking:open,confirmed,turn,enabled};}
       else if(m.op==='frame'){if(!(m.audio instanceof ArrayBuffer)||m.audio.byteLength%Float32Array.BYTES_PER_ELEMENT)throw new Error('AUDIO_FRAME_INVALID');const audio=new Float32Array(m.audio);if(!audio.length||audio.length>frame||!audio.every(Number.isFinite))throw new Error('AUDIO_FRAME_INVALID');if(!Number.isSafeInteger(m.captureSequence)||m.captureSequence<=lastCaptureSequence)throw new Error('AUDIO_SEQUENCE_INVALID');lastCaptureSequence=m.captureSequence;await processFrame(audio,m.captureSequence);postMessage({type:'frame-ack',retainFrom:parts[0]?.captureSequence??pre[0]?.captureSequence??lastCaptureSequence+1});}
       else if(m.op==='flush'){emit(false,true);enabled=false;clearTurn();result={releaseThrough:lastCaptureSequence};}
       else if(m.op==='network-off'){closeNetwork();}
@@ -787,43 +1074,61 @@ registerProcessor('aichat-mic',MicProcessor);
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
-const EN={"promptLabel":"Prompt","promptOptional":"Optional","promptPlaceholder":"What would you like to talk about?","start":"Start","end":"End","setupTitle":"Local models","setupInfo":"Prepare downloads the required model files and shows their actual sizes. After preparation, this page runs from its local cache without network access.","checkBrowser":"Browser","checkStorage":"Storage","checkMic":"Microphone","checkVoice":"Local voices","checkModels":"Models","checkOffline":"Offline test","prepare":"Prepare","cancelPrepare":"Cancel","offlineCheck":"Local check","voiceChat":"Voice chat","empty":"Start with a thought","localOnly":"Autosaved on this device","exportText":"Export","retrySave":"Retry save","resume":"Resume","textSupplement":"Type a message","textPlaceholder":"Add a message…","send":"Send","settingsTitle":"Settings","close":"Close","speechLanguageLabel":"Speech language","speechAuto":"Auto","themeLabel":"Appearance","themeAuto":"System","themeLight":"Light","themeDark":"Dark","folderTitle":"Save location","chooseFolder":"Choose folder","forgetFolder":"Disconnect","historyTitle":"History","backupAll":"Back up records","importBackup":"Import backup","diagnosticsTitle":"Diagnostics","recheck":"Check environment","exportDiagnostics":"Export diagnostics","decisionTitle":"AI decision","confirmTitle":"End conversation?","confirmInfo":"Stop recording and speaking, and save the conversation.","keepTalking":"Keep talking","confirmEnd":"End and save","networkTitle":"Prepare models again?","networkInfo":"Reload this page and allow missing resources to download. Existing conversations are kept.","networkConfirm":"Prepare again"};
+const EN={"promptLabel":"Prompt","promptOptional":"Optional","promptPlaceholder":"What would you like to talk about?","start":"Start","end":"End","setupTitle":"Local models","checkBrowser":"Browser","checkStorage":"Storage","checkMic":"Microphone","checkVoice":"Local voices","checkModels":"Models","checkOffline":"Offline test","prepare":"Prepare","cancelPrepare":"Cancel","offlineCheck":"Local check","voiceChat":"Voice chat","empty":"Start with a thought","localOnly":"Autosaved on this device","exportText":"Export","retrySave":"Retry save","resume":"Resume","textSupplement":"Type a message","textPlaceholder":"Add a message…","send":"Send","settingsTitle":"Settings","close":"Close","speechLanguageLabel":"Speech language","speechAuto":"Auto","themeLabel":"Appearance","themeAuto":"System","themeLight":"Light","themeDark":"Dark","folderTitle":"Save location","chooseFolder":"Choose folder","forgetFolder":"Disconnect","historyTitle":"History","backupAll":"Back up records","importBackup":"Import backup","diagnosticsTitle":"Diagnostics","recheck":"Check environment","exportDiagnostics":"Export diagnostics","decisionTitle":"AI decision","confirmTitle":"End conversation?","confirmInfo":"Stop recording and speaking, and save the conversation.","keepTalking":"Keep talking","confirmEnd":"End and save","networkTitle":"Prepare models again?","networkInfo":"Reload this page and allow missing resources to download. Existing conversations are kept.","networkConfirm":"Prepare again"};
 const DYNAMIC={"zh-CN":{"needsPrep":"未就绪","cached":"已缓存","ready":"本机运行","preparing":"准备中","idle":"准备开始","idleHelp":"","listening":"正在听","listeningHelp":"","recognizing":"正在识别","recognizingHelp":"","thinking":"正在思考","thinkingHelp":"","speaking":"AI 正在说话","speakingHelp":"","starting":"正在启动","startingHelp":"","closing":"正在保存","closingHelp":"","ended":"对话已结束","endedHelp":"","paused":"对话已暂停","pausedHelp":"","error":"需要处理一个问题","errorHelp":"","user":"你","assistant":"AI","saved":"已保存到本机","saving":"保存中…","notSaved":"保存失败，请导出","generatedPartial":"回答已中断","notSpoken":"未完整朗读","contextCut":"本轮上下文已满","pendingAudio":"语音未转写，可在历史中导出原音频。","recordInterrupted":"中断恢复","view":"查看","delete":"删除","noneHistory":"暂无记录","deleteConfirm":"删除这条记录及待转写语音？","exportRequested":"已请求导出 TXT。","browserError":"当前入口不支持录音或本地推理。请使用支持麦克风、工作线程和 WebAssembly 的浏览器；本地文件权限受限时改用 localhost。","storageError":"无法保存本机数据。请检查存储权限、可用空间和隐私浏览设置。","micError":"无法使用麦克风。请检查浏览器权限和录音设备。","voiceError":"缺少本地朗读语音，请在系统中安装对应语言的离线语音包。","voicePlaybackError":"朗读未完成。文字已保留，请检查音量和本地语音包。","modelError":"本地模型启动失败，请查看诊断。已缓存资源会保留。","missingAsset":"本地资源缺失或损坏。点击“准备”补齐，不会自动联网。","tooLong":"提示词或最新发言超出本机上下文容量，请缩短后重试。","genericError":"操作未完成，请查看设置中的诊断。","technical":"技术信息：","checking":"检查环境…","loadDialogue":"加载对话模型…","loadASR":"加载语音识别…","modelTest":"检查本地推理…","coldTest":"禁网冷启动自检…","preparationDone":"准备完成。本页已禁止联网。","preparationCancelled":"已取消，完整下载的资源已保留。","permissionDone":"环境检查完成。","notPersistent":"浏览器未授予持久存储，重要记录请导出。","download":"下载","waitingDownload":"正在获取文件","downloadDone":"已缓存","contextNotice":"本轮使用最近的对话；完整记录仍会保存。","audioBacklog":"音频处理跟不上录音，已暂停。请检查设备负载后继续。","lastAudioPending":"部分语音未转写，可从历史导出音频。","preparingHelp":"","offlineLabel":"本页禁网","importDone":"已导入。","importBad":"备份文件无效。","importBusy":"请先结束当前对话。","backupEmpty":"暂无记录。","micLost":"麦克风已断开。请重新连接后继续。","modelStopped":"本地推理已停止，可从缓存重新启动。","testZh":"本地中文语音已准备好。","testEn":"Local English voice is ready.","audioLabel":"导出待转写语音","promptTitle":"提示词","startedTitle":"开始时间","endedTitle":"结束时间","statusLabel":"状态","languageLabel":"语言","notesTitle":"备注","systemTitle":"系统记录","complete":"已结束","active":"进行中","interrupted":"中断恢复","textOnlyBackup":"此备份仅含文字，不包含待转写的原始录音。","directing":"AI 正在决定","directingHelp":"","decisionSpeak":"开口","decisionListen":"继续听","aiOutputLimit":"达到 AI 选择的输出长度","checkingOffline":"正在自检","offlineTestNotice":"检查缓存与本地语音…","offlineTestDone":"本地自检通过。","otherTab":"副本已占用","otherTabHelp":"另一个 AIChat 页面正在使用数据，请关闭它后刷新本页。","voicePartial":"部分本地朗读语音缺失。","storageSpaceError":"存储不足，请释放空间后重试。","speechLanguageLabel":"识别语言","speechAuto":"自动","recognitionLanguageLabel":"识别语言","uiLanguageLabel":"界面语言","voiceLanguages":"本地语音","voiceChinese":"中文","voiceAvailable":"可用","voiceUnavailable":"未安装","folderConnected":"保存到","folderOptional":"本机历史，结束时导出 TXT。","folderUnsupported":"本机历史，结束时导出 TXT。此浏览器不支持绑定文件夹。","folderError":"文件夹写入失败，已改用 TXT 导出。","folderSaved":"已保存到本机和所选文件夹。","folderSavedHistoryFailed":"TXT 已保存，本机历史保存失败。","decisionsTitle":"完整 AI 决策记录（数值与来源）","buildTitle":"应用版本","confirmedAtTitle":"用户确认结束时间","controllerActionError":"AI 尚未完成有效的对话参数选择，已暂停而未使用固定备用值。点击“继续”重试；详细原因见诊断。","finishSpeaking":"检测到语音，请先说完，再发送文字。","captureInterrupted":"录音设备未能确认末尾音频已全部交付；已保留接收到的内容。","networkRestartError":"无法保存重载请求，请允许此页面使用会话存储后重试。","prepareAgain":"重新准备","licenseTitle":"软件许可"},"en":{"needsPrep":"Not ready","cached":"Cached","ready":"On device","preparing":"Preparing","idle":"Ready to begin","idleHelp":"","listening":"Listening","listeningHelp":"","recognizing":"Transcribing","recognizingHelp":"","thinking":"Thinking","thinkingHelp":"","speaking":"AI is speaking","speakingHelp":"","starting":"Starting","startingHelp":"","closing":"Saving","closingHelp":"","ended":"Conversation ended","endedHelp":"","paused":"Paused","pausedHelp":"","error":"Something needs attention","errorHelp":"","user":"You","assistant":"AI","saved":"Saved on this device","saving":"Saving…","notSaved":"Save failed. Please export.","generatedPartial":"Reply interrupted","notSpoken":"Not fully spoken","contextCut":"Context capacity reached","pendingAudio":"Audio not transcribed. Export it from history.","recordInterrupted":"Recovered","view":"View","delete":"Delete","noneHistory":"No conversations yet.","deleteConfirm":"Delete this conversation and its untranscribed audio?","exportRequested":"TXT export requested.","browserError":"This entry cannot record or run local models. Use a browser with microphone, worker and WebAssembly support; try localhost when local-file permissions are restricted.","storageError":"Local storage is unavailable. Check permissions, free space and private browsing.","micError":"Microphone unavailable. Check permissions and your audio device.","voiceError":"Install an offline system voice for this language.","voicePlaybackError":"Speech did not finish. Text is saved; check volume and local voices.","modelError":"Local model startup failed. See diagnostics; cached resources are retained.","missingAsset":"Local resources are missing or damaged. Choose Prepare to repair them. No automatic download.","tooLong":"The prompt or latest message exceeds the local context capacity. Shorten it and retry.","genericError":"Operation failed. See diagnostics in Settings.","technical":"Technical information: ","checking":"Checking environment…","loadDialogue":"Loading chat model…","loadASR":"Loading speech recognition…","modelTest":"Testing local inference…","coldTest":"Testing with network blocked…","preparationDone":"Ready. This page is now blocked from the network.","preparationCancelled":"Cancelled. Completed downloads are retained.","permissionDone":"Environment checked.","notPersistent":"Persistent storage was not granted. Export important conversations.","download":"Downloading","waitingDownload":"Fetching asset","downloadDone":"Cached","contextNotice":"Using recent turns for context; the full transcript is retained.","audioBacklog":"Audio processing fell behind. Paused; reduce device load before resuming.","lastAudioPending":"Some audio is not transcribed. Export it from history.","preparingHelp":"","offlineLabel":"Page network blocked","importDone":"Imported.","importBad":"Invalid backup file.","importBusy":"End the current conversation first.","backupEmpty":"No conversations yet.","micLost":"Microphone disconnected. Reconnect, then resume.","modelStopped":"Local inference stopped. Restart from cached resources.","testZh":"本地中文语音已准备好。","testEn":"Local English voice is ready.","audioLabel":"Export untranscribed audio","promptTitle":"Prompt","startedTitle":"Started","endedTitle":"Ended","statusLabel":"Status","languageLabel":"Language","notesTitle":"Notes","systemTitle":"System record","complete":"Ended","active":"In progress","interrupted":"Recovered interruption","textOnlyBackup":"This backup contains text only, not untranscribed audio.","directing":"AI is deciding","directingHelp":"","decisionSpeak":"Speak","decisionListen":"Listen","aiOutputLimit":"AI-selected output budget reached","checkingOffline":"Checking","offlineTestNotice":"Checking local models and voices…","offlineTestDone":"Local check passed.","otherTab":"Another copy is active","otherTabHelp":"Another AIChat page is using this data. Close it, then reload.","voicePartial":"Some local voices are missing.","storageSpaceError":"Not enough storage. Free space and retry.","speechLanguageLabel":"Speech language","speechAuto":"Auto","recognitionLanguageLabel":"Recognition","uiLanguageLabel":"Interface language","voiceLanguages":"Local voices","voiceChinese":"Chinese","voiceAvailable":"Available","voiceUnavailable":"Not installed","folderConnected":"Save to","folderOptional":"Local history, with TXT export on End.","folderUnsupported":"Local history, with TXT export on End. Folder binding is not supported here.","folderError":"Folder write failed. Falling back to TXT export.","folderSaved":"Saved to local history and your folder.","folderSavedHistoryFailed":"TXT saved, but local history could not be saved.","decisionsTitle":"Complete AI decision log (values and sources)","buildTitle":"Application build","confirmedAtTitle":"User-confirmed end time","controllerActionError":"AI settings are incomplete. Paused without fixed fallback values. Resume to retry; see Diagnostics for details.","finishSpeaking":"Speech detected. Finish speaking before sending text.","captureInterrupted":"The capture device did not confirm delivery of its final samples. All received content was retained.","networkRestartError":"Cannot store the reload request. Enable session storage and retry.","prepareAgain":"Prepare again","licenseTitle":"Software license"}};
 const ORIGINAL={};document.querySelectorAll('[data-i18n]').forEach(e=>{ORIGINAL[e.dataset.i18n]=e.textContent;});document.querySelectorAll('[data-placeholder]').forEach(e=>{ORIGINAL[e.dataset.placeholder]=e.placeholder;});
 let useExperience=true;try{useExperience=localStorage.getItem('aichat-experience')!=='no';}catch{}
 let language='zh-CN',speechLanguage='auto';try{language=localStorage.getItem('aichat-language')||(/^en\b/i.test(navigator.language)?'en':'zh-CN');speechLanguage=localStorage.getItem('aichat-speech-language')||'auto';}catch{}
 if(!['en','zh-CN'].includes(language))language='zh-CN';if(!['auto','en','zh-CN'].includes(speechLanguage))speechLanguage='auto';
-Object.assign(EN,{experienceTitle:'Local experience',experienceInfo:'The AI can use experience from saved conversations to adapt dialogue, voice detection and speech delivery. This reuses context; it does not train model weights or guarantee continuous improvement. Deleting a record also deletes its experience.',experienceUseLabel:'Use past experience',experienceOn:'On',experienceOff:'Off'});
+Object.assign(EN,{experienceTitle:'Local experience',experienceUseLabel:'Use past experience',experienceOn:'On',experienceOff:'Off'});
 Object.assign(DYNAMIC['zh-CN'],{experienceCount:'条可参考经验',interruptedByUser:'因检测到你的声音而停止朗读',endingTimeout:'收尾超时，已停止模型并保存当前记录；请检查待转写语音。'});
 Object.assign(DYNAMIC.en,{experienceCount:'saved experience records',interruptedByUser:'Playback stopped on detected user voice',endingTimeout:'Closing timed out. Models were stopped and the available record was saved; check pending audio.'});
-Object.assign(DYNAMIC['zh-CN'],{retryAudio:'本地补转写',retryingAudio:'正在本地补转写…',audioRetryDone:'补转写完成：成功 {done} 段，待处理 {pending} 段。',confirmedSpeech:'已确认朗读的内容（按浏览器回报）',speechUnconfirmed:'尚无已确认朗读的内容',mutedSpeech:'此次朗读音量为零',generatedText:'生成文本',recoveredAudioText:'旧版录音补转写（原始位置未知）'});
-Object.assign(DYNAMIC.en,{retryAudio:'Transcribe pending audio locally',retryingAudio:'Transcribing pending audio locally…',audioRetryDone:'Transcription finished: {done} recovered; {pending} pending.',confirmedSpeech:'Confirmed speech playback (reported by the browser)',speechUnconfirmed:'No confirmed speech playback yet',mutedSpeech:'Playback volume was zero',generatedText:'Generated text',recoveredAudioText:'Recovered legacy audio (original position unknown)'});
+Object.assign(DYNAMIC['zh-CN'],{executableError:'运行库来源或摘要校验失败；未执行该文件。',retryAudio:'本地补转写',retryingAudio:'正在本地补转写…',audioRetryDone:'补转写完成：成功 {done} 段，待处理 {pending} 段。',confirmedSpeech:'已确认朗读的内容（按浏览器回报）',speechUnconfirmed:'尚无已确认朗读的内容',mutedSpeech:'含静音片段',generatedText:'生成文本',recoveredAudioText:'旧版录音补转写（原始位置未知）'});
+Object.assign(DYNAMIC.en,{executableError:'Runtime trust or digest verification failed. The file was not executed.',retryAudio:'Transcribe pending audio locally',retryingAudio:'Transcribing pending audio locally…',audioRetryDone:'Transcription finished: {done} recovered; {pending} pending.',confirmedSpeech:'Confirmed speech playback (reported by the browser)',speechUnconfirmed:'No confirmed speech playback yet',mutedSpeech:'Includes muted segments',generatedText:'Generated text',recoveredAudioText:'Recovered legacy audio (original position unknown)'});
 Object.assign(DYNAMIC['zh-CN'],{backupContents:'备份包含对话文本、AI 决策、本地经验和仍待转写的录音，不包含已转写后删除的原始录音或模型文件。',backupWorking:'正在备份记录与待转写语音…',backupComplete:'已请求保存完整记录备份，请检查浏览器下载。',importWorking:'正在校验并导入备份…',archiveBusy:'备份或导入正在进行。',backupAudioMissing:'待转写录音缺失，未生成不完整备份。请先检查记录中的录音。'});
 Object.assign(DYNAMIC.en,{backupContents:'The backup contains transcript text, AI decisions, local experience and pending audio. It does not contain original audio already deleted after transcription or model files.',backupWorking:'Backing up records and pending audio…',backupComplete:'A complete record backup was requested. Check your browser downloads.',importWorking:'Validating and importing the backup…',archiveBusy:'A backup or import is in progress.',backupAudioMissing:'Pending audio is missing. No incomplete backup was created. Check the audio in the saved records.'});
 DYNAMIC['zh-CN'].captureRecovered='已保留检测器尚未确认的末尾录音，可在历史中重试转写或导出。';
 DYNAMIC.en.captureRecovered='Captured audio not yet acknowledged by the detector was retained. Retry transcription or export it from History.';
+
+Object.assign(DYNAMIC["zh-CN"],{"exportModels": "备份模型","importModels": "导入模型","cancelPack": "取消迁移","packWorking": "正在核验并备份模型…","packImporting": "正在核验并导入模型…","packVerifying": "正在逐块校验…","packSaved": "模型备份已生成，点击“保存模型备份”保存。","saveModelPack": "保存模型备份","packImported": "模型已导入并通过禁网冷启动检查。","packCancelled": "已取消。原有完整缓存和对话保留。","packInvalid": "模型备份无效、版本不匹配或校验失败。","packTrustTitle": "导入可信模型备份？","packTrustInfo": "只导入可信备份。本浏览器首次验证运行库需要联网；之后只接受与本机信任摘要一致的执行文件。","packTrustContinue": "选择可信文件","feedbackAction": "纠正 / 反馈","feedbackEdit": "编辑反馈","feedbackRecorded": "含你的反馈","feedbackTitle": "你的纠正与反馈","feedbackPlaceholder": "写下你的纠正或偏好。内容会原样保存，不会改写已发生的对话。","saveFeedback": "保存反馈","feedbackSaved": "反馈已保存。已导出的旧 TXT 不会自动更新，请重新导出。","copyTranscript": "复制文字","copied": "对话文字已复制。","copyFailed": "未能访问剪贴板，请使用导出。","savedDownloadHint": "记录已保存在本机。浏览器未出现下载时，请点击“保存 TXT”；重要内容请另存备份。","exportText": "保存 TXT"});
+Object.assign(DYNAMIC.en,{"exportModels": "Back up models","importModels": "Import models","cancelPack": "Cancel transfer","packWorking": "Verifying and backing up models…","packImporting": "Verifying and importing models…","packVerifying": "Verifying chunks…","packSaved": "Model backup created. Choose Save model backup to save it.","saveModelPack": "Save model backup","packImported": "Models imported and verified with a network-blocked cold start.","packCancelled": "Cancelled. Previous complete cache and conversations retained.","packInvalid": "Invalid, incompatible or damaged model backup.","packTrustTitle": "Import a trusted model backup?","packTrustInfo": "Import a trusted backup. First runtime verification in this browser requires a connection; later imports must match independently stored executable digests.","packTrustContinue": "Choose trusted file","feedbackAction": "Correct / give feedback","feedbackEdit": "Edit feedback","feedbackRecorded": "Your feedback attached","feedbackTitle": "Your corrections and feedback","feedbackPlaceholder": "Write a correction or preference. It will be saved verbatim without rewriting what happened.","saveFeedback": "Save feedback","feedbackSaved": "Feedback saved. Previously exported TXT files are not updated; export again.","copyTranscript": "Copy text","copied": "Transcript copied.","copyFailed": "Clipboard access failed. Use Export instead.","savedDownloadHint": "The record is stored on this device. If no download appeared, choose Save TXT. Keep a separate backup of important conversations.","exportText": "Save TXT"});
+
 const tr=(key,lang=language)=>DYNAMIC[lang]?.[key]??(lang==='en'?EN[key]:ORIGINAL[key])??key;
+Object.assign(DYNAMIC['zh-CN'],{experienceTitle:'离线优化',experienceUseLabel:'自适应优化',feedbackKindLabel:'反馈类型',feedbackNote:'偏好或说明',feedbackDialogueGood:'回答有帮助',feedbackDialogueBad:'回答需改进',feedbackASRGood:'转写正确',feedbackASRBad:'转写有误',feedbackVADGood:'打断正确',feedbackVADBad:'打断误触',feedbackTTSGood:'朗读合适',feedbackTTSBad:'朗读需改进',preparationDone:'已就绪',notPersistent:'',preparingHelp:'',contextNotice:'上下文已适配',feedbackPlaceholder:'可补充纠正或偏好。'});
+Object.assign(DYNAMIC.en,{experienceTitle:'Offline adaptation',experienceUseLabel:'Adaptive optimization',feedbackKindLabel:'Feedback type',feedbackNote:'Preference or note',feedbackDialogueGood:'Helpful reply',feedbackDialogueBad:'Reply needs improvement',feedbackASRGood:'Correct transcription',feedbackASRBad:'Incorrect transcription',feedbackVADGood:'Correct interruption',feedbackVADBad:'False interruption',feedbackTTSGood:'Suitable delivery',feedbackTTSBad:'Delivery needs improvement',preparationDone:'Ready',notPersistent:'',preparingHelp:'',contextNotice:'Context adapted',feedbackPlaceholder:'Optional correction or preference.'});
 let networkSealed=false;const workerNetwork={engine:false,vad:false};
-let repairingAudio=false,archiving=false,vadGeneration=0;
+let repairingAudio=false,archiving=false,vadGeneration=0,packBusy=false,packEpoch=0,feedbackTarget=null,feedbackWasPaused=true;
+const networkAudit={page:{...NET.stats},engine:null,vad:null,cspViolations:0};
 let phase='idle',preparing=false,starting=false,prepared=false,loaded=false,current=null,engine=null,vad=null,limits=null,preparationEpoch=0,cancelPrepWait=null;
 let captureAccept=false,captureSerial=0,captureDrain=Promise.resolve(),captureResolvers=new Map(),captureFaulted=false;
 const pauseDrains=new WeakMap(),confirmationStates=new WeakMap(),decisionRuns=new WeakMap();
 let captureSequence=0;const captureJournal=new Map(),captureRecoveryRuns=new WeakMap();
-let media=null,audioContext=null,sourceNode=null,captureNode=null,lowpass=null,zeroGain=null,resampler=null,gate=false,voiceInProgress=false,frameBacklog=0;
+let media=null,audioContext=null,sourceNode=null,captureNode=null,lowpass=null,zeroGain=null,resampler=null,gate=false,voiceInProgress=false,voiceConfirmed=false,frameBacklog=0;
 let pendingSegments=new Set(),asrQueue=Promise.resolve(),turnTask=Promise.resolve(),savingQueue=Promise.resolve(),storeBroken=false,modelsProof=null;
-let speechCancel=null,currentUtterance=null,voiceMap={},voiceCapabilities={en:false,'zh-CN':false},localVoices=[],wakeLock=null,historySelected=null;
-let decisionTimer=null,quietEpoch=0,quietStarted=0,startEpoch=0,checkingOffline=false;
+let speechCancel=null,currentUtterance=null,voiceCapabilities={en:false,'zh-CN':false},localVoices=[],wakeLock=null,historySelected=null;
+let decisionTimer=null,quietEpoch=0,quietStarted=0,startEpoch=0,checkingOffline=false,quietWaiting=null,runtimeRevision=0;
+
+const learningWrites=new WeakMap();
+function runtimeContext(s){return {mean_probability:detectorStats.frames?detectorStats.meanProbability:null,probability_variance:detectorStats.frames?detectorStats.varianceAccumulator/detectorStats.frames:null,audio_seconds:diag.lastUtteranceSeconds??null,context_capacity:limits?.contextLimit??null,pending_audio:s.messages?.reduce((n,m)=>n+(m.audioKeys?.length||0),0)||0};}
+async function optimizeExperience(){
+  if(!useExperience||!engine||engine.dead||!loaded)return;
+  try{await engine.call('optimize');}catch(e){if(errText(e)!=='CANCELLED')recordEvent('adaptation',e);}
+}
+
 let detectorStats={frames:0,meanProbability:0,varianceAccumulator:0},lastVoiceStarted=null;
 let saveDirectory=null,folderWriteQueue=Promise.resolve();
 let appBlocked=false,bootReady=false,releaseAppLock=null,resuming=false,lastNotice=null;
 let renderFrame=0;const streamRenderQueue=new Map(),streamCheckpointTimers=new Map(),streamCheckpointWrites=new Map();
 const dirtyMessages=new WeakMap(),dirtyDecisions=new WeakMap(),unsavedAudio=new Map(),removedSessionIds=new Set();
-const bubbleMap=new Map(),activeTurns=new Map(),diag={build:BUILD,target:'Android / Windows 10 / Windows 11 + browser',testedOnTarget:false,events:[]};
+const bubbleMap=new Map(),activeTurns=new Map(),diag={build:BUILD,target:'Android / iOS / HarmonyOS / Windows / macOS / Linux · Chrome / Edge / Firefox / Safari / Opera',testedOnTarget:false,events:[]};
 function isLive(){return !!current&&['active','closing'].includes(current.state);}
 function setPhase(key){phase=key;$('statusTitle').textContent=tr(key);$('statusHelp').textContent=tr(key+'Help');$('orb').className='orb'+(key==='listening'?' listening':(['recognizing','thinking','directing','starting','closing'].includes(key)?' busy':key==='speaking'?' speaking':''));document.body.dataset.phase=key;renderControls();}
 function renderControls(){
-  const busy=preparing||checkingOffline||repairingAudio||archiving||starting||!bootReady||appBlocked;
+  const busy=preparing||checkingOffline||repairingAudio||archiving||packBusy||starting||!bootReady||appBlocked;
   $('start').disabled=busy||isLive()||!prepared||storeBroken;
+  $('exportModels').disabled=busy||isLive()||!prepared;
+  $('importModels').disabled=busy||isLive();
+  $('cancelPack').hidden=!packBusy;
   $('prepare').textContent=tr(prepared?'prepareAgain':'prepare');
   $('end').disabled=!current||current.state!=='active';
   $('prompt').disabled=isLive()||busy;$('language').disabled=isLive()||busy;$('speechLanguage').disabled=isLive()||busy;
@@ -836,7 +1141,8 @@ function renderControls(){
   $('resume').disabled=starting||resuming||current?.state!=='active';
   $('textDetails').hidden=!(current?.state==='active');
   $('sendText').disabled=!(current?.state==='active'&&phase==='listening'&&!voiceInProgress&&!current.paused&&!$('endDialog').open);
-  $('exportCurrent').hidden=!current;$('pendingAudioCurrent').hidden=!current?.messages.some(m=>m.audioKeys?.length);$('retrySave').hidden=!current||!storeBroken;
+  $('copyTranscript').hidden=!current;$('exportCurrent').hidden=!current;$('pendingAudioCurrent').hidden=!current?.messages.some(m=>m.audioKeys?.length);$('retrySave').hidden=!current||!storeBroken;
+  for(const button of document.querySelectorAll('[data-feedback-message]'))button.disabled=busy||current?.state==='closing';
   renderFolder();
   $('readyBadge').textContent=tr(appBlocked?'otherTab':preparing?'preparing':checkingOffline?'checkingOffline':loaded?'ready':prepared?'cached':'needsPrep');
 }
@@ -845,7 +1151,7 @@ function applyLanguage(){
   document.documentElement.lang=language;$('language').value=language;$('speechLanguage').value=speechLanguage;
   document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=tr(e.dataset.i18n));
   document.querySelectorAll('[data-title]').forEach(e=>{e.title=tr(e.dataset.title);e.setAttribute('aria-label',tr(e.dataset.title));});
-  document.querySelectorAll('[data-placeholder]').forEach(e=>e.placeholder=language==='en'?(EN[e.dataset.placeholder]??ORIGINAL[e.dataset.placeholder]):ORIGINAL[e.dataset.placeholder]);
+  document.querySelectorAll('[data-placeholder]').forEach(e=>e.placeholder=tr(e.dataset.placeholder));
   renderVoiceCapabilities();renderFolder();setPhase(phase);if(current){renderConversation();$('saveStatus').textContent=tr(storeBroken?'notSaved':'saved');}renderHistory().catch(()=>{});updateDiagnostics();updateDecisionPanel();refreshNotice();
 }
 function notice(text,error=false,errorObject=null){lastNotice={text,error,errorObject,language};$('notice').textContent=text;$('notice').className='notice'+(error?' error':'');$('notice').hidden=!text;}
@@ -866,7 +1172,7 @@ function refreshNotice(){
 function recordEvent(kind,error){diag.events.push({at:new Date().toISOString(),kind,detail:errText(error)});if(diag.events.length>40)diag.events.shift();updateDiagnostics();}
 function readableError(e){
   const text=errText(e);
-  const checks=[[/CONTROLLER_|MODEL_CONTROLLER/,'controllerActionError'],[/BROWSER|SECURE|WORKER_STORAGE|SecurityError/,'browserError'],[/STORAGE_SPACE/,'storageSpaceError'],[/STORAGE|QuotaExceeded|IDB|IndexedDB/i,'storageError'],[/NotAllowed|NotFound|NotReadable|MICROPHONE|Overconstrained/,'micError'],[/AUDIO_CAPTURE|AUDIO_PROCESSOR/,'captureInterrupted'],[/LOCAL_VOICE/,'voiceError'],[/SPEECH_/,'voicePlaybackError'],[/OFFLINE_ASSET|CACHE_DAMAGED|DOWNLOAD_INCOMPLETE/,'missingAsset'],[/PROMPT_TOO_LONG/,'tooLong'],[/MODEL|onnx|wasm|memory|allocation|fetch|network|download|HTTP|WebAssembly/i,'modelError']];
+  const checks=[[/CONTROLLER_|MODEL_CONTROLLER/,'controllerActionError'],[/BROWSER|SECURE|WORKER_STORAGE|SecurityError/,'browserError'],[/STORAGE_SPACE/,'storageSpaceError'],[/STORAGE|QuotaExceeded|IDB|IndexedDB/i,'storageError'],[/NotAllowed|NotFound|NotReadable|MICROPHONE|Overconstrained/,'micError'],[/AUDIO_CAPTURE|AUDIO_PROCESSOR/,'captureInterrupted'],[/LOCAL_VOICE/,'voiceError'],[/SPEECH_/,'voicePlaybackError'],[/EXECUTABLE_/,'executableError'],[/OFFLINE_ASSET|CACHE_DAMAGED|DOWNLOAD_INCOMPLETE/,'missingAsset'],[/PROMPT_TOO_LONG/,'tooLong'],[/MODEL|onnx|wasm|memory|allocation|fetch|network|download|HTTP|WebAssembly/i,'modelError']];
   return tr(checks.find(([pattern])=>pattern.test(text))?.[1]||'genericError');
 }
 function fail(e,{pause=true}={}){recordEvent('error',e);notice(readableError(e),true,e);if(pause&&current?.state==='active')pauseConversation(current,'error');renderControls();}
@@ -896,13 +1202,15 @@ function checkRow(id,result){const e=$(id);e.className='check'+(result===true?' 
 function updateDiagnostics(){
   diag.origin=location.protocol==='file:'?'file:// (path omitted)':location.origin;diag.secureContext=globalThis.isSecureContext;
   diag.browser=navigator.userAgent;diag.uiLanguage=language;diag.speechLanguage=speechLanguage;diag.voiceCapabilities=voiceCapabilities;
-  diag.localVoices=Object.fromEntries(Object.entries(voiceMap).filter(([,v])=>v).map(([k,v])=>[k,{name:v.name,lang:v.lang,localService:v.localService}]));
+  diag.localVoices=localVoices.map(v=>({id:voiceIdentity(v),name:v.name,lang:v.lang,localService:v.localService}));
+  diag.executableTrust={mode:'independent-https-first-use',immutableBuildDigests:false,manifestCanAuthorizeCode:false};
   diag.models=limits;
 
-  diag.experience={enabled:useExperience,sources:current?.policy?.experience_sources?.length||0,mode:'local-context-reuse-with-observed-outcomes',weightTraining:false};
+  diag.experience={enabled:useExperience,sources:current?.policy?.experience_sources?.length||0,feedbackEntries:current?.userFeedback?.length||0,mode:'offline-validated-adapter-training',adapterWeightTraining:true,baseModelWeightTraining:false};
   diag.runtimeObservations=current?.runtimeObservations||null;diag.audioRecovery={running:repairingAudio,captureFaulted,pauseDrainPending:!!current&&pauseDrains.has(current),pending:current?.messages.reduce((n,m)=>n+(m.audioKeys?.length||0),0)||0,journalFrames:captureJournal.size,journalSamples:Array.from(captureJournal.values()).reduce((n,frame)=>n+frame.audio.length,0)};diag.playbackContext='confirmed-playback-only';
   diag.policy=current?.policy?{values:Object.fromEntries(Object.entries(current.policy.values).filter(([k])=>!['guidance','experience_note'].includes(k))),source:current.policy.source,rejected:current.policy.rejected}:null;
-  diag.engineNetworkAllowed=workerNetwork.engine;diag.preparationNetworkAllowed=workerNetwork.engine||workerNetwork.vad;diag.pageNetworkSealed=networkSealed;diag.networkPolicy=networkSealed?'CSP connect-src blob:; cache-only workers':'explicit preparation only';diag.modelsPrepared=prepared;diag.modelsLoaded=loaded;diag.storageFailed=storeBroken;
+  networkAudit.page={...NET.stats};diag.networkAudit=networkAudit;diag.operatingSystemVoiceBoundary='Only localService=true voices; browser reports completion, not audibility. Page CSP cannot govern operating-system networking.';
+  diag.engineNetworkAllowed=workerNetwork.engine;diag.preparationNetworkAllowed=workerNetwork.engine||workerNetwork.vad;diag.pageNetworkSealed=networkSealed;diag.networkPolicy=networkSealed?'CSP connect-src blob:; cache-only workers':'explicit preparation or first-import runtime verification';diag.modelsPrepared=prepared;diag.modelsLoaded=loaded;diag.storageFailed=storeBroken;
   diag.fixedEngineeringConstraints={audio:AUDIO_SPEC,safety:SAFETY,pins:{llm:PACK.llmRevision,asr:PACK.asrRevision,vad:PACK.vadRevision},ttsInputUTF16Limit:3000,timerMaximumMs:0x7fffffff,controllerDecoding:'model-selected actions and parameters; unresolved settings pause rather than use fixed values'};
   $('diagnostics').textContent=JSON.stringify(diag,null,2);
 }
@@ -911,18 +1219,16 @@ function checkBrowser(){const supported=!!(globalThis.isSecureContext&&navigator
   checkRow('checkBrowser',supported);if(!supported)throw new Error('BROWSER_SECURE_CONTEXT_UNAVAILABLE');}
 async function checkStorage(){try{await dbPut('meta','probe',{at:Date.now()});if(!(await dbGet('meta','probe'))?.at)throw new Error('STORAGE_READ_FAILED');storeBroken=false;checkRow('checkStorage',true);}catch(e){checkRow('checkStorage',false);storeBroken=true;throw new Error('STORAGE_UNAVAILABLE: '+errText(e));}}
 async function getLocalVoices(){
-  if(!globalThis.speechSynthesis||!globalThis.SpeechSynthesisUtterance)throw new Error('LOCAL_VOICES_UNAVAILABLE');const synth=speechSynthesis;if(!synth.getVoices().length)await new Promise(resolve=>{let done=false;const finish=()=>{if(done)return;done=true;synth.removeEventListener('voiceschanged',finish);clearTimeout(timer);resolve();};const timer=setTimeout(finish,SAFETY.voiceWaitMs);synth.addEventListener('voiceschanged',finish);});const local=synth.getVoices().filter(v=>v.localService===true);localVoices=local.filter(v=>/^(en|zh)(?:[-_]|$)/i.test(v.lang));const choose=prefix=>local.find(v=>v.lang.toLowerCase().startsWith(prefix)&&v.default)||local.find(v=>v.lang.toLowerCase().startsWith(prefix));voiceMap={'zh-CN':local.find(v=>/^zh[-_](cn|hans|sg)/i.test(v.lang))||local.find(v=>/^zh[-_](tw|hant)/i.test(v.lang))||local.find(v=>/^zh$/i.test(v.lang)),en:choose('en')};voiceCapabilities={'zh-CN':!!voiceMap['zh-CN'],en:!!voiceMap.en};checkRow('checkVoice',voiceCapabilities['zh-CN']&&voiceCapabilities.en?true:'warn');renderVoiceCapabilities();updateDiagnostics();return voiceMap;
+  if(!globalThis.speechSynthesis||!globalThis.SpeechSynthesisUtterance)throw new Error('LOCAL_VOICES_UNAVAILABLE');
+  const synth=speechSynthesis;
+  if(!synth.getVoices().length)await new Promise(resolve=>{let done=false;const finish=()=>{if(done)return;done=true;synth.removeEventListener('voiceschanged',finish);clearTimeout(timer);resolve();};const timer=setTimeout(finish,SAFETY.voiceWaitMs);synth.addEventListener('voiceschanged',finish);});
+  localVoices=Array.from(new Map(synth.getVoices().filter(v=>v.localService===true).map(v=>[voiceIdentity(v),v])).values());
+  voiceCapabilities={'zh-CN':localVoices.some(v=>/^zh(?:[-_]|$)/i.test(v.lang)),en:localVoices.some(v=>/^en(?:[-_]|$)/i.test(v.lang))};
+  checkRow('checkVoice',voiceCapabilities['zh-CN']&&voiceCapabilities.en?true:'warn');renderVoiceCapabilities();updateDiagnostics();return localVoices;
 }
 function requireVoiceForStart(){if(speechLanguage==='auto'){if(!voiceCapabilities.en&&!voiceCapabilities['zh-CN'])throw new Error('LOCAL_VOICE_MISSING:auto');}else if(!voiceCapabilities[speechLanguage])throw new Error('LOCAL_VOICE_MISSING:'+speechLanguage);}
-function voiceForText(text){
-  if(/[\u3400-\u9fff]/.test(text))return voiceMap['zh-CN'];
-  if(/[A-Za-z]/.test(text))return voiceMap.en;
-  const preferred=current?.policy?.values?.recognition_language||current?.speechLanguage;
-  return voiceMap[preferred]||localVoices.find(v=>v.default)||voiceMap['zh-CN']||voiceMap.en;
-}
-function resolveLocalVoice(value,text){
-  if(value==='auto')return voiceForText(text);
-  const byId=localVoices.filter(v=>voiceIdentity(v)===value),matches=byId.length?byId:localVoices.filter(v=>v.name===value);
+function resolveLocalVoice(value){
+  const matches=localVoices.filter(v=>voiceIdentity(v)===value);
   if(matches.length!==1||matches[0].localService!==true)throw new Error('LOCAL_VOICE_MISSING:'+value);
   return matches[0];
 }
@@ -940,9 +1246,20 @@ async function speakPiece(text,voice,rate=1,pitch=1,volume=1,onBoundary=null){re
   const touch=()=>{if(finished)return;clearTimeout(timer);timer=setTimeout(()=>{finish(new Error('SPEECH_TIMEOUT'));speechSynthesis.cancel();},SAFETY.speechWatchdogMs/Math.max(rate,0.1));};
   u.onend=()=>finish();u.onerror=e=>finish(new Error('SPEECH_'+e.error));u.onstart=touch;u.onboundary=e=>{touch();if(Number.isSafeInteger(e.charIndex)&&e.charIndex>=0&&e.charIndex<=text.length)onBoundary?.(e.charIndex);};touch();speechSynthesis.speak(u);
 });}
+
+function unlockPlayback(){
+  try{
+    if(audioContext?.state==='suspended')audioContext.resume().catch(()=>{});
+    const voice=globalThis.speechSynthesis?.getVoices().find(v=>v.localService===true);
+    if(!voice||!globalThis.SpeechSynthesisUtterance||currentUtterance)return;
+    const utterance=new SpeechSynthesisUtterance('');utterance.voice=voice;utterance.lang=voice.lang;utterance.volume=0;
+    speechSynthesis.speak(utterance);speechSynthesis.resume();
+  }catch(e){recordEvent('playback-activation',e);}
+}
+
 async function requestMic(){try{const s=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true,channelCount:{ideal:1}},video:false});checkRow('checkMic',true);return s;}catch(e){checkRow('checkMic',false);throw e;}}
 async function environmentCheck(withPermission=false,withSpeech=false,guard=()=>{}){
-  guard();checkBrowser();await checkStorage();guard();await checkWorkerStorage();guard();await getLocalVoices().catch(e=>{checkRow('checkVoice','warn');recordEvent('voices',e);});guard();if(withPermission){const s=await requestMic();s.getTracks().forEach(t=>t.stop());guard();}if(withSpeech){requireVoiceForStart();if(voiceMap['zh-CN']){await speakPiece(tr('testZh'),voiceMap['zh-CN']);guard();}if(voiceMap.en){await speakPiece(tr('testEn'),voiceMap.en);guard();}}diag.storageEstimate=await navigator.storage?.estimate?.().catch(()=>null);guard();updateDiagnostics();
+  guard();checkBrowser();await checkStorage();guard();await checkWorkerStorage();guard();await getLocalVoices().catch(e=>{checkRow('checkVoice','warn');recordEvent('voices',e);});guard();if(withPermission){const s=await requestMic();s.getTracks().forEach(t=>t.stop());guard();}if(withSpeech)requireVoiceForStart();diag.storageEstimate=await navigator.storage?.estimate?.().catch(()=>null);guard();updateDiagnostics();
 }
 class Peer{
   constructor(code,onEvent){this.id=0;this.pending=new Map();this.url=URL.createObjectURL(new Blob([$('sharedCode').textContent,'\n',code],{type:'text/javascript'}));this.worker=new Worker(this.url,{type:'module'});this.dead=false;
@@ -956,7 +1273,11 @@ class Peer{
   stop(){this.dead=true;this.worker.terminate();URL.revokeObjectURL(this.url);this.rejectAll(new Error('WORKER_STOPPED'));}
 }
 function workerEvent(m){
-  if(m.type==='network'){if(Object.hasOwn(workerNetwork,m.role))workerNetwork[m.role]=m.allowed===true;updateDiagnostics();}
+  if(m.type==='network-stats'){if(Object.hasOwn(networkAudit,m.role))networkAudit[m.role]=m.stats;updateDiagnostics();}
+  else if(m.type==='network'){if(Object.hasOwn(workerNetwork,m.role))workerNetwork[m.role]=m.allowed===true;updateDiagnostics();}
+  else if(m.type==='context-limit'){if(limits)limits.contextLimit=m.contextLimit;diag.contextRecovery=m;updateDiagnostics();}
+  else if(m.type==='context-probe'){$('progressText').textContent=tr('modelTest')+' · '+m.tokens;diag.contextProbe=m;updateDiagnostics();}
+  else if(m.type==='adaptation'){diag.adaptation=m;updateDiagnostics();}
   else if(m.type==='policy-progress'){if(current?.id===m.sessionId){diag.controllerField=m.field;updateDiagnostics();}}
   else if(m.type==='download'){$('progressBox').hidden=false;const filename=decodeURIComponent(m.url.split('/').pop());const downloaded=(m.loaded/1024/1024).toLocaleString(language,{maximumFractionDigits:1});$('progressText').textContent=(m.done?tr('downloadDone'):tr('download'))+' · '+filename+' · '+downloaded+' MiB';const p=$('progress');if(m.total){p.max=m.total;p.value=m.loaded;}else p.removeAttribute('value');}
   else if(m.type==='stage'){$('progressText').textContent=tr(m.key);$('progress').removeAttribute('value');}
@@ -965,29 +1286,73 @@ function workerEvent(m){
   else if(m.type==='fatal'){loaded=false;if(!preparing)fail(new Error(m.error));}
 }
 function vadEvent(m){
+  const s=current;
   if(m.type==='segment'){
-    m.turn=vadGeneration+':'+m.turn;
-    voiceInProgress=!!m.continued;
+    m.turn=vadGeneration+':'+m.turn;voiceInProgress=!!m.continued;voiceConfirmed=!!m.continued;
     if(!m.continued&&lastVoiceStarted!==null){diag.lastUtteranceSeconds=(performance.now()-lastVoiceStarted)/1000;lastVoiceStarted=null;}
     const task=receiveSegment(m);pendingSegments.add(task);
     task.then(()=>pendingSegments.delete(task),e=>{pendingSegments.delete(task);if(current?.state==='active')fail(e);});
-  }else if(m.type==='voice-start'){lastVoiceStarted=performance.now();clearQuiet();voiceInProgress=true;const s=current;if(s?.state==='active'&&phase==='speaking'&&s.policy?.values?.interrupt_on_voice===true){s.bargeIn=true;const reply=s.messages.filter(x=>x.role==='assistant').at(-1);if(reply?.delivery==='speaking'){reply.delivery='interrupted_by_user';observeRuntime(s,'user_interruption',{success:true});markMessage(s,reply);renderMessage(reply);}cancelSpeech();setPhase('listening');}renderControls();}
-  else if(m.type==='voice-discarded'){voiceInProgress=false;renderControls();const s=current;if(s?.bargeIn){const previous=turnTask;turnTask=previous.catch(()=>{}).then(async()=>{if(current!==s||s.state!=='active'||s.paused||$('endDialog').open)return;s.bargeIn=false;await decide(s,'voice_discarded');}).catch(e=>fail(e));}else if(s)armQuiet(s);}
-  else if(m.type==='frame-ack'){frameBacklog=Math.max(0,frameBacklog-1);if(Number.isSafeInteger(m.retainFrom))releaseCaptureFrames(m.retainFrom-1);}
-  else if(m.type==='level'){if(gate){const n=++detectorStats.frames,delta=m.probability-detectorStats.meanProbability;detectorStats.meanProbability+=delta/n;detectorStats.varianceAccumulator+=delta*(m.probability-detectorStats.meanProbability);$('orb').style.setProperty('opacity',String(0.65+0.35*m.probability));}}
-  else workerEvent(m);
+  }else if(m.type==='voice-start'){
+    lastVoiceStarted=performance.now();clearQuiet();voiceInProgress=true;voiceConfirmed=false;
+    if(s?.state==='active')observeRuntime(s,'voice_candidate',{turn:m.turn});renderControls();
+  }else if(m.type==='voice-confirmed'){
+    if(!voiceInProgress||voiceConfirmed)return;voiceConfirmed=true;
+    if(s?.state==='active'){
+      observeRuntime(s,'voice_confirmed',{turn:m.turn,audio_seconds:m.voiced_seconds});
+      if(phase==='speaking'&&s.policy?.values?.interrupt_on_voice===true){
+        s.bargeIn=true;const reply=s.messages.filter(x=>x.role==='assistant').at(-1);
+        if(reply?.delivery==='speaking'){reply.delivery='interrupted_by_user';observeRuntime(s,'user_interruption',{messageId:reply.id,turn:m.turn,confirmed:true});markMessage(s,reply);renderMessage(reply);}
+        cancelSpeech();setPhase('listening');
+      }
+    }
+    renderControls();
+  }else if(m.type==='voice-discarded'){
+    voiceInProgress=false;voiceConfirmed=false;lastVoiceStarted=null;
+    if(s?.state==='active')observeRuntime(s,'voice_discarded',{turn:m.turn,audio_seconds:m.voiced_seconds,forced:!!m.forced});
+    renderControls();
+    if(s?.awaitingCandidate){s.awaitingCandidate=false;const previous=turnTask;turnTask=previous.catch(()=>{}).then(async()=>{if(current===s&&s.state==='active'&&!s.paused&&!$('endDialog').open)await decide(s,'voice_discarded');}).catch(e=>fail(e));}
+    else if(s)armQuiet(s);
+    runtimeSignal('vad');
+  }else if(m.type==='frame-ack'){
+    frameBacklog=Math.max(0,frameBacklog-1);if(Number.isSafeInteger(m.retainFrom))releaseCaptureFrames(m.retainFrom-1);
+  }else if(m.type==='level'){
+    if(gate){const n=++detectorStats.frames,delta=m.probability-detectorStats.meanProbability;detectorStats.meanProbability+=delta/n;detectorStats.varianceAccumulator+=delta*(m.probability-detectorStats.meanProbability);$('orb').style.setProperty('opacity',String(0.65+0.35*m.probability));runtimeSignal('audio');}
+  }else workerEvent(m);
 }
-
 function stopWorkers(){vadGeneration++;activeTurns.clear();engine?.stop();vad?.stop();engine=vad=null;loaded=false;workerNetwork.engine=workerNetwork.vad=false;frameBacklog=0;renderControls();}
 async function loadWorkers(allowNetwork){
   if(allowNetwork&&networkSealed)throw new Error('NETWORK_SEALED');
   if(loaded&&engine&&!engine.dead&&vad&&!vad.dead)return;
   stopWorkers();$('progressBox').hidden=false;
-  try{
-    const generation=++vadGeneration;vad=new Peer($('vadCode').textContent,m=>{if(generation===vadGeneration)vadEvent(m);});await vad.call('init',{allowNetwork});
-    engine=new Peer($('engineCode').textContent,workerEvent);limits=await engine.call('init',{allowNetwork});
-    loaded=true;updateDiagnostics();
-  }catch(e){stopWorkers();throw e;}
+  let lastLimit=Infinity;
+  for(;;){
+    try{
+      const generation=++vadGeneration;vad=new Peer($('vadCode').textContent,m=>{if(generation===vadGeneration)vadEvent(m);});await vad.call('init',{allowNetwork});
+      engine=new Peer($('engineCode').textContent,workerEvent);
+      limits=await engine.call('init',{allowNetwork,capabilities:{voices:localVoices.map(v=>({id:voiceIdentity(v),name:v.name,lang:v.lang})),speechLanguage}});
+      loaded=true;updateDiagnostics();return;
+    }catch(e){
+      stopWorkers();if(errText(e)!=='ENGINE_CONTEXT_RETRY')throw e;
+      const capability=await dbGet('meta','capability:'+runtimeEnvironment()),next=capability?.good;
+      if(!Number.isSafeInteger(next)||next<1||next>=lastLimit)throw e;
+      lastLimit=next;allowNetwork=false;
+    }
+  }
+}
+async function engineCall(op,args={}){
+  let previous=limits?.contextLimit||Infinity;
+  for(;;){
+    try{return await engine.call(op,args);}
+    catch(e){
+      if(errText(e)!=='ENGINE_CONTEXT_RETRY'||current?.id!==args.sessionId||current?.state!=='active'||current?.paused)throw e;
+      const next=limits?.contextLimit;if(!Number.isSafeInteger(next)||next<1||next>=previous)throw e;
+      previous=next;setGate(false);await captureDrain;
+      if(current?.id!==args.sessionId||current?.state!=='active'||current?.paused)throw new Error('CANCELLED');
+      stopWorkers();await loadWorkers(false);
+      if(current?.id!==args.sessionId||current?.state!=='active'||current?.paused)throw new Error('CANCELLED');
+      if(current.policy?.ready)await vad.call('configure',{values:current.policy.values,windowSeconds:limits.windowSeconds,contextLimit:limits.contextLimit});
+    }
+  }
 }
 function sealNetwork(){
   closeNetwork();engine?.send('network-off');vad?.send('network-off');
@@ -1001,9 +1366,9 @@ async function restartPreparation(){
   $('networkDialog').close();location.reload();
 }
 async function prepare(){
-  if(preparing||isLive()||starting||checkingOffline||repairingAudio||archiving||appBlocked||!bootReady)return;
+  if(preparing||isLive()||starting||checkingOffline||repairingAudio||archiving||packBusy||appBlocked||!bootReady)return;
   if(networkSealed){$('networkDialog').showModal();return;}
-  preparing=true;prepared=false;$('setup').open=true;const epoch=++preparationEpoch;notice('');renderControls();setPhase('starting');$('statusHelp').textContent=tr('preparingHelp');$('progressBox').hidden=false;$('progressText').textContent=tr('checking');
+  unlockPlayback();preparing=true;prepared=false;$('setup').open=true;const epoch=++preparationEpoch;notice('');renderControls();setPhase('starting');$('statusHelp').textContent=tr('preparingHelp');$('progressBox').hidden=false;$('progressText').textContent=tr('checking');
   const guard=()=>{if(epoch!==preparationEpoch)throw new Error('CANCELLED');};
   const cancelled=new Promise((_,reject)=>{cancelPrepWait=()=>reject(new Error('CANCELLED'));});
   const step=promise=>Promise.race([promise,cancelled]);
@@ -1013,7 +1378,7 @@ async function prepare(){
     diag.persistent=await step(Promise.resolve(navigator.storage?.persist?.()).catch(()=>false))||false;guard();
     await step(loadWorkers(true));guard();checkRow('checkModels',true);
 
-    stopWorkers();sealNetwork();$('progressText').textContent=tr('coldTest');await step(loadWorkers(false));guard();
+    stopWorkers();sealNetwork();$('progressText').textContent=tr('coldTest');await step(loadWorkers(false));guard();await step(testPlannedSpeech(guard));guard();
     checkRow('checkOffline',true);const manifest=await step(collectAssetManifest());if(!manifest.length||!await step(verifyAssetManifest(manifest)))throw new Error('CACHE_DAMAGED: manifest');modelsProof={build:BUILD,at:new Date().toISOString(),limits,networkBlockedColdStart:true,pins:{llm:PACK.llmRevision,asr:PACK.asrRevision,vad:PACK.vadRevision},resourceBytes:manifest.reduce((n,x)=>n+x.size,0),manifest};await step(dbPut('meta','prepared',modelsProof));guard();prepared=true;
     $('setup').open=false;notice(tr('preparationDone')+(diag.persistent?'':'\n'+tr('notPersistent')));
   }catch(e){if(epoch!==preparationEpoch||errText(e)==='CANCELLED'){notice(tr('preparationCancelled'));}else{checkRow('checkOffline',false);fail(e,{pause:false});}stopWorkers();}
@@ -1138,11 +1503,11 @@ async function deleteSessionData(s){
   await Promise.allSettled(Array.from(streamCheckpointWrites).filter(([key])=>key.startsWith(checkpointPrefix)).map(([,task])=>task));
   const task=savingQueue.catch(()=>{}).then(async()=>{
     const db=await dbOpen();await new Promise((resolve,reject)=>{
-      const stores=['sessions','sessionMessages','sessionDecisions','audio','meta'],tx=strictWriteTransaction(db,stores);
+      const stores=['sessions','sessionMessages','sessionDecisions','audio','meta','learningEvents'],tx=strictWriteTransaction(db,stores);
       for(const store of ['sessionMessages','sessionDecisions'])tx.objectStore(store).delete(IDBKeyRange.bound(sessionPrefix(id),sessionPrefix(id)+'\uffff'));
       tx.objectStore('audio').delete(IDBKeyRange.bound(id+'/',id+'/\uffff'));
       tx.objectStore('meta').delete(IDBKeyRange.bound(checkpointPrefix,checkpointPrefix+'\uffff'));
-      tx.objectStore('sessions').delete(id);settleWrite(tx,resolve,reject);
+      tx.objectStore('sessions').delete(id);tx.objectStore('learningEvents').delete(IDBKeyRange.bound(id+'|',id+'|\uffff'));tx.objectStore('meta').put(uid(),'learning-revision');tx.objectStore('meta').put(uid(),'learning-epoch');settleWrite(tx,resolve,reject);
     });
   });savingQueue=task;await task;
   for(const key of unsavedAudio.keys())if(key.startsWith(id+'/'))unsavedAudio.delete(key);
@@ -1153,12 +1518,23 @@ async function deleteSessionData(s){
 }
 function emergencySave(s){if(removedSessionIds.has(s.id))return;try{localStorage.setItem('aichat-rescue-'+s.id,JSON.stringify(s));}catch(e){recordEvent('emergency-storage',e);}}
 function observeRuntime(s,kind,result){
-  const observations=s.runtimeObservations??={};
-  const stats=observations[kind]??={attempts:0,successes:0,failures:0,elapsed_ms:0,audio_seconds:0};
-  stats.attempts++;if(result.success===true)stats.successes++;else if(result.success===false)stats.failures++;
-  if(Number.isFinite(result.elapsed_ms))stats.elapsed_ms+=result.elapsed_ms;
-  if(Number.isFinite(result.audio_seconds))stats.audio_seconds+=result.audio_seconds;
+  if(!s||typeof kind!=='string'||!kind||!result||typeof result!=='object')return;
+  if(!s.runtimeObservations||typeof s.runtimeObservations!=='object'||Array.isArray(s.runtimeObservations))s.runtimeObservations={};
+  const observations=s.runtimeObservations;
+  if(!Object.hasOwn(observations,kind)||!observations[kind]||typeof observations[kind]!=='object')Object.defineProperty(observations,kind,{value:{},enumerable:true,writable:true,configurable:true});
+  const stats=observations[kind];
+  for(const key of ['attempts','successes','failures','elapsed_ms','audio_seconds'])if(!Number.isFinite(stats[key])||stats[key]<0)stats[key]=0;
+  stats.attempts++;
+  if(result.success===true)stats.successes++;else if(result.success===false)stats.failures++;
+  if(Number.isFinite(result.elapsed_ms)&&result.elapsed_ms>=0)stats.elapsed_ms+=result.elapsed_ms;
+  if(Number.isFinite(result.audio_seconds)&&result.audio_seconds>=0)stats.audio_seconds+=result.audio_seconds;
   stats.last={...result,at:new Date().toISOString()};
+  const sequence=s.observationSequence=(s.observationSequence||0)+1;
+  if(s.useExperience!==false){
+    const row={id:s.id+'|'+String(sequence).padStart(12,'0'),sessionId:s.id,sequence,at:stats.last.at,kind,source:'runtime',build:BUILD,
+      environment:runtimeEnvironment(),settings:learningSettings(result.settings||s.policy?.values||{}),context:runtimeContext(s),result:{...result}};
+    delete row.result.settings;let pending=learningWrites.get(s);if(!pending){pending=new Map();learningWrites.set(s,pending);}pending.set(row.id,row);
+  }
 }
 async function saveSession(s,audioWrites=[],audioDeletes=[]){
   if(removedSessionIds.has(s.id))throw new Error('STORAGE_SESSION_REMOVED');
@@ -1167,17 +1543,21 @@ async function saveSession(s,audioWrites=[],audioDeletes=[]){
   const referencedAudio=new Set((s.messages||[]).flatMap(m=>m.audioKeys||[]));
   const audio=Array.from(unsavedAudio).filter(([key])=>key.startsWith(s.id+'/')&&referencedAudio.has(key)&&!removed.has(key));
   s.updatedAt=new Date().toISOString();s.revision=(s.revision||0)+1;
+  const learning=Array.from(learningWrites.get(s)?.entries()||[]);
   const meta=cloneSmall(sessionMeta(s)),messages=Array.from(dirtyMessages.get(s)?.entries()||[],([sequence,m])=>[sequence,cloneSmall(m)]),decisions=Array.from(dirtyDecisions.get(s)?.entries()||[],([sequence,d])=>[sequence,cloneSmall(d)]);
   if(current?.id===s.id)$('saveStatus').textContent=tr('saving');
   const task=savingQueue.catch(()=>{}).then(async()=>{const db=await dbOpen();await new Promise((resolve,reject)=>{
-    const tx=strictWriteTransaction(db,['sessions','sessionMessages','sessionDecisions','audio']);
+    const tx=strictWriteTransaction(db,['sessions','sessionMessages','sessionDecisions','audio','learningEvents','meta']);
+    for(const [key,row] of learning)if(row)tx.objectStore('learningEvents').put(row,key);else tx.objectStore('learningEvents').delete(key);
+    if(learning.length)tx.objectStore('meta').put(uid(),'learning-revision');
+    if(learning.some(([key])=>key.startsWith(s.id+'|feedback|')))tx.objectStore('meta').put(uid(),'learning-epoch');
     for(const [key,blob] of audio)tx.objectStore('audio').put(blob,key);
     for(const key of removed)tx.objectStore('audio').delete(key);
     for(const [sequence,m] of messages)tx.objectStore('sessionMessages').put(m,partKey(meta.id,sequence));
     for(const [sequence,d] of decisions)tx.objectStore('sessionDecisions').put(d,partKey(meta.id,sequence));
     tx.objectStore('sessions').put(meta,meta.id);settleWrite(tx,resolve,reject);
   });});savingQueue=task;
-  try{await task;for(const key of removed)unsavedAudio.delete(key);for(const [key,blob] of audio)if(unsavedAudio.get(key)===blob)unsavedAudio.delete(key);const md=dirtyMessages.get(s);for(const [sequence,m] of messages){const live=s.messages?.find(x=>x.storageSequence===sequence);if(md?.get(sequence)===live&&live?.storageRevision===m.storageRevision)md.delete(sequence);}const dd=dirtyDecisions.get(s);for(const [sequence] of decisions)dd?.delete(sequence);if(current?.id===s.id&&current.revision===meta.revision)$('saveStatus').textContent=tr('saved');try{const emergency=JSON.parse(localStorage.getItem('aichat-rescue-'+s.id)||'null');if(emergency&&emergency.revision<=meta.revision&&emergency.updatedAt<=meta.updatedAt)localStorage.removeItem('aichat-rescue-'+s.id);}catch{}
+  try{await task;for(const [key,row] of learning)if(learningWrites.get(s)?.get(key)===row)learningWrites.get(s).delete(key);for(const key of removed)unsavedAudio.delete(key);for(const [key,blob] of audio)if(unsavedAudio.get(key)===blob)unsavedAudio.delete(key);const md=dirtyMessages.get(s);for(const [sequence,m] of messages){const live=s.messages?.find(x=>x.storageSequence===sequence);if(md?.get(sequence)===live&&live?.storageRevision===m.storageRevision)md.delete(sequence);}const dd=dirtyDecisions.get(s);for(const [sequence] of decisions)dd?.delete(sequence);if(current?.id===s.id&&current.revision===meta.revision)$('saveStatus').textContent=tr('saved');try{const emergency=JSON.parse(localStorage.getItem('aichat-rescue-'+s.id)||'null');if(emergency&&emergency.revision<=meta.revision&&emergency.updatedAt<=meta.updatedAt)localStorage.removeItem('aichat-rescue-'+s.id);}catch{}
   }catch(e){emergencySave(s);storeBroken=true;if(current?.id===s.id){$('saveStatus').textContent=tr('notSaved');current.paused=true;setGate(false);}renderControls();throw new Error('STORAGE_WRITE_FAILED: '+errText(e));}
 }
 function queueStreamRender(message){streamRenderQueue.set(message.id,message);if(renderFrame)return;renderFrame=requestAnimationFrame(()=>{renderFrame=0;for(const m of streamRenderQueue.values())if(current?.messages.includes(m))renderMessage(m);streamRenderQueue.clear();});}
@@ -1200,15 +1580,16 @@ async function clearStreamCheckpoint(s,m){
 async function flushSave(s){await saveSession(s);}
 function renderMessage(m){
   let e=bubbleMap.get(m.id);const scroller=$('chat');const stick=scroller.scrollHeight-scroller.scrollTop-scroller.clientHeight<80;
-  if(!e){e=document.createElement('article');e.className='bubble '+(m.role==='user'?'user':'assistant');const label=document.createElement('div');label.className='bubble-label';const who=document.createElement('span'),time=document.createElement('time');label.append(who,time);const body=document.createElement('div');body.className='bubble-text';const meta=document.createElement('div');meta.className='bubble-meta';e.append(label,body,meta);scroller.append(e);bubbleMap.set(m.id,e);}
+  if(!e){e=document.createElement('article');e.className='bubble '+(m.role==='user'?'user':'assistant');const label=document.createElement('div');label.className='bubble-label';const who=document.createElement('span'),time=document.createElement('time');label.append(who,time);const body=document.createElement('div');body.className='bubble-text';const meta=document.createElement('div');meta.className='bubble-meta';const feedback=document.createElement('button');feedback.className='quiet feedback-button';feedback.dataset.feedbackMessage=m.id;feedback.addEventListener('click',()=>openFeedback(m.id).catch(err=>fail(err)));e.append(label,body,meta,feedback);scroller.append(e);bubbleMap.set(m.id,e);}
   e.querySelector('.bubble-label span').textContent=tr(m.role==='user'?'user':'assistant');const time=e.querySelector('time');time.dateTime=m.at;time.textContent=new Date(m.at).toLocaleTimeString(language,{hour:'2-digit',minute:'2-digit'});e.querySelector('.bubble-text').textContent=[m.text,...(m.recoveredAudio||[]).map(item=>tr('recoveredAudioText')+': '+item.text)].filter(Boolean).join('\n')||(m.audioKeys?.length?tr('pendingAudio'):'…');
-  const notes=[];if(m.state==='interrupted')notes.push(tr('generatedPartial'));if(m.delivery==='interrupted_by_user')notes.push(tr('interruptedByUser'));if(m.limited)notes.push(tr(m.limitSource==='ai'?'aiOutputLimit':'contextCut'));if(m.role==='assistant'&&['interrupted','not_spoken','paused_for_confirmation'].includes(m.delivery)&&m.state!=='generating')notes.push(tr('notSpoken'));if(m.role==='assistant'&&m.voiceSettings?.speech_volume===0)notes.push(tr('mutedSpeech'));if(m.audioKeys?.length&&m.text)notes.push(tr('pendingAudio'));if(m.hadUntranscribedAudio)notes.push(tr('textOnlyBackup'));if(m.captureRecovered&&m.audioKeys?.length)notes.push(tr('captureRecovered'));e.querySelector('.bubble-meta').textContent=notes.join(' · ');e.classList.toggle('pending',m.state==='generating');$('empty').hidden=true;
+  const feedback=e.querySelector('[data-feedback-message]');feedback.textContent=tr(m.userFeedback?.text?'feedbackEdit':'feedbackAction');feedback.hidden=m.state==='generating'||!m.text;feedback.disabled=preparing||packBusy||archiving||current?.state==='closing';
+  const notes=[];if(m.userFeedback?.text)notes.push(tr('feedbackRecorded'));if(m.state==='interrupted')notes.push(tr('generatedPartial'));if(m.delivery==='interrupted_by_user')notes.push(tr('interruptedByUser'));if(m.limited)notes.push(tr(m.limitSource==='ai'?'aiOutputLimit':'contextCut'));if(m.role==='assistant'&&['interrupted','not_spoken','paused_for_confirmation'].includes(m.delivery)&&m.state!=='generating')notes.push(tr('notSpoken'));if(m.role==='assistant'&&hasMutedSpeech(m))notes.push(tr('mutedSpeech'));if(m.audioKeys?.length&&m.text)notes.push(tr('pendingAudio'));if(m.hadUntranscribedAudio)notes.push(tr('textOnlyBackup'));if(m.captureRecovered&&m.audioKeys?.length)notes.push(tr('captureRecovered'));e.querySelector('.bubble-meta').textContent=notes.join(' · ');e.classList.toggle('pending',m.state==='generating');$('empty').hidden=true;
   $('pendingAudioCurrent').hidden=!current?.messages.some(m=>m.audioKeys?.length);if(stick)scroller.scrollTop=scroller.scrollHeight;
 }
 function renderConversation(){$('chat').replaceChildren();bubbleMap.clear();$('empty').hidden=!(!current||current.messages.length===0);for(const m of current?.messages||[])renderMessage(m);}
 async function startConversation(){
-  if(starting||preparing||checkingOffline||repairingAudio||archiving||isLive()||!prepared||appBlocked||!bootReady||storeBroken)return;
-  const epoch=++startEpoch;starting=true;notice('');setPhase('starting');let stream;
+  if(starting||preparing||checkingOffline||repairingAudio||archiving||packBusy||isLive()||!prepared||appBlocked||!bootReady||storeBroken)return;
+  clearModelPackDownload();unlockPlayback();const epoch=++startEpoch;starting=true;notice('');setPhase('starting');let stream;
   const s={id:uid(),language,uiLanguage:language,speechLanguage,useExperience,prompt:$('prompt').value.trim(),createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),state:'active',build:BUILD,messages:[],decisions:[],notes:[],policy:null,paused:document.hidden,finalized:false,revision:0,storageFormat:2,messageSeq:0,decisionSeq:0};
   current=s;pendingSegments=new Set();asrQueue=Promise.resolve();turnTask=Promise.resolve();activeTurns.clear();voiceInProgress=false;
   detectorStats={frames:0,meanProbability:0,varianceAccumulator:0};lastVoiceStarted=null;
@@ -1258,17 +1639,21 @@ async function transcribeStoredAudio(s,message,key,{allowFinalized=false}={}){
   const segment=message.audioSegments.find(x=>x.key===key);if(!segment)throw new Error('STORAGE_AUDIO_INDEX_MISSING');
   const pcm=unsavedAudio.get(key)||await dbGet('audio',key);if(!(pcm instanceof Blob)||!pcm.size||pcm.size%Float32Array.BYTES_PER_ELEMENT)throw new Error('STORAGE_AUDIO_MISSING');
   const buffer=await pcm.arrayBuffer(),started=performance.now();
-  const recognition=s.speechLanguage==='auto'?(s.policy?.values?.recognition_language||'auto'):(s.speechLanguage||'auto');
+  let recognition=segment.recognitionDecision?.recognition_language||s.policy?.values?.recognition_language;
+  if(!['auto','zh-CN','en'].includes(recognition)||s.speechLanguage&&s.speechLanguage!=='auto'&&recognition!==s.speechLanguage){
+    const decision=await engine.call('recognition',{sessionId:s.id,prompt:s.prompt,speechLanguage:s.speechLanguage||'auto',messages:s.messages});
+    recognition=decision.recognition_language;segment.recognitionDecision={...decision,at:new Date().toISOString(),source:'ai'};markMessage(s,message);await saveSession(s);
+  }
   let result;
   try{
     result=await engine.call('transcribe',{sessionId:s.id,audio:buffer,speechLanguage:recognition},[buffer]);
     if(typeof result?.text!=='string')throw new Error('ASR_RESULT_INVALID');
   }catch(e){
-    if(!s.finalized||allowFinalized){segment.attempts=(segment.attempts||0)+1;segment.lastError=errText(e);observeRuntime(s,'transcription',{success:false,elapsed_ms:performance.now()-started,audio_seconds:pcm.size/4/AUDIO_SPEC.rate,error:errText(e)});markMessage(s,message);await saveSession(s);}
+    if(!s.finalized||allowFinalized){segment.attempts=(segment.attempts||0)+1;segment.lastError=errText(e);observeRuntime(s,'transcription',{success:false,elapsed_ms:performance.now()-started,audio_seconds:pcm.size/4/AUDIO_SPEC.rate,error:errText(e),messageId:message.id});markMessage(s,message);await saveSession(s);}
     throw e;
   }
   if(s.finalized&&!allowFinalized)return false;
-  observeRuntime(s,'transcription',{success:!!result.text.trim(),elapsed_ms:performance.now()-started,audio_seconds:pcm.size/4/AUDIO_SPEC.rate,language:result.language||recognition});
+  observeRuntime(s,'transcription',{success:!!result.text.trim(),elapsed_ms:performance.now()-started,audio_seconds:pcm.size/4/AUDIO_SPEC.rate,language:result.language||recognition,messageId:message.id});
   segment.attempts=(segment.attempts||0)+1;
   if(!result.text.trim()){segment.lastError='ASR_EMPTY_RESULT';markMessage(s,message);await saveSession(s);return false;}
   const beforeSegment=cloneSmall(segment);let recoveredEntry=null;
@@ -1303,8 +1688,8 @@ async function retryPendingAudio(s,{allowFinalized=false}={}){
 async function receiveSegment(m){
   const s=current;if(!s||s.finalized||!['active','closing'].includes(s.state))return;
   let message=activeTurns.get(m.turn);
-  if(!message){message=newMessage('user');s.messages.push(message);markMessage(s,message);activeTurns.set(m.turn,message);}
-  if(!m.continued){setGate(false);if(s.state==='active'&&!s.paused)setPhase('recognizing');}
+  if(!message){message=newMessage('user');message.inputSettings=cloneSmall(s.policy?.values||{});message.learningContext=runtimeContext(s);s.messages.push(message);markMessage(s,message);activeTurns.set(m.turn,message);}
+  if(!m.continued){s.awaitingCandidate=false;setGate(false);if(s.state==='active'&&!s.paused)setPhase('recognizing');}
   const audioKey=s.id+'/'+message.id+'/'+m.segment;
   const hasAudio=!!m.audio.byteLength;
   if(hasAudio){ensureAudioSegments(message);message.audioSegments.push({key:audioKey,sequence:m.segment,state:'pending',text:'',audioSeconds:m.audio.byteLength/Float32Array.BYTES_PER_ELEMENT/AUDIO_SPEC.rate});message.audioKeys.push(audioKey);markMessage(s,message);}
@@ -1324,7 +1709,7 @@ async function receiveSegment(m){
   asrQueue=pending;
   if(!m.continued){
     const outputTurn=turnTask;
-    turnTask=pending.then(()=>outputTurn.catch(()=>{})).then(async()=>{if(s.state!=='active'||s.paused||s.finalized)return;s.bargeIn=false;if(message.text.trim())await decide(s,'user');else{notice(tr('lastAudioPending'));await listen();}}).catch(e=>{if(s.state==='active')fail(e);}).finally(()=>{if(activeTurns.get(m.turn)===message)activeTurns.delete(m.turn);});
+    turnTask=pending.then(()=>outputTurn.catch(()=>{})).then(async()=>{if(s.state!=='active'||s.paused||s.finalized)return;s.bargeIn=false;s.awaitingCandidate=false;if(message.text.trim())await decide(s,'user');else{notice(tr('lastAudioPending'));await listen();}}).catch(e=>{if(s.state==='active')fail(e);}).finally(()=>{if(activeTurns.get(m.turn)===message)activeTurns.delete(m.turn);});
   }
   pending.catch(e=>{if(s.state==='active')fail(e);});
 
@@ -1335,12 +1720,13 @@ async function respond(s){
   if(s.state!=='active'||s.paused||$('endDialog').open)return;
   setGate(false);setPhase('thinking');const message=newMessage('assistant');
   if(!s.policy?.ready)throw new Error('CONTROLLER_SETTINGS_UNRESOLVED');
-  message.voiceSettings=JSON.parse(JSON.stringify(s.policy.values));
+  message.voiceSettings=cloneSmall(s.policy.values);message.learningContext=runtimeContext(s);
   s.messages.push(message);markMessage(s,message);renderMessage(message);await saveSession(s);
   if(s.state!=='active'||s.paused||s.finalized||$('endDialog').open){message.state='interrupted';markMessage(s,message);await saveSession(s);return;}
   try{
-    const r=await engine.call('generate',{messages:s.messages.filter(m=>m.id!==message.id),prompt:s.prompt,language:s.uiLanguage||s.language,sessionId:s.id,messageId:message.id,settings:s.policy,useExperience:s.useExperience});
+    const generationStarted=performance.now();const r=await engineCall('generate',{messages:s.messages.filter(m=>m.id!==message.id),prompt:s.prompt,language:s.uiLanguage||s.language,sessionId:s.id,messageId:message.id,settings:s.policy,useExperience:s.useExperience});
     if(s.finalized)return;
+    observeRuntime(s,'dialogue_generation',{success:!!r.text?.trim(),censored:!!r.interrupted,elapsed_ms:performance.now()-generationStarted,output_tokens:r.outputBudget,settings:s.policy.values});
     message.text=r.text;message.state=r.interrupted||s.state!=='active'?'interrupted':'complete';message.limited=r.limited;message.limitSource=r.limitSource;markMessage(s,message);
     renderMessage(message);await saveSession(s);await clearStreamCheckpoint(s,message);
     if(r.interrupted||current!==s||s.state!=='active'||s.paused||$('endDialog').open){message.delivery='not_spoken';return;}
@@ -1355,33 +1741,70 @@ async function respond(s){
   }
 }
 
+async function speechPause(message,index,seconds){
+  const remaining=message.deliveryPause?.after===index?message.deliveryPause.remainingMs:seconds*1000;
+  if(!(remaining>0)){message.deliveryPause=null;return;}
+  return new Promise((resolve,reject)=>{
+    const started=performance.now();let settled=false,cancelTimer=null;
+    message.deliveryPause={after:index,remainingMs:remaining};
+    const finish=cancelled=>{
+      if(settled)return;settled=true;cancelTimer?.();if(speechCancel===cancel)speechCancel=null;
+      message.deliveryPause=cancelled?{after:index,remainingMs:Math.max(0,remaining-(performance.now()-started))}:null;
+      cancelled?reject(new Error('SPEECH_CANCELLED')):resolve();
+    };
+    const cancel=()=>finish(true);speechCancel=cancel;
+    cancelTimer=deadlineTimer(()=>finish(false),remaining);
+  });
+}
 async function deliverReply(s,message){
   if(!message.text.trim())throw new Error('MODEL_EMPTY_REPLY');
   const values=message.voiceSettings||s.policy?.values;if(!values)throw new Error('CONTROLLER_SETTINGS_UNRESOLVED');
+  const parts=message.speechSegments||speechParts(message.text),voices=localVoices.map(v=>({id:voiceIdentity(v),name:v.name,lang:v.lang}));
+  if(!validDeliveryPlan({delivery_plan:message.deliveryPlan},parts,voices)){
+    const planned=await engineCall('delivery',{sessionId:s.id,messageId:message.id,text:message.text,prompt:s.prompt,voices,settings:s.policy,useExperience:s.useExperience});
+    if(current!==s||s.state!=='active'||s.paused||s.finalized||$('endDialog').open)return;
+    if(!validDeliveryPlan(planned,parts,voices))throw new Error('DELIVERY_PLAN_INVALID');
+    message.speechSegments=planned.segments;message.deliveryPlan=planned.delivery_plan;markMessage(s,message);await saveSession(s);
+  }
   const canInterrupt=values.interrupt_on_voice===true,started=performance.now();
+  if(current!==s||s.state!=='active'||s.paused||s.finalized||$('endDialog').open)return;
   setPhase('speaking');message.delivery='speaking';markMessage(s,message);
-  const parts=speechParts(message.text,/[\u3400-\u9fff]/.test(message.text)?'zh-CN':'en');
   const start=Number.isSafeInteger(message.spokenParts)?Math.max(0,Math.min(message.spokenParts,parts.length)):0;
   try{
-    if(canInterrupt){voiceInProgress=false;await vad.call('enable');if(current!==s||s.state!=='active'||s.paused||$('endDialog').open)return;setGate(true);}
+    if(canInterrupt){voiceInProgress=false;voiceConfirmed=false;await vad.call('enable');if(current!==s||s.state!=='active'||s.paused||$('endDialog').open)return;setGate(true);}
+    if(message.deliveryPause?.remainingMs>0)await speechPause(message,message.deliveryPause.after,message.deliveryPause.remainingMs/1000);
     for(let index=start;index<parts.length;index++){
       if(s.state!=='active'||s.paused||$('endDialog').open||s.bargeIn){message.delivery=s.bargeIn?'interrupted_by_user':$('endDialog').open?'paused_for_confirmation':'interrupted';break;}
-      const part=parts[index],voice=resolveLocalVoice(values.voice,part);if(!voice)throw new Error('LOCAL_VOICE_MISSING:'+(/[\u3400-\u9fff]/.test(part)?'zh-CN':'en'));
+      const part=parts[index],item=message.deliveryPlan[index],voice=resolveLocalVoice(item.voice),pieceStarted=performance.now();
       const offset=index===start&&Number.isSafeInteger(message.spokenOffset)?Math.max(0,Math.min(message.spokenOffset,part.length)):0;
-      if(offset<part.length&&part.trim())await speakPiece(part.slice(offset),voice,values.speech_rate,values.speech_pitch,values.speech_volume,charIndex=>{
-        const position=Math.max(offset+charIndex,message.spokenOffset||0);recordPlayback(s,message,parts,index,position);
-      });
+      let completed=false,error=null;
+      try{
+        if(offset<part.length&&part.trim())await speakPiece(part.slice(offset),voice,item.rate,item.pitch,item.volume,charIndex=>{
+          const position=Math.max(offset+charIndex,message.spokenOffset||0);recordPlayback(s,message,parts,index,position);
+        });
+        completed=true;
+      }catch(e){error=e;throw e;}
+      finally{
+        observeRuntime(s,'playback_segment',{success:completed,censored:!!error&&errText(error)==='SPEECH_CANCELLED',elapsed_ms:performance.now()-pieceStarted,messageId:message.id,segment:index,
+          settings:{...values,voice:item.voice,speech_rate:item.rate,speech_pitch:item.pitch,speech_volume:item.volume},error:error?errText(error):null});
+      }
       recordPlayback(s,message,parts,index+1,0);await saveSession(s);
+      await speechPause(message,index,item.pause_after);
     }
     if(message.delivery==='speaking'){message.delivery='spoken';markMessage(s,message);}
   }catch(e){
     if(message.delivery==='speaking')message.delivery=$('endDialog').open?'paused_for_confirmation':s.bargeIn?'interrupted_by_user':'interrupted';
     throw e;
   }finally{
-    if(!s.finalized){observeRuntime(s,'playback',{success:message.delivery==='spoken',elapsed_ms:performance.now()-started,delivery:message.delivery,confirmed_characters:deliveredText(message).length,generated_characters:message.text.length,voice:values.voice,rate:values.speech_rate,pitch:values.speech_pitch,volume:values.speech_volume});markMessage(s,message);}
+    if(!s.finalized){observeRuntime(s,'playback',{success:message.delivery==='spoken',censored:['interrupted_by_user','paused_for_confirmation'].includes(message.delivery)||s.paused||s.state!=='active',elapsed_ms:performance.now()-started,delivery:message.delivery,confirmed_characters:deliveredText(message).length,generated_characters:message.text.length});markMessage(s,message);}
     if(canInterrupt&&current===s&&s.state==='active'&&!s.paused&&!$('endDialog').open){
       if(s.bargeIn){if(voiceInProgress){setPhase('listening');setGate(true);}}
-      else{setGate(false);await captureDrain;const state=await vad?.call('status');if(current===s&&s.state==='active'&&!s.paused&&!$('endDialog').open){if(state?.speaking||voiceInProgress){s.bargeIn=true;setPhase('listening');setGate(true);}else await vad?.call('disable');}}
+      else{
+        setGate(false);await captureDrain;const state=await vad?.call('status');
+        if(current===s&&s.state==='active'&&!s.paused&&!$('endDialog').open){
+          if(state?.speaking||voiceInProgress){s.awaitingCandidate=true;setPhase('listening');setGate(true);}else await vad?.call('disable');
+        }
+      }
     }
   }
 }
@@ -1417,11 +1840,54 @@ async function cancelEnd(){
   if(s?.state!=='active')return;
   if(!hold?.wasPaused&&!document.hidden)await resumeConversation();else renderControls();
 }
+
+async function openFeedback(id){
+  if(packBusy||preparing||starting||checkingOffline||archiving||repairingAudio||appBlocked||current?.state==='closing')return;
+  const s=current,message=s?.messages.find(m=>m.id===id);if(!message||message.state==='generating')return;
+  feedbackTarget={session:s,message};feedbackWasPaused=s.paused===true;
+  $('feedbackQuote').textContent=message.text;$('feedbackInput').value=message.userFeedback?.text||'';$('feedbackKind').value=message.userFeedback?.kind||'note';
+  for(const option of $('feedbackKind').options)option.disabled=option.value.startsWith('asr_')?message.role!=='user':option.value!=='note'&&message.role!=='assistant';
+  if($('feedbackKind').selectedOptions[0]?.disabled)$('feedbackKind').value='note';
+  $('feedbackDialog').showModal();$('feedbackInput').focus();
+  if(s.state==='active')await pauseConversation(s);
+}
+
+function queueFeedbackEvidence(s,message){
+  const feedback=message.userFeedback,kind=feedback?.kind||'note',mapping={dialogue:'dialogue_quality',asr:'transcription',vad:'voice_confirmed',delivery:'playback'};
+  const split=kind.lastIndexOf('_'),objective=mapping[kind.slice(0,split)],label=kind.slice(split+1),id=s.id+'|feedback|'+message.id;
+  let pending=learningWrites.get(s);if(!pending){pending=new Map();learningWrites.set(s,pending);}
+  if(!objective||!['positive','negative'].includes(label)||s.useExperience===false||(objective==='transcription'?message.role!=='user':message.role!=='assistant')){pending.set(id,null);return;}
+  pending.set(id,{id,sessionId:s.id,at:feedback.at,kind:objective,source:'user',build:BUILD,environment:runtimeEnvironment(),
+    settings:learningSettings(message.inputSettings||message.voiceSettings||{}),context:message.learningContext||{},result:{success:label==='positive',messageId:message.id,feedback:feedback.text}});
+}
+async function finishFeedback(save){
+
+  const target=feedbackTarget;if(!target)return;
+  $('saveFeedback').disabled=true;
+  try{
+    const {session:s,message}=target;
+    if(save){
+      const kind=$('feedbackKind').value,typed=$('feedbackInput').value.trim();
+      const text=typed||(kind!=='note'?$('feedbackKind').selectedOptions[0].textContent:'');
+      if(text)message.userFeedback={text,kind,at:new Date().toISOString()};else delete message.userFeedback;
+      queueFeedbackEvidence(s,message);
+      s.userFeedback=s.messages.filter(m=>m.userFeedback?.text).map(m=>({messageId:m.id,role:m.role,original:m.text,...m.userFeedback}));
+      markMessage(s,message);await saveSession(s);await optimizeExperience();renderMessage(message);await renderHistory();
+      if(s.state==='ended')$('exportCurrent').hidden=false;
+    }
+    $('feedbackDialog').close();feedbackTarget=null;
+    if(target.session.state==='active'&&!feedbackWasPaused&&!document.hidden){target.session.pendingEvent=save?'user_feedback':'resume';await resumeConversation();}
+    else{renderControls();if(save)notice(tr('feedbackSaved'));}
+  }catch(e){fail(e,{pause:false});}
+  finally{$('saveFeedback').disabled=false;}
+}
+
 function exportBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.style.display='none';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
 function filenameFor(s,extension){return 'AIChat_'+s.createdAt.replace(/[:.]/g,'-')+'_'+s.id.slice(0,8)+'.'+extension;}
 function transcript(s,lang=s.language||language){
   const lines=['AIChat',tr('startedTitle',lang)+': '+s.createdAt,tr('endedTitle',lang)+': '+(s.endedAt||'—'),tr('uiLanguageLabel',lang)+': '+(s.uiLanguage||s.language),tr('recognitionLanguageLabel',lang)+': '+(s.speechLanguage||'auto'),tr('statusLabel',lang)+': '+(s.state==='ended'?tr('complete',lang):s.state==='active'?tr('active',lang):tr('interrupted',lang)),'',tr('promptTitle',lang),s.prompt||'—',''];
-  for(const m of s.messages){lines.push('['+m.at+'] '+tr(m.role==='user'?'user':'assistant',lang));if(m.role==='assistant')lines.push(tr('generatedText',lang)+':');lines.push(m.text||tr('pendingAudio',lang));if(m.state==='interrupted')lines.push('['+tr('generatedPartial',lang)+']');if(m.role==='assistant'&&(m.delivery!=='spoken'||m.voiceSettings?.speech_volume===0)){lines.push('['+tr('notSpoken',lang)+']',tr('confirmedSpeech',lang)+':',deliveredText(m)||tr('speechUnconfirmed',lang));}if(m.voiceSettings?.speech_volume===0)lines.push('['+tr('mutedSpeech',lang)+']');for(const item of m.recoveredAudio||[])lines.push(tr('recoveredAudioText',lang)+':',item.text);if(m.limited)lines.push('['+tr(m.limitSource==='ai'?'aiOutputLimit':'contextCut',lang)+']');if(m.audioKeys?.length)lines.push('['+tr('pendingAudio',lang)+']');lines.push('');}
+  for(const m of s.messages){lines.push('['+m.at+'] '+tr(m.role==='user'?'user':'assistant',lang));if(m.role==='assistant')lines.push(tr('generatedText',lang)+':');lines.push(m.text||tr('pendingAudio',lang));if(m.state==='interrupted')lines.push('['+tr('generatedPartial',lang)+']');if(m.role==='assistant'&&(m.delivery!=='spoken'||deliveredText(m)!==m.text)){lines.push('['+tr('notSpoken',lang)+']',tr('confirmedSpeech',lang)+':',deliveredText(m)||tr('speechUnconfirmed',lang));}if(hasMutedSpeech(m))lines.push('['+tr('mutedSpeech',lang)+']');for(const item of m.recoveredAudio||[])lines.push(tr('recoveredAudioText',lang)+':',item.text);if(m.limited)lines.push('['+tr(m.limitSource==='ai'?'aiOutputLimit':'contextCut',lang)+']');if(m.audioKeys?.length)lines.push('['+tr('pendingAudio',lang)+']');lines.push('');}
+  const feedback=(s.messages||[]).filter(m=>m.userFeedback?.text);if(feedback.length){lines.push(tr('feedbackTitle',lang));for(const m of feedback)lines.push('['+m.userFeedback.at+'] '+tr(m.role==='user'?'user':'assistant',lang)+': '+m.text,m.userFeedback.text,'');}
   if(s.notes?.length)lines.push(tr('notesTitle',lang),...Array.from(new Set(s.notes)));
   lines.push('',tr('buildTitle',lang)+': '+(s.build||'legacy'),tr('confirmedAtTitle',lang)+': '+(s.endConfirmedAt||'—'));
   return lines.join('\n');
@@ -1481,8 +1947,8 @@ async function confirmEnd(){
     catch(e){setPhase('error');fail(e,{pause:false});}
     renderConversation();const folderSaved=await writeEndedTranscript(s);
     if(folderSaved)notice(tr(saved?'folderSaved':'folderSavedHistoryFailed'),!saved);
-    else{exportSession(s,false);if(saved)notice((timedOut?tr('endingTimeout')+'\n':'')+(s.messages.some(m=>m.audioKeys?.length)?tr('lastAudioPending')+'\n':'')+tr('exportRequested'));}
-    await renderHistory().catch(()=>{});renderControls();updateDiagnostics();
+    else{exportSession(s,false);if(saved)notice((timedOut?tr('endingTimeout')+'\n':'')+(s.messages.some(m=>m.audioKeys?.length)?tr('lastAudioPending')+'\n':'')+tr('exportRequested')+'\n'+tr('savedDownloadHint'));}
+    await renderHistory().catch(()=>{});renderControls();updateDiagnostics();await optimizeExperience();
   }
 }
 
@@ -1491,7 +1957,7 @@ async function pauseForVisibility(){
 }
 async function resumeConversation(){
   const s=current;if(s?.state!=='active'||starting||resuming||$('endDialog').open||document.hidden)return;
-  resuming=true;renderControls();s.paused=true;const revision=s.pauseRevision||0;
+  unlockPlayback();resuming=true;renderControls();s.paused=true;const revision=s.pauseRevision||0;
   const valid=()=>current===s&&s.state==='active'&&!s.finalized&&!document.hidden&&!$('endDialog').open&&(s.pauseRevision||0)===revision;
   const unlock=audioContext?.resume();unlock?.catch(()=>{});
   try{
@@ -1513,7 +1979,7 @@ async function resumeConversation(){
 }
 
 async function renderHistory(){
-  const list=$('historyList');if(!list)return;const entries=(await dbEntries('sessions')).map(([,v])=>v).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));list.replaceChildren();$('historyCount').textContent=String(entries.length);$('experienceStatus').textContent=entries.filter(s=>s.experience?.note&&['ended','interrupted'].includes(s.state)).length+' '+tr('experienceCount');
+  const list=$('historyList');if(!list)return;const entries=(await dbEntries('sessions')).map(([,v])=>v).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));list.replaceChildren();$('historyCount').textContent=String(entries.length);$('experienceStatus').textContent=entries.filter(s=>(s.experience?.note||s.userFeedback?.length)&&['ended','interrupted'].includes(s.state)).length+' '+tr('experienceCount');
   if(!entries.length){const p=document.createElement('p');p.textContent=tr('noneHistory');list.append(p);}
   for(const meta of entries){const row=document.createElement('div');row.className='history-item';const title=document.createElement('div');title.className='history-title';title.textContent=meta.prompt||'AIChat';const date=document.createElement('div');date.className='history-date';date.textContent=new Date(meta.createdAt).toLocaleString(language)+(meta.state==='interrupted'?' · '+tr('recordInterrupted'):'');const actions=document.createElement('div');actions.className='button-row';
     const full=()=>loadSession(meta.id);
@@ -1583,7 +2049,7 @@ async function createRecordBackup(){
   return {format:'AIChat-backup',version:2,createdAt:new Date().toISOString(),build:BUILD,note:tr('backupContents'),sessions,audio};
 }
 async function backupAll(){
-  if(archiving||!bootReady)return;
+  if(archiving||packBusy||appBlocked||!bootReady)return;
   archiving=true;renderControls();notice(tr('backupWorking'));
   try{
     const backup=await createRecordBackup();if(!backup.sessions.length){notice(tr('backupEmpty'));return;}
@@ -1594,6 +2060,8 @@ async function backupAll(){
 function validateImportedRecord(s){
   const object=x=>!!x&&typeof x==='object'&&!Array.isArray(x),date=x=>typeof x==='string'&&Number.isFinite(Date.parse(x)),strings=x=>Array.isArray(x)&&x.every(v=>typeof v==='string'),integer=x=>Number.isSafeInteger(x)&&x>=0;
   if(!object(s)||typeof s.id!=='string'||!s.id||typeof s.prompt!=='string'||!['zh-CN','en'].includes(s.language)||!date(s.createdAt)||!Array.isArray(s.messages))return false;
+  const validFeedback=x=>object(x)&&typeof x.text==='string'&&date(x.at);
+  if(s.userFeedback!==undefined&&(!Array.isArray(s.userFeedback)||!s.userFeedback.every(x=>validFeedback(x)&&typeof x.messageId==='string')))return false;
   if(s.notes!==undefined&&!strings(s.notes)||s.decisions!==undefined&&(!Array.isArray(s.decisions)||!s.decisions.every(object)))return false;
   if(s.runtimeObservations!=null&&!object(s.runtimeObservations)||s.experience!=null&&(!object(s.experience)||typeof s.experience.note!=='string'))return false;
   if(s.runtimeObservations!=null)for(const stats of Object.values(s.runtimeObservations)){if(!object(stats))return false;for(const key of ['attempts','successes','failures','elapsed_ms','audio_seconds'])if(typeof stats[key]!=='number'||!Number.isFinite(stats[key])||stats[key]<0)return false;}
@@ -1601,8 +2069,15 @@ function validateImportedRecord(s){
   const ids=new Set();
   for(const m of s.messages){
     if(!object(m)||typeof m.id!=='string'||!m.id||ids.has(m.id)||!['user','assistant'].includes(m.role)||typeof m.text!=='string'||!date(m.at))return false;ids.add(m.id);
+    if(m.userFeedback!==undefined&&!validFeedback(m.userFeedback))return false;
     if(m.audioKeys!==undefined&&(!strings(m.audioKeys)||new Set(m.audioKeys).size!==m.audioKeys.length))return false;
     if(m.voiceSettings!=null&&!object(m.voiceSettings)||m.spokenText!==undefined&&(typeof m.spokenText!=='string'||!m.text.startsWith(m.spokenText)))return false;
+    if(m.speechSegments!==undefined&&(!strings(m.speechSegments)||m.speechSegments.join('')!==m.text))return false;
+    if(m.deliveryPlan!==undefined){
+      if(!Array.isArray(m.deliveryPlan)||!m.speechSegments||!m.deliveryPlan.every(item=>object(item)&&typeof item.voice==='string'&&item.voice!=='auto'))return false;
+      if(!validDeliveryPlan({delivery_plan:m.deliveryPlan},m.speechSegments,m.deliveryPlan.map(item=>({id:item.voice}))))return false;
+    }
+    if(m.deliveryPause!=null&&(!object(m.deliveryPause)||!integer(m.deliveryPause.after)||!Number.isFinite(m.deliveryPause.remainingMs)||m.deliveryPause.remainingMs<0||m.deliveryPause.after>=(m.speechSegments?.length||0)))return false;
     for(const key of ['spokenParts','spokenOffset','playbackRevision'])if(m[key]!==undefined&&!integer(m[key]))return false;
     if(m.transcriptionPrefix!==undefined&&typeof m.transcriptionPrefix!=='string')return false;
     if(m.recoveredAudio!==undefined&&(!Array.isArray(m.recoveredAudio)||!m.recoveredAudio.every(x=>object(x)&&typeof x.text==='string')))return false;
@@ -1643,6 +2118,7 @@ async function decodeRecordBackup(data){
       if(full){for(const key of m.audioKeys)audio.push([remap(key),sourceAudio.get(key)]);m.audioKeys=m.audioKeys.map(remap);for(const segment of m.audioSegments||[])segment.key=remap(segment.key);}
       m.id=messageId;if(m.state==='generating')m.state='interrupted';if(['speaking','paused_for_confirmation'].includes(m.delivery))m.delivery='interrupted';return m;
     });
+    s.userFeedback=(s.userFeedback||[]).map(x=>({...x,messageId:messageIds.get(x.messageId)||x.messageId}));
     for(const d of s.decisions)if(Array.isArray(d.experience_sources))d.experience_sources=d.experience_sources.map(key=>sessionIds.get(key)||key);
     if(typeof source.experience?.note==='string')s.experience={note:source.experience.note,evidence:typeof source.experience.evidence==='string'?source.experience.evidence:'',at:source.experience.at||s.createdAt,settings:source.experience.settings&&typeof source.experience.settings==='object'?cloneSmall(source.experience.settings):null,messageId:messageIds.get(source.experience.messageId)||null,imported:true};
     s.messages.forEach((m,i)=>m.storageSequence=i);s.decisions.forEach((d,i)=>d.storageSequence=i);s.messageSeq=s.messages.length;s.decisionSeq=s.decisions.length;s.storageFormat=2;sessions.push(s);
@@ -1663,7 +2139,7 @@ async function commitRecordImport({sessions,audio}){
 async function importBackup(file){
   if(!file)return;
   if(appBlocked){notice(tr('otherTabHelp'));return;}
-  if(archiving){notice(tr('archiveBusy'));return;}
+  if(archiving||packBusy){notice(tr('archiveBusy'));return;}
   if(isLive()||repairingAudio||preparing||checkingOffline||starting||!bootReady){notice(tr('importBusy'));$('backupFile').value='';return;}
   archiving=true;renderControls();notice(tr('importWorking'));
   try{const decoded=await decodeRecordBackup(JSON.parse(await file.text()));await commitRecordImport(decoded);await renderHistory();notice(tr('importDone'));}
@@ -1691,33 +2167,39 @@ async function boot(){
   try{checkBrowser();}catch(e){notice(readableError(e),true,e);recordEvent('environment',e);}
   try{
     await checkStorage();await migrateLegacySessions();await recover();modelsProof=await dbGet('meta','prepared');
-    prepared=!!(modelsProof?.networkBlockedColdStart&&modelsProof?.pins?.llm===PACK.llmRevision&&modelsProof?.pins?.asr===PACK.asrRevision&&modelsProof?.pins?.vad===PACK.vadRevision&&await verifyAssetManifest(modelsProof.manifest));limits=prepared?(modelsProof?.limits||null):null;
+    prepared=!!(modelsProof?.limits?.controllerProbe?.protocol==='full-controller-v2'&&modelsProof?.networkBlockedColdStart&&modelsProof?.pins?.llm===PACK.llmRevision&&modelsProof?.pins?.asr===PACK.asrRevision&&modelsProof?.pins?.vad===PACK.vadRevision&&await verifyAssetManifest(modelsProof.manifest));limits=prepared?(modelsProof?.limits||null):null;
     await renderHistory();if(prepared){if(!prepareRequested)sealNetwork();checkRow('checkModels',true);$('setup').open=false;}
   }catch(e){fail(e,{pause:false});}
   try{saveDirectory=await dbGet('meta','export-directory')||null;}catch(e){recordEvent('folder-restore',e);}
   getLocalVoices().catch(e=>recordEvent('voices',e));bootReady=true;renderControls();updateDiagnostics();if(prepareRequested)await prepare();
 }
 
-function clearQuiet(){decisionTimer?.();decisionTimer=null;quietEpoch++;}
+function clearQuiet(){decisionTimer?.();decisionTimer=null;quietWaiting=null;quietEpoch++;}
+function runtimeSignal(kind){
+  runtimeRevision++;
+  const waiting=quietWaiting;if(!waiting||waiting.revision>=runtimeRevision)return;
+  quietWaiting=null;
+  void revisitQuiet(waiting.s,waiting.epoch,'observation:'+kind);
+}
+async function revisitQuiet(s,epoch,event){
+  if(epoch!==quietEpoch||current!==s||s.state!=='active'||s.paused||voiceInProgress||phase!=='listening'||!gate||$('endDialog').open)return;
+  setGate(false);
+  try{
+    await captureDrain;const state=await vad.call('status');
+    if(current!==s||s.state!=='active'||s.paused||phase!=='listening'||$('endDialog').open)return;
+    if(state.speaking||voiceInProgress||epoch!==quietEpoch){setGate(true);return;}
+    await decisionRuns.get(s)?.catch(()=>{});
+    if(current!==s||s.state!=='active'||s.paused||phase!=='listening'||$('endDialog').open)return;
+    if(epoch!==quietEpoch||voiceInProgress){setGate(true);return;}
+    turnTask=decide(s,event);await turnTask;
+  }catch(e){if(s.state==='active')fail(e);}
+}
 function armQuiet(s){
-  clearQuiet();
-  const seconds=s?.policy?.values?.revisit_seconds;
-  if(seconds===null||!Number.isFinite(seconds)||current!==s||s.state!=='active'||s.paused||voiceInProgress||phase!=='listening'||!gate||$('endDialog').open)return;
+  clearQuiet();const seconds=s?.policy?.values?.revisit_seconds;
+  if(seconds===null||!Number.isFinite(seconds)||seconds<0||current!==s||s.state!=='active'||s.paused||voiceInProgress||phase!=='listening'||!gate||$('endDialog').open)return;
   const epoch=quietEpoch;
-
-  const delay=seconds*1000;
-  decisionTimer=deadlineTimer(async()=>{
-    if(epoch!==quietEpoch||current!==s||s.state!=='active'||s.paused||voiceInProgress||phase!=='listening'||$('endDialog').open)return;
-    setGate(false);
-    try{
-      await captureDrain;const state=await vad.call('status');
-      if(current!==s||s.state!=='active'||s.paused||phase!=='listening'||$('endDialog').open)return;
-      if(state.speaking||voiceInProgress){setGate(true);return;}
-      await decisionRuns.get(s)?.catch(()=>{});
-      if(current!==s||s.state!=='active'||s.paused||voiceInProgress||phase!=='listening'||$('endDialog').open)return;
-      turnTask=decide(s,'silence');await turnTask;
-    }catch(e){if(s.state==='active')fail(e);}
-  },delay);
+  if(seconds===0){quietWaiting={s,epoch,revision:runtimeRevision};return;}
+  decisionTimer=deadlineTimer(()=>{void revisitQuiet(s,epoch,'silence');},seconds*1000);
 }
 function decide(s,event){
   const existing=decisionRuns.get(s);if(existing)return existing;
@@ -1731,7 +2213,7 @@ async function runDecision(s,event){
     if(current!==s||s.state!=='active'||s.finalized)return;if(s.paused||$('endDialog').open){s.pendingEvent=event;return;}setPhase('directing');
     try{
       const last=s.messages.filter(m=>m.role==='assistant').at(-1);
-      const result=await engine.call('plan',{prompt:s.prompt,language:s.uiLanguage||s.language,uiLanguage:s.uiLanguage||s.language,speechLanguage:s.speechLanguage||'auto',sessionId:s.id,messages:s.messages,event,useExperience:s.useExperience,
+      const result=await engineCall('plan',{prompt:s.prompt,language:s.uiLanguage||s.language,uiLanguage:s.uiLanguage||s.language,speechLanguage:s.speechLanguage||'auto',sessionId:s.id,messages:s.messages,event,useExperience:s.useExperience,
         previous:s.policy,voices:localVoices.map(v=>({id:voiceIdentity(v),name:v.name,lang:v.lang})),
         silenceSeconds:event==='silence'?(performance.now()-quietStarted)/1000:0,
         observations:{hardwareConcurrency:navigator.hardwareConcurrency??null,deviceMemoryGiB:navigator.deviceMemory??null,
@@ -1741,6 +2223,7 @@ async function runDecision(s,event){
           detector:detectorStats.frames?{frames:detectorStats.frames,meanProbability:detectorStats.meanProbability,variance:detectorStats.varianceAccumulator/detectorStats.frames}:null,
           contextCapacity:limits.contextLimit,voiceCapabilities}});
       if(current!==s||s.state!=='active'||s.finalized)return;
+      observeRuntime(s,'controller_protocol',{success:result.ready===true,elapsed_ms:result.elapsed_ms,repair_fields:result.repaired_fields,settings:result.values});
       s.policy=result;s.pendingAction=result.ready?result.values.action:null;s.pendingEvent=null;
       if(result.ready&&result.source.experience_note==='ai'){const evidence=s.messages.filter(m=>m.role==='user'&&m.text).at(-1);s.experience=result.values.experience_note.trim()?{note:result.values.experience_note,at:new Date().toISOString(),evidence:evidence?.text||s.prompt,messageId:evidence?.id||null,settings:Object.fromEntries(['pause_seconds','speech_probability','minimum_voice_seconds','recognition_language','speech_rate','speech_pitch','speech_volume','interrupt_on_voice'].map(k=>[k,result.values[k]]))}:null;}
       markDecision(s,{at:new Date().toISOString(),event,...result});
@@ -1757,7 +2240,7 @@ async function executeDecision(s){
   const action=s.pendingAction;s.pendingAction=null;
   if(action==='speak'){
     await respond(s);
-    if(s.bargeIn)return null;
+    if(s.bargeIn||s.awaitingCandidate)return null;
     if(current===s&&s.state==='active'&&!s.paused&&!$('endDialog').open)return 'assistant';
   }else if(action==='listen')await listen();
   else throw new Error('CONTROLLER_ACTION_UNRESOLVED');
@@ -1786,11 +2269,138 @@ async function acquireAppLock(){
     }).catch(e=>{appBlocked=true;recordEvent('app-lock',e);resolve(false);});
   });
 }
-async function offlineCheck(){
-  if(!prepared||isLive()||preparing||starting||checkingOffline||repairingAudio||archiving||appBlocked)return;
-  checkingOffline=true;clearQuiet();notice(tr('offlineTestNotice'));renderControls();
+let modelPackDownloadURL=null;
+function clearModelPackDownload(){
+  if(modelPackDownloadURL)URL.revokeObjectURL(modelPackDownloadURL);modelPackDownloadURL=null;
+  $('modelPackDownload').hidden=true;$('modelPackDownload').removeAttribute('href');
+}
+function packProgress(key,loaded,total){
+  $('progressBox').hidden=false;$('progressText').textContent=tr(key)+(Number.isFinite(loaded)?' · '+(loaded/1024/1024).toLocaleString(language,{maximumFractionDigits:1})+' MiB':'');
+  if(total>0){$('progress').max=total;$('progress').value=loaded||0;}else $('progress').removeAttribute('value');
+}
+async function makeModelArchive(guard=()=>{}){
+  const entries=(await dbEntries('files')).filter(([url,item])=>item?.complete&&assetRevision(String(url))).sort((a,b)=>a[0].localeCompare(b[0]));
+  if(!manifestComplete(entries.map(([url,item])=>({url,...item}))))throw new Error('MODEL_ARCHIVE_INCOMPLETE');
+  const files=[],body=[];let loaded=0,total=entries.reduce((sum,[,item])=>sum+(item.size||0),0);
+  for(const [url,item] of entries){
+    guard();const row={url,revision:assetRevision(url),status:item.status,size:item.size,type:item.type||'application/octet-stream',chunks:[]};
+    if(item.status===200){
+      const blob=new Blob(await checkedAssetParts(item,url));guard();
+      for(let offset=0;offset<blob.size;offset+=SAFETY.chunkBytes){
+        const chunk=blob.slice(offset,offset+SAFETY.chunkBytes),sha256=await sha256Blob(chunk);guard();
+        row.chunks.push({size:chunk.size,sha256});body.push(chunk);loaded+=chunk.size;packProgress('packWorking',loaded,total);
+      }
+    }else if(item.status!==404||item.size!==0||item.parts?.length)throw new Error('MODEL_ARCHIVE_INVALID');
+    files.push(row);
+  }
+  const encoded=new TextEncoder().encode(JSON.stringify({format:'AIChat-local-models',version:1,build:BUILD,createdAt:new Date().toISOString(),files}));
+  if(encoded.length>SAFETY.chunkBytes)throw new Error('MODEL_ARCHIVE_HEADER_TOO_LARGE');
+  const header=new Uint8Array(12);header.set(new TextEncoder().encode('AICHAT01'));new DataView(header.buffer).setUint32(8,encoded.length,true);
+  return new Blob([header,encoded,...body],{type:'application/octet-stream'});
+}
+async function readModelArchive(file,guard=()=>{}){
+  if(!(file instanceof Blob)||file.size<12||!Number.isSafeInteger(file.size))throw new Error('MODEL_ARCHIVE_INVALID');
+  const header=await file.slice(0,12).arrayBuffer();guard();
+  if(new TextDecoder().decode(new Uint8Array(header,0,8))!=='AICHAT01')throw new Error('MODEL_ARCHIVE_SIGNATURE');
+  const length=new DataView(header).getUint32(8,true);
+  if(length<1||length>SAFETY.chunkBytes||length+12>file.size)throw new Error('MODEL_ARCHIVE_HEADER');
+  let pack;try{pack=JSON.parse(await file.slice(12,12+length).text());}catch{throw new Error('MODEL_ARCHIVE_HEADER');}guard();
+  if(pack?.format!=='AIChat-local-models'||pack.version!==1||!manifestComplete(pack.files))throw new Error('MODEL_ARCHIVE_INCOMPATIBLE');
+  const seen=new Set(),rows=[];let offset=12+length;
+  for(const row of pack.files){
+    if(!row||typeof row.url!=='string'||seen.has(row.url)||!assetRevision(row.url)||row.revision!==assetRevision(row.url)||!Array.isArray(row.chunks)||!Number.isSafeInteger(row.size)||row.size<0||typeof row.type!=='string'||![200,404].includes(row.status))throw new Error('MODEL_ARCHIVE_RESOURCE');
+    assetURL(row.url);seen.add(row.url);let size=0;const chunks=[];
+    for(const part of row.chunks){
+      if(!part||!Number.isSafeInteger(part.size)||part.size<1||part.size>SAFETY.chunkBytes||typeof part.sha256!=='string'||!/^[a-f0-9]{64}$/.test(part.sha256)||part.size>file.size-offset)throw new Error('MODEL_ARCHIVE_CHUNK');
+      size+=part.size;if(size>row.size)throw new Error('MODEL_ARCHIVE_SIZE');chunks.push({...part,offset});offset+=part.size;
+    }
+    if(size!==row.size||row.status===404&&(size!==0||chunks.length)||row.status===200&&(!size||!chunks.length))throw new Error('MODEL_ARCHIVE_SIZE');
+    rows.push({...row,chunks});
+  }
+  if(offset!==file.size)throw new Error('MODEL_ARCHIVE_SIZE');
+  let loaded=0;
+  for(const row of rows)for(const part of row.chunks){
+    guard();if(await sha256Blob(file.slice(part.offset,part.offset+part.size))!==part.sha256)throw new Error('MODEL_ARCHIVE_HASH');guard();loaded+=part.size;packProgress('packVerifying',loaded,file.size-12-length);
+  }
+  for(const row of rows)if(row.status===200)await verifyExecutable(row.url,new Blob(row.chunks.map(part=>file.slice(part.offset,part.offset+part.size))));
+  return rows;
+}
+async function commitModelRows(rows,proof){
+  const db=await dbOpen();await new Promise((resolve,reject)=>{
+    const tx=strictWriteTransaction(db,['files','meta']);settleWrite(tx,resolve,reject);
+    try{for(const [url,item] of rows)if(item)tx.objectStore('files').put(item,url);else tx.objectStore('files').delete(url);
+      if(proof)tx.objectStore('meta').put(proof,'prepared');else tx.objectStore('meta').delete('prepared');
+    }catch(e){try{tx.abort();}catch{}reject(e);}
+  });
+}
+async function exportModelPack(){
+  if(packBusy||isLive()||preparing||starting||checkingOffline||repairingAudio||archiving||appBlocked||!bootReady||!prepared)return;
+  packBusy=true;const epoch=++packEpoch;const guard=()=>{if(epoch!==packEpoch)throw new Error('CANCELLED');};renderControls();notice(tr('packWorking'));clearModelPackDownload();
   try{
-    sealNetwork();await environmentCheck(true,true);if(!await verifyAssetManifest(modelsProof?.manifest))throw new Error('CACHE_DAMAGED: manifest');stopWorkers();await loadWorkers(false);
+    const blob=await makeModelArchive(guard);guard();modelPackDownloadURL=URL.createObjectURL(blob);
+    const link=$('modelPackDownload');link.href=modelPackDownloadURL;link.download='AIChat_models_'+BUILD+'.aichat-models';link.hidden=false;notice(tr('packSaved'));
+  }catch(e){recordEvent('model-export',e);notice(tr(errText(e)==='CANCELLED'?'packCancelled':'packInvalid'),errText(e)!=='CANCELLED');}
+  finally{packBusy=false;$('progressBox').hidden=true;renderControls();}
+}
+async function ensureExecutableTrust(guard=()=>{}){
+  for(const url of executableAssets()){
+    guard();if(validExecutableTrust(await dbGet('meta',executableTrustKey(url)),url))continue;
+    if(networkSealed)throw new Error('EXECUTABLE_TRUST_REQUIRED: '+url);
+    setNetworkAccess(true);
+    try{await downloadResource(url);guard();}finally{closeNetwork();}
+  }
+}
+async function importModelPack(file){
+  if(!file)return;
+  if(packBusy||isLive()||preparing||starting||checkingOffline||repairingAudio||archiving||appBlocked||!bootReady){$('modelPackFile').value='';return;}
+  packBusy=true;const epoch=++packEpoch,guard=()=>{if(epoch!==packEpoch)throw new Error('CANCELLED');};renderControls();notice(tr('packImporting'));
+  const stageKey='partial:modelpack:'+uid(),keys=[],prior=[],staged=[];let committed=false,accepted=false,rollbackComplete=false;
+  const oldProof=modelsProof,oldPrepared=prepared,oldLimits=limits;
+  try{
+    checkBrowser();await checkStorage();guard();await cleanupAssetCache(false);guard();
+    await ensureExecutableTrust(guard);guard();sealNetwork();await getLocalVoices();guard();
+    const rows=await readModelArchive(file,guard);guard();
+    const estimate=await navigator.storage?.estimate?.().catch(()=>null);guard();
+    const bytes=rows.reduce((sum,row)=>sum+row.size,0);
+    if(estimate&&Number.isFinite(estimate.quota)&&Number.isFinite(estimate.usage)&&estimate.quota-estimate.usage<bytes)throw new Error('STORAGE_SPACE_MODEL_IMPORT');
+    stopWorkers();let loadedBytes=0;await dbPut('meta',stageKey,keys);guard();
+    for(const row of rows){
+      guard();prior.push([row.url,await dbGet('files',row.url)]);const parts=[],hashes={};
+      for(const part of row.chunks){
+        const key=row.url+'#'+stageKey+'#'+parts.length,blob=file.slice(part.offset,part.offset+part.size);
+        keys.push(key);await dbPut('meta',stageKey,keys);guard();await dbPut('chunks',key,blob);guard();
+        parts.push(key);hashes[key]=part.sha256;loadedBytes+=blob.size;packProgress('packImporting',loadedBytes,bytes);
+      }
+      staged.push([row.url,{complete:true,status:row.status,size:row.size,type:row.type,parts,hashes}]);
+    }
+    guard();await commitModelRows(staged,null);committed=true;guard();prepared=false;modelsProof=null;
+    packProgress('coldTest');await loadWorkers(false);guard();await testPlannedSpeech(guard);guard();
+    const manifest=await collectAssetManifest();guard();if(!await verifyAssetManifest(manifest))throw new Error('CACHE_DAMAGED: imported manifest');guard();
+    const proof={build:BUILD,at:new Date().toISOString(),limits,networkBlockedColdStart:true,pins:{llm:PACK.llmRevision,asr:PACK.asrRevision,vad:PACK.vadRevision},resourceBytes:manifest.reduce((n,x)=>n+x.size,0),manifest,imported:true};
+    await dbPut('meta','prepared',proof);guard();modelsProof=proof;prepared=true;accepted=true;
+    await dbDelete('meta',stageKey);await cleanupAssetCache(false);checkRow('checkModels',true);checkRow('checkOffline',true);await getLocalVoices().catch(e=>recordEvent('voices',e));notice(tr('packImported'));
+  }catch(e){
+    stopWorkers();recordEvent('model-import',e);
+    if(committed&&!accepted){try{await commitModelRows(prior,oldProof);rollbackComplete=true;}catch(rollbackError){recordEvent('model-import-rollback',rollbackError);}}
+    prepared=accepted?true:(!committed||rollbackComplete)?oldPrepared:false;modelsProof=accepted?modelsProof:(!committed||rollbackComplete)?oldProof:null;limits=accepted?limits:oldLimits;
+    if(committed&&!accepted&&!rollbackComplete)await dbDelete('meta',stageKey).catch(()=>{});
+    notice(tr(errText(e)==='CANCELLED'?'packCancelled':errText(e).startsWith('STORAGE_SPACE')?'storageSpaceError':'packInvalid'),errText(e)!=='CANCELLED');
+  }finally{
+    if(!accepted&&(!committed||rollbackComplete)){for(const key of keys)await dbDelete('chunks',key).catch(()=>{});await dbDelete('meta',stageKey).catch(()=>{});}
+    closeNetwork();packBusy=false;$('modelPackFile').value='';$('progressBox').hidden=true;setPhase(current?.state==='ended'?'ended':'idle');renderControls();updateDiagnostics();
+  }
+}
+
+async function testPlannedSpeech(guard=()=>{}){
+  const probe=limits?.controllerProbe?.delivery;
+  if(!validDeliveryPlan(probe,probe?.segments||[],localVoices.map(v=>({id:voiceIdentity(v)}))))throw new Error('MODEL_DELIVERY_PROBE_FAILED');
+  for(const item of probe.delivery_plan){guard();await speakPiece(probe.segments[item.segment],resolveLocalVoice(item.voice),item.rate,item.pitch,item.volume);guard();}
+}
+async function offlineCheck(){
+  if(!prepared||isLive()||preparing||starting||checkingOffline||repairingAudio||archiving||packBusy||appBlocked)return;
+  unlockPlayback();checkingOffline=true;clearQuiet();notice(tr('offlineTestNotice'));renderControls();
+  try{
+    sealNetwork();await environmentCheck(true,true);if(!await verifyAssetManifest(modelsProof?.manifest))throw new Error('CACHE_DAMAGED: manifest');stopWorkers();await loadWorkers(false);await testPlannedSpeech();
     checkRow('checkOffline',true);notice(tr('offlineTestDone'));
   }catch(e){checkRow('checkOffline',false);fail(e,{pause:false});}
   finally{checkingOffline=false;$('progressBox').hidden=true;renderControls();updateDiagnostics();}
@@ -1798,6 +2408,19 @@ async function offlineCheck(){
 
 function consumePreparationRequest(){try{const requested=sessionStorage.getItem('aichat-prepare-request')==='yes';sessionStorage.removeItem('aichat-prepare-request');return requested;}catch{return false;}}
 function applyTheme(value){const theme=['light','dark'].includes(value)?value:'auto';if(theme==='auto')delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=theme;$('theme').value=theme;try{localStorage.setItem('aichat-theme',theme);}catch{}}
+
+$('exportModels').addEventListener('click',()=>exportModelPack().catch(e=>fail(e,{pause:false})));
+$('importModels').addEventListener('click',()=>{if(!isLive()&&!packBusy&&!appBlocked)$('packTrustDialog').showModal();});
+$('cancelPackTrust').addEventListener('click',()=>$('packTrustDialog').close());
+$('confirmPackTrust').addEventListener('click',()=>{$('packTrustDialog').close();$('modelPackFile').click();});
+$('modelPackFile').addEventListener('change',()=>importModelPack($('modelPackFile').files[0]));
+$('cancelPack').addEventListener('click',()=>{packEpoch++;stopWorkers();});
+$('saveFeedback').addEventListener('click',()=>finishFeedback(true));
+$('cancelFeedback').addEventListener('click',()=>finishFeedback(false));
+$('feedbackDialog').addEventListener('cancel',event=>{event.preventDefault();finishFeedback(false);});
+$('copyTranscript').addEventListener('click',async()=>{if(!current)return;try{await navigator.clipboard.writeText(transcript(current));notice(tr('copied'));}catch{notice(tr('copyFailed'),true);}});
+document.addEventListener('securitypolicyviolation',event=>{networkAudit.cspViolations++;recordEvent('csp-block',event.effectiveDirective+': '+event.blockedURI);});
+
 $('experienceUse').value=useExperience?'yes':'no';
 $('experienceUse').addEventListener('change',()=>{useExperience=$('experienceUse').value==='yes';try{localStorage.setItem('aichat-experience',useExperience?'yes':'no');}catch{}updateDiagnostics();});
 try{applyTheme(localStorage.getItem('aichat-theme')||'auto');}catch{applyTheme('auto');}
@@ -1826,7 +2449,7 @@ $('backupAll').addEventListener('click',()=>backupAll().catch(e=>fail(e,{pause:f
 document.addEventListener('visibilitychange',()=>pauseForVisibility().catch(e=>recordEvent('visibility',e)));
 window.addEventListener('pagehide',()=>{if(current&&!current.finalized){current.paused=true;current.updatedAt=new Date().toISOString();current.revision=(current.revision||0)+1;emergencySave(current);}clearQuiet();captureStop();cancelSpeech();});
 window.addEventListener('pageshow',()=>{if(current?.state==='active'&&current.paused)setPhase('paused');});
-window.addEventListener('beforeunload',event=>{if(isLive()||preparing||repairingAudio||archiving){if(current){current.updatedAt=new Date().toISOString();current.revision=(current.revision||0)+1;emergencySave(current);}event.preventDefault();event.returnValue='';}});
+window.addEventListener('beforeunload',event=>{if(isLive()||preparing||repairingAudio||archiving||packBusy){if(current){current.updatedAt=new Date().toISOString();current.revision=(current.revision||0)+1;emergencySave(current);}event.preventDefault();event.returnValue='';}});
 window.addEventListener('unhandledrejection',event=>{recordEvent('unhandled-rejection',event.reason);if(current?.state==='active')fail(event.reason);});
 boot();
 </script></body></html>
