@@ -5,14 +5,14 @@
 <style>:root{color-scheme:light;--bg:#f5f6f8;--surface:#fff;--surface-2:#f3f4f7;--ink:#20232c;--muted:#747985;--line:#e8eaf0;--accent:#6559ce;--accent-soft:#f0eefc;--button:#242632;--button-ink:#fff;--danger:#b44955;--shadow:0 3px 14px #1b213003;--radius:22px}
 :root[data-theme=dark]{color-scheme:dark;--bg:#121418;--surface:#1b1d23;--surface-2:#242730;--ink:#e9eaf0;--muted:#989eac;--line:#2e323c;--accent:#aea3ff;--accent-soft:#2b2740;--button:#eeedf8;--button-ink:#242332;--danger:#f097a1;--shadow:none}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#121418;--surface:#1b1d23;--surface-2:#242730;--ink:#e9eaf0;--muted:#989eac;--line:#2e323c;--accent:#aea3ff;--accent-soft:#2b2740;--button:#eeedf8;--button-ink:#242332;--danger:#f097a1;--shadow:none}}
-*{box-sizing:border-box}html{min-height:100%;scrollbar-gutter:stable}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;-webkit-tap-highlight-color:transparent}button,textarea,select,input{font:inherit}button,summary,select{touch-action:manipulation}button,select{color:inherit}button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;max-width:100%;padding:9px 15px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-weight:600;line-height:1.4;cursor:pointer;transition:background .16s,opacity .16s,transform .16s}button:not(:disabled):hover{background:var(--surface-2)}button:not(:disabled):active{transform:translateY(1px)}button:disabled{opacity:.36;cursor:not-allowed}button.primary{background:var(--button);color:var(--button-ink);border-color:transparent}button.primary:not(:disabled):hover{opacity:.88}button.danger:not(:disabled){color:var(--danger)}button.quiet{border-color:transparent;background:transparent;color:var(--muted)}button.icon-button{width:42px;min-height:42px;padding:9px;background:transparent;border:0;border-radius:12px;font-size:24px;font-weight:400}button:focus-visible,summary:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}[hidden]{display:none!important}svg{flex:none}.small,.small-label{font-size:12px}.muted,.small-label{color:var(--muted)}.wrap{width:min(1200px,100%);margin:0 auto;padding:32px max(24px,env(safe-area-inset-right)) max(32px,env(safe-area-inset-bottom)) max(24px,env(safe-area-inset-left))}header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}.brand{display:flex;align-items:center;gap:12px;min-width:0}.mark{display:grid;place-items:center;width:45px;height:45px;border-radius:15px;background:var(--button);color:var(--button-ink)}h1{font-size:21px;line-height:1.15;letter-spacing:-.8px;margin:0 0 5px;font-weight:730}.connection{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11px;line-height:1.3}.dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex:none}.header-tools{display:flex;align-items:center;gap:5px}select{border:1px solid var(--line);border-radius:11px;background:var(--surface);padding:8px 10px;min-height:42px;max-width:100%;font-size:13px}.header-tools select{margin-left:7px;max-width:136px}.workspace{display:grid;grid-template-columns:minmax(270px,324px) minmax(0,1fr);gap:22px;align-items:start}.sidebar{display:grid;gap:16px;min-width:0}.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);min-width:0}.prompt-card{padding:24px}.field-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px}.field-top label{font-size:14px;font-weight:650}textarea{display:block;resize:vertical;width:100%;min-width:0;color:var(--ink);background:transparent;border:0;border-radius:8px;padding:0;line-height:1.8;font-size:15px;outline:none;caret-color:var(--accent)}textarea::placeholder{color:var(--muted);opacity:.8}#prompt{min-height:190px;max-height:55vh;scrollbar-width:thin}textarea:disabled{opacity:.75}.controls{display:grid;grid-template-columns:1.25fr 1fr;gap:10px;margin-top:25px}.controls button{min-height:50px}.setup-card{padding:16px 20px}.setup-card>summary{font-size:13px}summary{display:flex;align-items:center;gap:12px;min-height:40px;list-style:none;font-weight:600;cursor:pointer;line-height:1.4}summary::-webkit-details-marker{display:none}summary::after{content:'+';margin-left:auto;color:var(--muted);font-size:20px;font-weight:400}details[open]>summary::after{content:'−'}.detail-body{font-size:12px;color:var(--muted);padding-top:10px;overflow-wrap:anywhere}.detail-body p{margin:0 0 16px}.checks{display:grid;grid-template-columns:1fr 1fr;gap:11px 8px;margin:20px 0}.check{display:flex;align-items:center;gap:8px;font-size:11px;min-width:0}.check b{width:19px;height:19px;display:grid;place-items:center;border-radius:50%;background:var(--surface-2);font-weight:500;line-height:1;flex:none}.check.ok b{background:var(--accent-soft);color:var(--accent)}.check.bad b{color:var(--danger)}.check.warn b{color:var(--muted)}.button-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.button-row button{font-size:12px}.prepare-row{margin-top:14px}.prepare-row .primary{flex:1}.progress-box{margin:18px 0 10px;font-size:11px;overflow-wrap:anywhere}progress{display:block;width:100%;height:5px;margin:12px 0;accent-color:var(--accent)}.session-panel{display:flex;flex-direction:column;padding:24px 27px;min-height:600px;min-height:clamp(480px,calc(100dvh - 150px),850px)}.live-head{display:flex;align-items:center;gap:13px;padding-bottom:21px;border-bottom:1px solid var(--line)}.orb{display:flex;align-items:center;justify-content:center;gap:3px;flex:none;width:41px;height:41px;border-radius:13px;background:var(--accent-soft);color:var(--accent)}.orb i{display:block;width:2.5px;height:10px;border-radius:3px;background:currentColor;transform-origin:center}.orb i:nth-child(2),.orb i:nth-child(4){height:17px}.orb i:nth-child(3){height:25px}.orb.listening i,.orb.speaking i{animation:wave 1.3s ease-in-out infinite alternate}.orb.listening i:nth-child(even),.orb.speaking i:nth-child(even){animation-delay:-.7s}.orb.busy{animation:pulse 1.5s ease-in-out infinite}.status-title{font-size:14px;font-weight:650;line-height:1.5}.status-help{font-size:11px;color:var(--muted)}.status-help:empty{display:none}.session-tag{font-size:10px;letter-spacing:.02em;margin-left:auto;white-space:nowrap;color:var(--muted)}.empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:310px;text-align:center;gap:20px;color:var(--muted);font-size:13px}.empty p{margin:0}.empty-art{height:72px;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--accent);opacity:.35}.empty-art span{width:7px;height:23px;border-radius:8px;background:currentColor}.empty-art span:nth-child(2),.empty-art span:nth-child(4){height:42px}.empty-art span:nth-child(3){height:66px}.chat{display:flex;flex:1;flex-direction:column;gap:22px;overflow:auto;max-height:68vh;max-height:68dvh;min-height:310px;padding:25px 4px 22px 0;overflow-wrap:anywhere;overscroll-behavior:contain;scrollbar-width:thin;scroll-padding-bottom:20px}.chat:empty{display:none}.bubble{align-self:flex-start;max-width:95%;border-radius:17px;padding:0 3px;font-size:14px;min-width:0}.bubble.user{align-self:flex-end;background:var(--surface-2);padding:13px 17px;max-width:87%}.bubble-text{white-space:pre-wrap;word-break:break-word;line-height:1.85}.bubble-label{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:10px;color:var(--muted);margin-bottom:7px}.bubble-label span{font-weight:650}.bubble-label time{font-size:9px}.bubble-meta{font-size:10px;color:var(--muted);margin-top:8px}.bubble-meta:empty{display:none}.bubble.pending .bubble-text::after{content:'';display:inline-block;vertical-align:middle;margin-left:5px;width:5px;height:13px;border-radius:2px;background:var(--accent);animation:pulse 1s infinite}.session-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:43px;border-top:1px solid var(--line);padding-top:12px;margin-top:auto;color:var(--muted);font-size:10px}.session-bottom button{min-height:32px;padding:5px 9px;font-size:11px}.text-compose{border-top:1px solid var(--line);margin-top:12px;padding-top:8px}.text-compose summary{font-size:12px;color:var(--muted)}.compose-row{display:flex;align-items:flex-end;gap:12px;padding:8px 0}.compose-row textarea{border:1px solid var(--line);background:var(--surface-2);padding:10px 12px;min-height:65px;font-size:13px}.compose-row button{flex:none}#resume{align-self:center;margin:16px 0 0}.notice{font-size:12px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--accent-soft);color:var(--ink);border:1px solid var(--line);padding:13px 17px;border-radius:14px;margin:0 0 18px}.notice.error{color:var(--danger)}dialog{color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:23px;width:440px;max-width:calc(100vw - 28px);max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:auto;padding:26px;box-shadow:0 24px 120px #0003}dialog::backdrop{background:#11131b66;backdrop-filter:blur(5px)}dialog h2{font-size:19px;letter-spacing:-.3px;margin:0 0 12px;line-height:1.5}dialog p{font-size:13px;color:var(--muted);margin:0 0 24px}.dialog-actions{justify-content:flex-end;margin-top:22px}.dialog-actions button{font-size:13px}.dialog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.dialog-head h2{margin:0}.dialog-head .icon-button{margin-right:-10px}.settings-dialog{width:540px}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 0;font-size:13px}.setting-row select{max-width:60%}.panel{border-top:1px solid var(--line);margin-top:16px;padding-top:10px}.panel>summary{font-size:13px}.panel .detail-body{padding:12px 0 3px}.history-item{padding:12px 0 16px;border-bottom:1px solid var(--line);margin-bottom:15px}.history-title{color:var(--ink);font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.history-date{font-size:11px;margin:4px 0 11px}.history-dialog{width:690px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:11px/1.7 ui-monospace,"Cascadia Code",monospace;background:var(--surface-2);color:var(--muted);padding:15px;border-radius:13px;max-height:42vh;overflow:auto}#historyText{color:var(--ink);font:13px/1.85 system-ui,sans-serif;max-height:60vh}#decisionSummary{max-width:60%;font-size:10px}.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+*{box-sizing:border-box}html{min-height:100%;scrollbar-gutter:stable}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;-webkit-tap-highlight-color:transparent}button,textarea,select,input{font:inherit}button,summary,select{touch-action:manipulation}button,select{color:inherit}button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;max-width:100%;padding:9px 15px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-weight:600;line-height:1.4;cursor:pointer;transition:background .16s,opacity .16s,transform .16s}button:not(:disabled):hover{background:var(--surface-2)}button:not(:disabled):active{transform:translateY(1px)}button:disabled{opacity:.36;cursor:not-allowed}button.primary{background:var(--button);color:var(--button-ink);border-color:transparent}button.primary:not(:disabled):hover{opacity:.88}button.danger:not(:disabled){color:var(--danger)}button.quiet{border-color:transparent;background:transparent;color:var(--muted)}button.icon-button{width:42px;min-height:42px;padding:9px;background:transparent;border:0;border-radius:12px;font-size:24px;font-weight:400}button:focus-visible,summary:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}[hidden]{display:none!important}svg{flex:none}.small,.small-label{font-size:12px}.muted,.small-label{color:var(--muted)}.wrap{width:min(1200px,100%);margin:0 auto;padding:32px max(24px,env(safe-area-inset-right)) max(32px,env(safe-area-inset-bottom)) max(24px,env(safe-area-inset-left))}header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}.brand{display:flex;align-items:center;gap:12px;min-width:0}.mark{display:grid;place-items:center;width:45px;height:45px;border-radius:15px;background:var(--button);color:var(--button-ink)}h1{font-size:21px;line-height:1.15;letter-spacing:-.8px;margin:0 0 5px;font-weight:730}.connection{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11px;line-height:1.3}.dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex:none}.header-tools{display:flex;align-items:center;gap:5px}select{border:1px solid var(--line);border-radius:11px;background:var(--surface);padding:8px 10px;min-height:42px;max-width:100%;font-size:13px}.header-tools select{margin-left:7px;max-width:136px}.workspace{display:grid;grid-template-columns:minmax(270px,324px) minmax(0,1fr);gap:22px;align-items:start}.sidebar{display:grid;gap:16px;min-width:0}.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);min-width:0}.prompt-card{padding:24px}.field-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px}.field-top label{font-size:14px;font-weight:650}textarea{display:block;resize:vertical;width:100%;min-width:0;color:var(--ink);background:transparent;border:0;border-radius:8px;padding:0;line-height:1.8;font-size:15px;outline:none;caret-color:var(--accent)}textarea::placeholder{color:var(--muted);opacity:.8}#prompt{min-height:190px;max-height:55vh;scrollbar-width:thin}textarea:disabled{opacity:.75}.controls{display:grid;grid-template-columns:1.25fr 1fr;gap:10px;margin-top:25px}.controls button{min-height:50px}.setup-card{padding:16px 20px}.setup-card>summary{font-size:13px}summary{display:flex;align-items:center;gap:12px;min-height:40px;list-style:none;font-weight:600;cursor:pointer;line-height:1.4}summary::-webkit-details-marker{display:none}summary::after{content:'+';margin-left:auto;color:var(--muted);font-size:20px;font-weight:400}details[open]>summary::after{content:'−'}.detail-body{font-size:12px;color:var(--muted);padding-top:10px;overflow-wrap:anywhere}.detail-body p{margin:0 0 16px}.checks{display:grid;grid-template-columns:1fr 1fr;gap:11px 8px;margin:20px 0}.check{display:flex;align-items:center;gap:8px;font-size:11px;min-width:0}.check b{width:19px;height:19px;display:grid;place-items:center;border-radius:50%;background:var(--surface-2);font-weight:500;line-height:1;flex:none}.check.ok b{background:var(--accent-soft);color:var(--accent)}.check.bad b{color:var(--danger)}.check.warn b{color:var(--muted)}.button-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.button-row button{font-size:12px}.prepare-row{margin-top:14px}.prepare-row .primary{flex:1}.progress-box{margin:18px 0 10px;font-size:11px;overflow-wrap:anywhere}progress{display:block;width:100%;height:5px;margin:12px 0;accent-color:var(--accent)}.session-panel{display:flex;flex-direction:column;padding:24px 27px;min-height:600px;min-height:clamp(480px,calc(100dvh - 150px),850px)}.live-head{display:flex;align-items:center;gap:13px;padding-bottom:21px;border-bottom:1px solid var(--line)}.orb{display:flex;align-items:center;justify-content:center;gap:3px;flex:none;width:41px;height:41px;border-radius:13px;background:var(--accent-soft);color:var(--accent)}.orb i{display:block;width:2.5px;height:10px;border-radius:3px;background:currentColor;transform-origin:center}.orb i:nth-child(2),.orb i:nth-child(4){height:17px}.orb i:nth-child(3){height:25px}.orb.listening i,.orb.speaking i{animation:wave 1.3s ease-in-out infinite alternate}.orb.listening i:nth-child(even),.orb.speaking i:nth-child(even){animation-delay:-.7s}.orb.busy{animation:pulse 1.5s ease-in-out infinite}.status-title{font-size:14px;font-weight:650;line-height:1.5}.status-help{font-size:11px;color:var(--muted)}.status-help:empty{display:none}.session-tag{font-size:10px;letter-spacing:.02em;margin-left:auto;white-space:nowrap;color:var(--muted)}.empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:310px;text-align:center;gap:20px;color:var(--muted);font-size:13px}.empty p{margin:0}.empty-art{height:72px;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--accent);opacity:.35}.empty-art span{width:7px;height:23px;border-radius:8px;background:currentColor}.empty-art span:nth-child(2),.empty-art span:nth-child(4){height:42px}.empty-art span:nth-child(3){height:66px}.chat{display:flex;flex:1;flex-direction:column;gap:22px;overflow:auto;max-height:68vh;max-height:68dvh;min-height:310px;padding:25px 4px 22px 0;overflow-wrap:anywhere;overscroll-behavior:contain;scrollbar-width:thin;scroll-padding-bottom:20px}.chat:empty{display:none}.bubble{align-self:flex-start;max-width:95%;border-radius:17px;padding:0 3px;font-size:14px;min-width:0}.bubble.user{align-self:flex-end;background:var(--surface-2);padding:13px 17px;max-width:87%}.bubble-text{white-space:pre-wrap;word-break:break-word;line-height:1.85}.bubble-label{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:10px;color:var(--muted);margin-bottom:7px}.bubble-label span{font-weight:650}.bubble-label time{font-size:9px}.bubble-meta{font-size:10px;color:var(--muted);margin-top:8px}.bubble-meta:empty{display:none}.bubble.pending .bubble-text::after{content:'';display:inline-block;vertical-align:middle;margin-left:5px;width:5px;height:13px;border-radius:2px;background:var(--accent);animation:pulse 1s infinite}.session-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:43px;border-top:1px solid var(--line);padding-top:12px;margin-top:auto;color:var(--muted);font-size:10px}.session-bottom button{min-height:32px;padding:5px 9px;font-size:11px}.text-compose{border-top:1px solid var(--line);margin-top:12px;padding-top:8px}.text-compose summary{font-size:12px;color:var(--muted)}.compose-row{display:flex;align-items:flex-end;gap:12px;padding:8px 0}.compose-row textarea{border:1px solid var(--line);background:var(--surface-2);padding:10px 12px;min-height:65px;font-size:13px}.compose-row button{flex:none}#resume{align-self:center;margin:16px 0 0}.notice{font-size:12px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--accent-soft);color:var(--ink);border:1px solid var(--line);padding:13px 17px;border-radius:14px;margin:0 0 18px}.notice.error{color:var(--danger)}dialog{color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:23px;width:440px;max-width:calc(100vw - 28px);max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:auto;padding:26px;box-shadow:0 24px 120px #0003}dialog::backdrop{background:#11131b66;backdrop-filter:blur(5px)}dialog h2{font-size:19px;letter-spacing:-.3px;margin:0 0 12px;line-height:1.5}dialog p{font-size:13px;color:var(--muted);margin:0 0 24px}.dialog-actions{justify-content:flex-end;margin-top:22px}.dialog-actions button{font-size:13px}.dialog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.dialog-head h2{margin:0}.dialog-head .icon-button{margin-right:-10px}.settings-dialog{width:540px}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 0;font-size:13px}.setting-row select{max-width:60%}.panel{border-top:1px solid var(--line);margin-top:16px;padding-top:10px}.panel>summary{font-size:13px}.panel .detail-body{padding:12px 0 3px}.history-item{padding:12px 0 16px;border-bottom:1px solid var(--line);margin-bottom:15px}.history-title{color:var(--ink);font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.history-date{font-size:11px;margin:4px 0 11px}.history-dialog{width:690px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:11px/1.7 ui-monospace,"Cascadia Code",monospace;background:var(--surface-2);color:var(--muted);padding:15px;border-radius:13px;max-height:42vh;overflow:auto}#historyText{color:var(--ink);font:13px/1.85 system-ui,sans-serif;max-height:60vh}.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @keyframes wave{to{transform:scaleY(.4)}}@keyframes pulse{50%{opacity:.4}}
 @media(max-width:800px){.wrap{padding-top:20px}.workspace{grid-template-columns:1fr;gap:16px}.sidebar{grid-template-columns:minmax(0,1fr)}.prompt-card{padding:20px}#prompt{min-height:110px;max-height:35vh;height:110px}.controls{margin-top:18px}.setup-card{padding:12px 20px}.checks{grid-template-columns:repeat(3,minmax(0,1fr));margin:15px 0}.session-panel{min-height:400px;padding:20px}.empty,.chat{min-height:240px}.chat{max-height:60dvh}.empty-art{transform:scale(.8)}header{margin-bottom:20px}.prepare-row .primary{flex:0 1 auto;min-width:100px}.session-tag{display:none}}
 @media(max-width:380px){.wrap{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}header{gap:6px}.brand{gap:8px}.mark{width:36px;height:36px;border-radius:12px}h1{font-size:19px}.header-tools{gap:0}.header-tools .icon-button{width:36px}.header-tools select{margin-left:2px;max-width:98px;padding:8px 5px}.prompt-card,.session-panel{padding:18px}.checks{grid-template-columns:1fr 1fr}dialog{padding:20px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media(forced-colors:active){.card,button,select,dialog{border:1px solid CanvasText}.empty-art span,.orb i,.dot{background:CanvasText}}
 .feedback-button{min-height:32px;padding:4px 0;font-size:11px;font-weight:500;margin-top:5px}.feedback-quote{max-height:20vh;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--surface-2);padding:12px;border-radius:12px}#feedbackInput{border:1px solid var(--line);padding:12px;background:var(--surface-2)}.session-bottom>.button-row{justify-content:flex-end}.session-bottom{flex-wrap:wrap}#cancelPack{color:var(--danger)}.button-link{display:inline-flex;padding:9px 15px;border:1px solid var(--line);border-radius:12px;color:var(--accent);font-size:12px;margin-top:12px;text-decoration:none}
-.check{align-items:start;display:grid;grid-template-columns:19px 1fr;gap:0 8px}.check-result{grid-column:2;font-size:10px;color:var(--muted)}.check.running b{color:var(--accent)}#preparationActions{margin-top:14px}#statusHelp{overflow-wrap:anywhere}</style></head><body>
+.progress-heading,.progress-foot{display:flex;justify-content:space-between;align-items:baseline;gap:12px}.progress-heading>span:first-child,.progress-foot>span:first-child{min-width:0;overflow-wrap:anywhere}#progressPercent{color:var(--accent);font-size:14px;font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}#progressElapsed{white-space:nowrap;font-variant-numeric:tabular-nums}.progress-foot{min-height:18px;color:var(--muted)}progress{appearance:none;-webkit-appearance:none;height:6px;border:0;border-radius:6px;background:var(--surface-2);overflow:hidden}progress::-webkit-progress-bar{background:var(--surface-2);border-radius:6px}progress::-webkit-progress-value{background:var(--accent);border-radius:6px}progress::-moz-progress-bar{background:var(--accent);border-radius:6px}#progressBox[data-state=failed] #progressPercent,#progressBox[data-state=cancelled] #progressPercent{color:var(--danger)}.settings-footer{margin-top:18px}.settings-footer button{min-height:32px;padding:4px 0;font-size:12px}.check{align-items:start;display:grid;grid-template-columns:19px 1fr;gap:0 8px}.check-result{grid-column:2;font-size:10px;color:var(--muted)}.check.running b{color:var(--accent)}#preparationActions{margin-top:14px}#statusHelp{overflow-wrap:anywhere}</style></head><body>
 <main class="wrap">
 <header>
   <div class="brand"><span class="mark" aria-hidden="true"><svg viewBox="0 0 28 28" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12v4m6-9v14m6-17v20m6-13v6"/></svg></span><div><h1>AIChat</h1><span class="connection"><span class="dot" aria-hidden="true"></span><span id="readyBadge">未就绪</span></span></div></div>
@@ -46,14 +46,14 @@
           <div id="checkModels" class="check"><b>·</b><span data-i18n="checkModels">模型</span></div>
           <div id="checkOffline" class="check"><b>·</b><span data-i18n="checkOffline">禁网自检</span></div>
         </div>
-        <div id="progressBox" class="progress-box" hidden><span id="progressText" role="status" aria-live="polite"></span><progress id="progress" aria-label="模型准备 / Model preparation"></progress></div>
+        <div id="progressBox" class="progress-box" hidden><div class="progress-heading"><span id="progressText" role="status" aria-live="polite"></span><span id="progressPercent">0%</span></div><progress id="progress" max="100" value="0" aria-label="模型准备 / Model preparation" aria-describedby="progressText progressDetail"></progress><div class="progress-foot"><span id="progressDetail"></span><span id="progressElapsed"></span></div></div>
         <div class="button-row prepare-row"><button id="prepare" class="primary" data-i18n="prepare">准备</button><button id="cancelPrepare" data-i18n="cancelPrepare" hidden>取消</button><button id="offlineCheck" class="quiet" data-i18n="offlineCheck">本地自检</button></div>
       </div>
     </details>
   </aside>
   <section class="card session-panel" aria-label="对话 / Conversation">
     <div class="live-head"><div id="orb" class="orb" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><div><div id="statusTitle" class="status-title" role="status" aria-live="polite">准备开始</div><div id="statusHelp" class="status-help"></div></div><span class="session-tag" data-i18n="voiceChat">语音对话</span></div>
-    <div id="preparationActions" class="button-row" hidden><button id="showPreparationDetails" class="quiet" data-i18n="viewDetails">查看详情</button><button id="retryPreparation" data-i18n="retryPreparation">重试</button><button id="repairResources" class="quiet" data-i18n="repairResources" hidden>修复缺失资源</button></div>
+    <div id="preparationActions" class="button-row" hidden><button id="showPreparationDetails" class="quiet" data-i18n="exportDiagnostics">导出诊断</button><button id="retryPreparation" data-i18n="retryPreparation">重试</button><button id="repairResources" class="quiet" data-i18n="repairResources" hidden>修复缺失资源</button></div>
     <div id="empty" class="empty"><div class="empty-art" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div><p data-i18n="empty">从一句话开始</p></div>
     <div id="chat" class="chat" role="log" aria-live="off" aria-label="对话记录 / Transcript"></div>
     <div class="session-bottom"><span id="saveStatus" data-i18n="localOnly">自动保存到本机</span><div class="button-row"><button id="copyTranscript" class="quiet" data-i18n="copyTranscript" hidden>复制文字</button><button id="exportCurrent" class="quiet" data-i18n="exportText" hidden>导出</button><button id="pendingAudioCurrent" class="quiet" data-i18n="audioLabel" hidden>导出待转写语音</button><button id="retrySave" data-i18n="retrySave" hidden>重试保存</button></div></div>
@@ -69,8 +69,8 @@
   <details id="experiencePanel" class="panel"><summary data-i18n="experienceTitle">本地经验</summary><div class="detail-body"><div class="setting-row"><label for="experienceUse" data-i18n="experienceUseLabel">参考历史经验</label><select id="experienceUse"><option value="yes" data-i18n="experienceOn">启用</option><option value="no" data-i18n="experienceOff">关闭</option></select></div><p id="experienceStatus" role="status"></p></div></details>
   <details id="folderPanel" class="panel"><summary data-i18n="folderTitle">保存位置</summary><div class="detail-body"><p id="folderStatus" role="status"></p><div class="button-row"><button id="chooseFolder" data-i18n="chooseFolder">选择文件夹</button><button id="forgetFolder" data-i18n="forgetFolder" hidden>取消绑定</button></div></div></details>
   <details id="historyPanel" class="panel"><summary><span data-i18n="historyTitle">历史记录</span><span id="historyCount" class="small muted"></span></summary><div class="detail-body"><div id="historyList"></div><div class="button-row"><button id="backupAll" data-i18n="backupAll">备份记录</button><button id="importBackup" data-i18n="importBackup">导入备份</button></div><input type="file" id="backupFile" accept="application/json,.json" hidden></div></details>
-  <details id="diagnosticsPanel" class="panel"><summary data-i18n="diagnosticsTitle">诊断</summary><div class="detail-body"><p id="voiceCapabilities"></p><div class="setting-row"><label for="diagnosticMode" data-i18n="diagnosticMode">详细运行日志（下次加载生效）</label><select id="diagnosticMode"><option value="off" data-i18n="diagnosticOff">关闭</option><option value="on" data-i18n="diagnosticOn">开启</option></select></div><div class="button-row"><button id="recheck" data-i18n="recheck">检查环境</button><button id="exportDiagnostics" data-i18n="exportDiagnostics">导出诊断</button></div><pre id="diagnostics"></pre><details id="decisionPanel" class="panel" hidden><summary><span data-i18n="decisionTitle">AI 决策</span><span id="decisionSummary" class="small muted"></span></summary><pre id="decisionText"></pre></details></div></details>
-<details id="licensePanel" class="panel"><summary data-i18n="licenseTitle">软件许可</summary><div class="detail-body"><p>AIChat application code is MIT licensed. Copyright (c) 2026 AIChat contributors.</p><p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p><p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p><p>External models and runtimes retain their own licenses. They are not embedded in this initial HTML.</p></div></details>
+  <details id="diagnosticsPanel" class="panel"><summary data-i18n="diagnosticsTitle">诊断</summary><div class="detail-body"><p id="voiceCapabilities"></p><div class="setting-row"><label for="diagnosticMode" data-i18n="diagnosticMode">详细日志</label><select id="diagnosticMode"><option value="off" data-i18n="diagnosticOff">关闭</option><option value="on" data-i18n="diagnosticOn">开启</option></select></div><div class="button-row"><button id="recheck" data-i18n="recheck">检查环境</button><button id="exportDiagnostics" data-i18n="exportDiagnostics">导出诊断</button></div></div></details>
+<div class="settings-footer"><button id="exportLicense" class="quiet" data-i18n="licenseTitle">软件许可</button></div>
 </dialog>
 <dialog id="endDialog" aria-labelledby="endDialogTitle"><h2 id="endDialogTitle" data-i18n="confirmTitle">结束对话？</h2><p data-i18n="confirmInfo">停止收音与朗读，并保存记录。</p><div class="button-row dialog-actions"><button id="cancelEnd" data-i18n="keepTalking" autofocus>继续聊</button><button id="confirmEnd" class="primary" data-i18n="confirmEnd">结束并保存</button></div></dialog>
 <dialog id="networkDialog" aria-labelledby="networkDialogTitle"><h2 id="networkDialogTitle" data-i18n="networkTitle">重新准备模型？</h2><p data-i18n="networkInfo">将重新载入页面，允许下载缺失的资源。已有对话保留。</p><div class="button-row dialog-actions"><button id="cancelNetwork" data-i18n="cancelPrepare" autofocus>取消</button><button id="confirmNetwork" class="primary" data-i18n="networkConfirm">重新准备</button></div></dialog>
@@ -80,7 +80,7 @@
 
 
 <script id="sharedCode">
-const BUILD = '2026-09-30.1';
+const BUILD = '2026-09-30.2';
 const DB_NAME = 'AIChat-local-v1';
 const STORES = ['meta','files','chunks','sessions','audio','sessionMessages','sessionDecisions','learningEvents'];
 const PACK = {
@@ -98,7 +98,7 @@ const PACK = {
 
 const AUDIO_SPEC = {rate:16000, frame:512, context:64, stateLayers:2, stateWidth:128};
 const SAFETY = {chunkBytes:4*1024*1024, idleNetworkMs:90000, dbOpenMs:15000,
-  endGraceMs:15000, voiceWaitMs:5000, speechWatchdogMs:120000, streamCheckpointMs:1500};
+  endGraceMs:15000, voiceWaitMs:5000, speechWatchdogMs:120000, streamCheckpointMs:1500, workerIdleMs:120000};
 
 const EMPTY_POLICY = Object.freeze({action:null,revisit_seconds:null,pause_seconds:null,speech_probability:null,
   minimum_voice_seconds:null,speech_rate:null,speech_pitch:null,speech_volume:null,
@@ -221,6 +221,7 @@ function errorOutcome(error){
   if(/QuotaExceeded|STORAGE|IndexedDB|IDB|CACHE_WRITE/i.test(name+' '+text))return 'storage';
   if(name==='OutOfMemoryError'||/out of memory|\boom\b|allocation failed|failed to allocate|cannot allocate|could not allocate|memory\.grow|bad_alloc|array buffer allocation/i.test(text))return 'resource-exhausted';
   if(/memory access out of bounds|invalid array length|unreachable|RuntimeError/i.test(name+' '+text))return 'runtime-fault';
+  if(/WORKER_RESPONSE_TIMEOUT/.test(text))return 'timeout';
   return 'unknown';
 }
 function serializeError(error,context={}){
@@ -344,7 +345,7 @@ async function checkedAssetParts(meta,url,force=false){
   for(const key of meta.parts){
     const part=await dbGet('chunks',key);if(!(part instanceof Blob)||!part.size)throw damaged();
     if(!verified&&!isExecutableAsset(url)&&await sha256Blob(part)!==meta.hashes[key])throw damaged();
-    size+=part.size;if(size>meta.size)throw damaged();parts.push(part);
+    size+=part.size;if(size>meta.size)throw damaged();parts.push(part);NET.notify({type:'asset-progress',url,loaded:size,total:meta.size,done:size===meta.size});
   }
   if(size!==meta.size)throw damaged();
   if(!verified)await verifyExecutable(url,new Blob(parts));
@@ -501,11 +502,15 @@ function speechParts(text,lang){
 }
 function voiceIdentity(voice){return JSON.stringify([voice.voiceURI||'',voice.lang||'',voice.name||'']);}
 const DELIVERY_FIELDS={voice:'one exact available voice id',rate:'number >= 0.1 and <= 10',pitch:'number >= 0 and <= 2',volume:'number >= 0 and <= 1',pause_after:'finite seconds >= 0; pause after this segment'};
-function validDeliveryItem(item,index,voices){
-  return !!item&&typeof item==='object'&&item.segment===index&&voices.some(v=>v.id===item.voice)&&
-    Number.isFinite(item.rate)&&item.rate>=0.1&&item.rate<=10&&Number.isFinite(item.pitch)&&item.pitch>=0&&item.pitch<=2&&
-    Number.isFinite(item.volume)&&item.volume>=0&&item.volume<=1&&Number.isFinite(item.pause_after)&&item.pause_after>=0&&Number.isFinite(item.pause_after*1000);
+function validDeliveryValue(key,value,voices){
+  if(key==='voice')return typeof value==='string'&&voices.some(v=>v.id===value);
+  if(!Number.isFinite(value))return false;
+  if(key==='rate')return value>=0.1&&value<=10;
+  if(key==='pitch')return value>=0&&value<=2;
+  if(key==='volume')return value>=0&&value<=1;
+  return key==='pause_after'&&value>=0&&Number.isFinite(value*1000);
 }
+function validDeliveryItem(item,index,voices){return !!item&&typeof item==='object'&&item.segment===index&&Object.keys(DELIVERY_FIELDS).every(key=>validDeliveryValue(key,item[key],voices));}
 function validDeliveryPlan(raw,parts,voices){
   return Array.isArray(parts)&&parts.length>0&&parts.every(part=>typeof part==='string')&&Array.isArray(raw?.delivery_plan)&&raw.delivery_plan.length===parts.length&&raw.delivery_plan.every((item,index)=>validDeliveryItem(item,index,voices));
 }
@@ -670,21 +675,27 @@ async function finishContextProbe(probe,sample,error){
 async function trackedInference(chat,options){
   const inputTokens=tokenCount(chat),outputBudget=options.max_new_tokens;
   const probe=capabilityKey?await beginContextProbe(inputTokens+outputBudget,{inputTokens,outputBudget}):null;
-  const started=performance.now();
+  const started=performance.now(),streamer=options.streamer??new tf.TextStreamer(llm.tokenizer,{skip_prompt:true,callback_function:()=>{}});let promptPending=true,generatedTokens=0;
+  const originalPut=streamer.put;
+  streamer.put=function(batch){
+    if(promptPending)promptPending=false;
+    else{generatedTokens+=batch[0]?.length||0;postMessage({type:'inference-progress',...workerContext(),generatedTokens,inputTokens,outputBudget,elapsedMs:performance.now()-started});}
+    return originalPut.call(this,batch);
+  };
   try{
-    assertEngineAttempt();const result=await llm(chat,options);assertEngineAttempt();
-    const outputTokens=tokenCount(result?.[0]?.generated_text||'');
+    assertEngineAttempt();const result=await llm(chat,{...options,streamer});assertEngineAttempt();
+    const outputTokens=generatedTokens||tokenCount(result?.[0]?.generated_text||'');
     if(probe)await finishContextProbe(probe,{tokens:inputTokens+outputTokens,inputTokens,outputBudget,outputTokens,elapsed_ms:performance.now()-started});
     return result;
   }catch(error){
     const diagnostic=serializeError(error,{...workerContext(),inputTokens,outputBudget,elapsedMs:performance.now()-started});
     if(probe)try{await finishContextProbe(probe,{elapsed_ms:performance.now()-started},restoreError(errText(error),diagnostic));}catch(persistError){diagnostic.recoveryPersistence=serializeError(persistError,workerContext());}
     throw restoreError(errText(error),diagnostic);
-  }
+  }finally{streamer.put=originalPut;}
 }
 function controllerProbeRequest(voices,speechLanguage='auto'){
-  return {prompt:'Perform a local readiness decision. No real user is present.',language:'en',speechLanguage,sessionId:'capability-probe',
-    messages:[{role:'user',text:'Check the complete voice conversation protocol.'}],event:'start',voices,previous:null,useExperience:false,
+  return {prompt:'Select every required setting for a local voice conversation readiness check.',language:'en',speechLanguage,sessionId:'capability-probe',
+    messages:[{role:'user',text:'Return the complete configuration, including all timing, voice and generation fields.'}],event:'start',voices,previous:null,useExperience:false,
     observations:{detector:{frames:0,meanProbability:0,variance:0},vad:{sample_rate:AUDIO_SPEC.rate,frame_samples:AUDIO_SPEC.frame},asr:{window_seconds:limits.windowSeconds}}};
 }
 function minimumControllerContext(voices,speechLanguage='auto'){
@@ -744,7 +755,7 @@ async function reduceContext(error,failed=error?.diagnostic?.inputTokens+error?.
   postMessage({type:'context-limit',...workerContext(),contextLimit:next,previous:upper,verifiedContext:capabilityRecord.verifiedContext,candidateContext:next,verified:false});
 }
 
-async function initialize(allowNetwork,{voices=[],speechLanguage='auto',diagnosticMode=false}={}){
+async function initialize(allowNetwork,{voices=[],speechLanguage='auto',diagnosticMode=false,preloadOnly=false}={}){
   initializing=true;softInterrupted=false;NET.role='engine';setNetworkAccess(allowNetwork);installWorkerDiagnostics(diagnosticMode);
   try{
     await workerStage('worker-storage',async()=>{await dbPut('meta','worker-probe',BUILD);if(await dbGet('meta','worker-probe')!==BUILD)throw new Error('WORKER_STORAGE_UNAVAILABLE');});
@@ -765,7 +776,7 @@ async function initialize(allowNetwork,{voices=[],speechLanguage='auto',diagnost
       const modelMax=llm.model.config.max_position_embeddings;if(!Number.isSafeInteger(modelMax)||modelMax<1)throw new Error('LLM_CONTEXT_CONFIG_MISSING');
       contextLimit=modelMax;limits={rate,windowSeconds,modelWindowSeconds,modelMax,contextLimit,llmRevision,asrRevision,device:'wasm',dtype:'q8'};
     });
-    closeNetwork();
+    closeNetwork();if(preloadOnly)return limits;
     await workerStage('dialogue-self-test',async()=>{
       const test=await trackedInference(chatString([{role:'user',content:'Reply with OK.'}]),{max_new_tokens:8,do_sample:false,return_full_text:false});
       if(typeof test?.[0]?.generated_text!=='string'||!test[0].generated_text.trim())throw new Error('LLM_SELF_TEST_FAILED');
@@ -803,6 +814,13 @@ function expandVoiceDecision(raw,voices){
   const result={...raw};
   if(typeof result.voice==='string'&&/^v(?:0|[1-9]\d*)$/.test(result.voice)){
     const voice=voices[Number(result.voice.slice(1))];if(voice)result.voice=voice.id;
+  }
+  return result;
+}
+function expandDeliveryDecision(raw,voices){
+  const result=expandVoiceDecision(raw,voices);
+  for(const key of ['rate','pitch','volume','pause_after'])if(typeof result[key]==='string'&&/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/.test(result[key].trim())){
+    const value=Number(result[key]);if(validDeliveryValue(key,value,voices))result[key]=value;
   }
   return result;
 }
@@ -948,7 +966,7 @@ async function controllerProbe(voices,speechLanguage='auto'){
   const request=controllerProbeRequest(voices,speechLanguage),constraints=speechLanguage==='auto'?{}:{recognition_language:speechLanguage};
   const result=await workerStage('controller-test',async()=>{
     const result=await plan(request),checked=validPolicy(result.values,limits.windowSeconds,null,'start',voices,contextLimit,constraints);
-    if(!result.ready||!checked.ready||!checked.completeObject)throw new Error('MODEL_CONTROLLER_FULL_PROBE_FAILED');return result;
+    if(!result.ready||!checked.ready||!checked.completeObject)throw diagnosticError(new Error('MODEL_CONTROLLER_FULL_PROBE_FAILED'),workerContext({unresolved:checked.unresolved,rejected:checked.rejected,repairFields:result.repaired_fields}));return result;
   });
   const delivery=await workerStage('delivery-test',async()=>{
     const delivery=await planDelivery({sessionId:request.sessionId,text:'本地测试。Local check.',voices,settings:result,useExperience:false});
@@ -957,24 +975,41 @@ async function controllerProbe(voices,speechLanguage='auto'){
   return {ready:true,validAction:true,fullPolicy:true,deliveryPlan:true,delivery,decisionSource:'ai',repair_fields:result.repaired_fields,protocol:'full-controller-v3',budgetProtocol:'real-request-v3'};
 }
 
+function controllerChoices(key,voices,constraints={}){
+  if(key==='action')return ['"speak"}','"listen"}'];
+  if(key==='recognition_language')return (constraints.recognition_language?[constraints.recognition_language]:['auto','zh-CN','en']).map(value=>JSON.stringify(value)+'}');
+  if(key==='voice')return compactVoices(voices).map(v=>JSON.stringify(v.id)+'}');
+  if(key==='interrupt_on_voice')return ['true}','false}'];
+  return null;
+}
+function controllerOutputBudget(prefix,room,event){
+  const field=prefix.match(/^\{"([^"\\]+)":$/)?.[1];
+  const template=field?{[field]:controllerInstructions().schema[field]??DELIVERY_FIELDS[field]??'value'}:event==='delivery'?DELIVERY_FIELDS:EMPTY_POLICY;
+  const desired=Math.max(tokenCount(JSON.stringify(template))*2,tokenCount(prefix)*2);
+  return Math.max(0,Math.floor(Math.min(room,desired)));
+}
 async function runControllerGeneration(chat,room,previous,event,voices,prefix='{"action":"',alternatives=['speak"','listen"']){
-  const grammar=alternatives?choiceProcessor(alternatives):null;
-  let visible='',candidate=null;stopper=new tf.InterruptableStoppingCriteria();
-  const streamer=new tf.TextStreamer(llm.tokenizer,{skip_prompt:true,skip_special_tokens:true,callback_function:chunk=>{
-    visible+=chunk;const object=extractObject(prefix+visible);
-    if(object&&typeof object==='object'&&!Array.isArray(object)){candidate=object;stopper?.interrupt();}
+  const terminal=!!alternatives?.every(value=>value.endsWith('}'));
+  const grammar=alternatives?choiceProcessor(alternatives,{terminal}):null;
+  let visible='',candidate=null;const tokens=[];stopper=new tf.InterruptableStoppingCriteria();const currentStopper=stopper;
+  const streamer=new tf.TextStreamer(llm.tokenizer,{skip_prompt:true,skip_special_tokens:true,callback_function:()=>{},token_callback_function:ids=>{
+    tokens.push(...ids);visible=llm.tokenizer.decode(tokens,{skip_special_tokens:true});
+    const object=extractObject(prefix+visible);
+    if(object&&typeof object==='object'&&!Array.isArray(object)){candidate=object;currentStopper.interrupt();}
   }});
   try{
-    const budget=Math.min(room,contextLimit-tokenCount(chat+prefix));if(budget<(grammar?.maxTokens||1))throw new Error('PROMPT_TOO_LONG');
-    const options={return_full_text:false,max_new_tokens:budget,do_sample:false,streamer,stopping_criteria:stopper};
+    const available=Math.min(room,contextLimit-tokenCount(chat+prefix));
+    const budget=terminal?Math.min(available,grammar.maxTokens):controllerOutputBudget(prefix,available,event);
+    if(budget<(grammar?.maxTokens||1))throw new Error('PROMPT_TOO_LONG');
+    const options={return_full_text:false,max_new_tokens:budget,do_sample:false,streamer,stopping_criteria:currentStopper};
     if(grammar)options.logits_processor=grammar.list;
     const r=await trackedInference(chat+prefix,options),text=prefix+(r[0]?.generated_text||visible);
-    return {text,object:candidate||recoverPolicyObject(text),complete:!!candidate||!!extractObject(text)};
-  }finally{stopper=null;}
+    return {text,object:candidate||recoverPolicyObject(text),complete:!!candidate||!!extractObject(text),outputBudget:budget};
+  }finally{if(stopper===currentStopper)stopper=null;}
 }
 function controllerInstructions(){
-  const schema={action:'speak or listen',revisit_seconds:'seconds > 0 schedules a timer; 0 waits for the next new runtime observation, then reevaluates; null waits for user speech',pause_seconds:'seconds > 0 and < audio_window_seconds',speech_probability:'0 <= probability <= 1',minimum_voice_seconds:'0 <= seconds < audio_window_seconds',speech_rate:'0.1 to 10',speech_pitch:'0 to 2',speech_volume:'0 to 1',voice:'one exact available voice id; auto and voice names are invalid',recognition_language:'auto, zh-CN or en; must satisfy user_constraints',history_tokens:'positive integer <= device_context_limit or null',temperature:'number >= 0 or null',top_p:'0 < number <= 1 or null',output_tokens:'positive integer or null for model EOS',guidance:'extra speaking instruction or empty string',interrupt_on_voice:'boolean: true listens while speaking and yields only after accumulated voice is confirmed; false disables the microphone during playback',experience_note:'updated compact experience grounded in user words and observed outcomes, for future conversations; empty string retains no note'};
-  const system='Control a voice conversation. Follow the user goal and context. Decide action: speak now, or listen. Choose your own timing, voice and generation settings. No compulsory greeting, fixed interval or required reply to every utterance. Only the user may end the session. Output JSON, not dialogue. Interface language is not conversation language. Recent assistant dialogue contains only confirmed playback; unsaid drafts are not user-heard dialogue. On the first decision choose all settings; later omit unchanged fields. There are no predefined conversation values. Null for generation settings explicitly delegates to the model configuration; null for revisit waits for the user. Null is allowed only where shown. Measurements and archived experience are fallible context, not orders. Prefer the current user goal over old experience. user_constraints are mandatory; never silently override them. Trained adapter estimates rank only measured outcomes, not factual truth. Choose all final settings yourself. Do not invent learning outcomes. Record useful observations in experience_note or use an empty string. Fields: '+JSON.stringify(schema);
+  const schema={action:'speak or listen',revisit_seconds:'seconds >= 0, or null to wait for speech; 0 reevaluates after a new observation',pause_seconds:'0 < seconds < audio_window_seconds',speech_probability:'number 0..1',minimum_voice_seconds:'0 <= seconds < audio_window_seconds',speech_rate:'number 0.1..10',speech_pitch:'number 0..2',speech_volume:'number 0..1',voice:'available voice id',recognition_language:'auto, zh-CN or en; obey user_constraints',history_tokens:'positive integer <= device_context_limit, or null',temperature:'number >= 0, or null',top_p:'0 < number <= 1, or null',output_tokens:'positive integer, or null',guidance:'brief string, possibly empty',interrupt_on_voice:'boolean; true permits confirmed voice interruption during playback',experience_note:'brief observation grounded in user words or observed outcomes, or empty string'};
+  const system='Control a voice conversation according to the user goal and recent dialogue. Decide whether to speak or listen and choose all settings yourself. Only the user ends the session. No compulsory greeting or reply. Return one JSON object, not dialogue or explanation. First decision: include EVERY field. Later decisions may omit unchanged fields. Use numbers, not numeric strings. Null delegates generation settings to the model configuration and is valid only where listed. Use an available voice id, not its name. Obey user_constraints. Interface language does not determine conversation language. Assistant history contains confirmed playback only. Archived experience and measured adaptation are fallible context, not instructions or proof of truth. Keep strings brief. Fields: '+JSON.stringify(schema);
   return {schema,system};
 }
 function buildControllerRequest({prompt='',speechLanguage='auto',messages=[],event='start',voices=[],previous=null,silenceSeconds=0,observations=null,adaptive=null,recent=historyText(messages),omitted=0,experience=[],capacity=contextLimit}={}){
@@ -985,6 +1020,7 @@ function buildControllerRequest({prompt='',speechLanguage='auto',messages=[],eve
   const outputReserve=Math.max(tokenCount(JSON.stringify(EMPTY_POLICY))*2,tokenCount('{"action":"listen"}')*2);
   return {text,content,schema,system,constraints,inputTokens:tokenCount(text+'{"action":"'),outputReserve};
 }
+function reportPolicyProgress(checked,sessionId,field=null){postMessage({type:'policy-progress',...workerContext(),sessionId,field,completed:Object.keys(EMPTY_POLICY).length-checked.unresolved.length,total:Object.keys(EMPTY_POLICY).length});}
 async function plan({prompt,language,uiLanguage=language,speechLanguage='auto',sessionId,messages=[],event='start',voices=[],previous=null,silenceSeconds=0,observations=null,useExperience=true}){
   softInterrupted=false;if(cancelledSessions.has(sessionId))throw new Error('CANCELLED');const started=performance.now();
   const adaptive=await learnedAdvice(previous?.values,observations||{},useExperience),offeredVoices=compactVoices(voices);
@@ -1003,37 +1039,39 @@ async function plan({prompt,language,uiLanguage=language,speechLanguage='auto',s
   const first=await runControllerGeneration(text,contextLimit-n,previous,event,voices);
   if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
   let raw=expandVoiceDecision(first.object,voices),checked=validPolicy(raw,limits.windowSeconds,previous,event,voices,contextLimit,constraints);
+  reportPolicyProgress(checked,sessionId);
   let repairAttempted=false,repairSucceeded=false,repairedFields=[];
 
   if(!checked.ready){
     repairAttempted=true;
     const wanted=checked.unresolved;
-    const repairSchema=Object.fromEntries(Object.entries(schema).filter(([k])=>k==='action'||wanted.includes(k)));
+    const repairSchema=Object.fromEntries(Object.entries(schema).filter(([k])=>wanted.includes(k)));
     const payload={user_goal:prompt,fields:repairSchema,valid_decision:compactVoiceDecision(raw,voices),audio_window_seconds:limits.windowSeconds,device_context_limit:contextLimit,available_voices:offeredVoices,user_constraints:constraints};
-    const repairSystem='Complete this voice controller JSON with your own decisions. Output one JSON object. Keep the valid action. Choose only missing or invalid values. No dialogue.';
+    const repairSystem='Choose every missing or invalid field listed in fields. Return one JSON object containing ALL requested fields. Keep already valid decisions. No dialogue or explanation.';
     let repairChat=chatString([{role:'system',content:repairSystem},{role:'user',content:JSON.stringify(payload)}]),rn=tokenCount(repairChat);
     if(rn+reserve>=contextLimit){delete payload.valid_decision;repairChat=chatString([{role:'system',content:repairSystem},{role:'user',content:JSON.stringify(payload)}]);rn=tokenCount(repairChat);}
     if(rn+reserve<contextLimit){
-      const second=await runControllerGeneration(repairChat,contextLimit-rn,previous,event,voices);
+      const second=await runControllerGeneration(repairChat,Math.min(contextLimit-rn,reserve),previous,event,voices,'{',null);
       if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
       const repaired=validPolicy(expandVoiceDecision(second.object,voices),limits.windowSeconds,previous,event,voices,contextLimit,constraints);
       for(const key of wanted)if(repaired.source[key]==='ai'){raw[key]=repaired.values[key];repairedFields.push(key);}
-      checked=validPolicy(raw,limits.windowSeconds,previous,event,voices,contextLimit,constraints);repairSucceeded=repairedFields.length>0;
+      checked=validPolicy(raw,limits.windowSeconds,previous,event,voices,contextLimit,constraints);reportPolicyProgress(checked,sessionId);repairSucceeded=repairedFields.length>0;
     }
   }
   for(const key of checked.unresolved){
-    repairAttempted=true;postMessage({type:'policy-progress',sessionId,field:key});
+    repairAttempted=true;reportPolicyProgress(checked,sessionId,key);
     const payload={user_goal:prompt,event,setting:key,requirement:schema[key],current_decision:compactVoiceDecision(checked.values,voices),observations,
       audio_window_seconds:limits.windowSeconds,device_context_limit:contextLimit,available_voices:key==='voice'?offeredVoices:undefined,user_constraints:constraints};
     const chat=chatString([{role:'system',content:'Decide the requested setting yourself for this voice conversation. Return a JSON object containing only that setting. No explanation and no example.'},{role:'user',content:JSON.stringify(payload)}]);
     const room=contextLimit-tokenCount(chat);
     if(room<=tokenCount(JSON.stringify({[key]:schema[key]})))continue;
-    const choices=key==='action'?['"speak"}','"listen"}']:key==='recognition_language'?(constraints.recognition_language?[JSON.stringify(constraints.recognition_language)+'}']:['"auto"}','"zh-CN"}','"en"}']):key==='voice'?offeredVoices.map(v=>JSON.stringify(v.id)+'}'):key==='interrupt_on_voice'?['true}','false}']:null;
+    const choices=controllerChoices(key,voices,constraints);
     const result=await runControllerGeneration(chat,room,previous,event,voices,'{'+JSON.stringify(key)+':',choices);
     if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
     const field=validPolicy(expandVoiceDecision(result.object,voices),limits.windowSeconds,null,event,voices,contextLimit,constraints);
-    if(field.source[key]==='ai'){raw[key]=field.values[key];repairedFields.push(key);checked=validPolicy(raw,limits.windowSeconds,previous,event,voices,contextLimit,constraints);}
+    if(field.source[key]==='ai'){raw[key]=field.values[key];repairedFields.push(key);checked=validPolicy(raw,limits.windowSeconds,previous,event,voices,contextLimit,constraints);reportPolicyProgress(checked,sessionId,key);}
   }
+  reportPolicyProgress(checked,sessionId);
   repairSucceeded=repairedFields.length>0;
   policy={...checked,experience_sources:fitted.sources,elapsed_ms:performance.now()-started,omitted,repair_attempted:repairAttempted,repair_succeeded:repairSucceeded,repaired_fields:repairedFields,
     decision_source:!checked.ready?'unresolved':repairedFields.length?'ai_with_repair':checked.completeObject?'ai':'ai_patch',protocol:'full-controller-v3'};
@@ -1089,20 +1127,21 @@ async function planDelivery({sessionId,messageId,text,prompt='',voices=[],settin
     if(tokenCount(chat)+reserve>=contextLimit){delete payload.previous_segment;delete payload.next_segment;delete payload.trained_adaptation;chat=chatString([{role:'system',content:system},{role:'user',content:JSON.stringify(payload)}]);}
     await ensureContextCapacity(tokenCount(chat+'{')+reserve);let room=contextLimit-tokenCount(chat);
     const generated=await runControllerGeneration(chat,room,null,'delivery',voices,'{',null);
-    let item=expandVoiceDecision(generated.object,voices);item.segment=index;
+    let item=expandDeliveryDecision(generated.object,voices);item.segment=index;
     if(!validDeliveryItem(item,index,voices)){
       for(const key of Object.keys(DELIVERY_FIELDS)){
+        if(validDeliveryValue(key,item[key],voices))continue;
         if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
         const instruction={text:parts[index],field:key,requirement:DELIVERY_FIELDS[key],user_goal:prompt,available_voices:key==='voice'?offered:undefined,current:compactVoiceDecision(item,voices)};
         const repair=chatString([{role:'system',content:'Choose the requested speech delivery value yourself. Return one JSON object with only that field.'},{role:'user',content:JSON.stringify(instruction)}]);
         room=contextLimit-tokenCount(repair);if(room<=tokenCount(JSON.stringify({[key]:DELIVERY_FIELDS[key]})))throw new Error('PROMPT_TOO_LONG');
         const result=await runControllerGeneration(repair,room,null,'delivery',voices,'{'+JSON.stringify(key)+':',key==='voice'?offered.map(v=>JSON.stringify(v.id)+'}'):null);
-        const value=expandVoiceDecision(result.object,voices);if(Object.hasOwn(value,key))item[key]=value[key];
+        const value=expandDeliveryDecision(result.object,voices);if(Object.hasOwn(value,key))item[key]=value[key];
       }
     }
     if(!validDeliveryItem(item,index,voices))throw new Error('DELIVERY_PLAN_INVALID:'+index);
     if(cancelledSessions.has(sessionId)||softInterrupted)throw new Error('CANCELLED');
-    items.push(Object.fromEntries(['segment',...Object.keys(DELIVERY_FIELDS)].map(key=>[key,item[key]])));
+    items.push(Object.fromEntries(['segment',...Object.keys(DELIVERY_FIELDS)].map(key=>[key,item[key]])));postMessage({type:'delivery-progress',...workerContext(),completed:items.length,total:parts.length});
   }
   const result={delivery_plan:items,segments:parts};
   if(!validDeliveryPlan(result,parts,voices))throw new Error('DELIVERY_PLAN_INVALID');
@@ -1280,33 +1319,18 @@ registerProcessor('aichat-mic',MicProcessor);
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
-const EN={"promptLabel":"Prompt","promptOptional":"Optional","promptPlaceholder":"What would you like to talk about?","start":"Start","end":"End","setupTitle":"Local models","checkBrowser":"Browser","checkStorage":"Storage","checkMic":"Microphone","checkVoice":"Local voices","checkModels":"Models","checkOffline":"Offline test","prepare":"Prepare","cancelPrepare":"Cancel","offlineCheck":"Local check","voiceChat":"Voice chat","empty":"Start with a thought","localOnly":"Autosaved on this device","exportText":"Export","retrySave":"Retry save","resume":"Resume","textSupplement":"Type a message","textPlaceholder":"Add a message…","send":"Send","settingsTitle":"Settings","close":"Close","speechLanguageLabel":"Speech language","speechAuto":"Auto","themeLabel":"Appearance","themeAuto":"System","themeLight":"Light","themeDark":"Dark","folderTitle":"Save location","chooseFolder":"Choose folder","forgetFolder":"Disconnect","historyTitle":"History","backupAll":"Back up records","importBackup":"Import backup","diagnosticsTitle":"Diagnostics","recheck":"Check environment","exportDiagnostics":"Export diagnostics","decisionTitle":"AI decision","confirmTitle":"End conversation?","confirmInfo":"Stop recording and speaking, and save the conversation.","keepTalking":"Keep talking","confirmEnd":"End and save","networkTitle":"Prepare models again?","networkInfo":"Reload this page and allow missing resources to download. Existing conversations are kept.","networkConfirm":"Prepare again"};
-const DYNAMIC={"zh-CN":{"needsPrep":"未就绪","cached":"已缓存","ready":"本机运行","preparing":"准备中","idle":"准备开始","idleHelp":"","listening":"正在听","listeningHelp":"","recognizing":"正在识别","recognizingHelp":"","thinking":"正在思考","thinkingHelp":"","speaking":"AI 正在说话","speakingHelp":"","starting":"正在启动","startingHelp":"","closing":"正在保存","closingHelp":"","ended":"对话已结束","endedHelp":"","paused":"对话已暂停","pausedHelp":"","error":"需要处理一个问题","errorHelp":"","user":"你","assistant":"AI","saved":"已保存到本机","saving":"保存中…","notSaved":"保存失败，请导出","generatedPartial":"回答已中断","notSpoken":"未完整朗读","contextCut":"本轮上下文已满","pendingAudio":"语音未转写，可在历史中导出原音频。","recordInterrupted":"中断恢复","view":"查看","delete":"删除","noneHistory":"暂无记录","deleteConfirm":"删除这条记录及待转写语音？","exportRequested":"已请求导出 TXT。","browserError":"当前入口不支持录音或本地推理。请使用支持麦克风、工作线程和 WebAssembly 的浏览器；本地文件权限受限时改用 localhost。","storageError":"无法保存本机数据。请检查存储权限、可用空间和隐私浏览设置。","micError":"无法使用麦克风。请检查浏览器权限和录音设备。","voiceError":"缺少本地朗读语音，请在系统中安装对应语言的离线语音包。","voicePlaybackError":"朗读未完成。文字已保留，请检查音量和本地语音包。","modelError":"本地模型启动失败，请查看诊断。已缓存资源会保留。","missingAsset":"本地资源缺失或损坏。点击“准备”补齐，不会自动联网。","tooLong":"提示词或最新发言超出本机上下文容量，请缩短后重试。","genericError":"操作未完成，请查看设置中的诊断。","technical":"技术信息：","checking":"检查环境…","loadDialogue":"加载对话模型…","loadASR":"加载语音识别…","modelTest":"检查本地推理…","coldTest":"禁网冷启动自检…","preparationDone":"准备完成。本页已禁止联网。","preparationCancelled":"已取消，完整下载的资源已保留。","permissionDone":"环境检查完成。","notPersistent":"浏览器未授予持久存储，重要记录请导出。","download":"下载","waitingDownload":"正在获取文件","downloadDone":"已缓存","contextNotice":"本轮使用最近的对话；完整记录仍会保存。","audioBacklog":"音频处理跟不上录音，已暂停。请检查设备负载后继续。","lastAudioPending":"部分语音未转写，可从历史导出音频。","preparingHelp":"","offlineLabel":"本页禁网","importDone":"已导入。","importBad":"备份文件无效。","importBusy":"请先结束当前对话。","backupEmpty":"暂无记录。","micLost":"麦克风已断开。请重新连接后继续。","modelStopped":"本地推理已停止，可从缓存重新启动。","testZh":"本地中文语音已准备好。","testEn":"Local English voice is ready.","audioLabel":"导出待转写语音","promptTitle":"提示词","startedTitle":"开始时间","endedTitle":"结束时间","statusLabel":"状态","languageLabel":"语言","notesTitle":"备注","systemTitle":"系统记录","complete":"已结束","active":"进行中","interrupted":"中断恢复","textOnlyBackup":"此备份仅含文字，不包含待转写的原始录音。","directing":"AI 正在决定","directingHelp":"","decisionSpeak":"开口","decisionListen":"继续听","aiOutputLimit":"达到 AI 选择的输出长度","checkingOffline":"正在自检","offlineTestNotice":"检查缓存与本地语音…","offlineTestDone":"本地自检通过。","otherTab":"副本已占用","otherTabHelp":"另一个 AIChat 页面正在使用数据，请关闭它后刷新本页。","voicePartial":"部分本地朗读语音缺失。","storageSpaceError":"存储不足，请释放空间后重试。","speechLanguageLabel":"识别语言","speechAuto":"自动","recognitionLanguageLabel":"识别语言","uiLanguageLabel":"界面语言","voiceLanguages":"本地语音","voiceChinese":"中文","voiceAvailable":"可用","voiceUnavailable":"未安装","folderConnected":"保存到","folderOptional":"本机历史，结束时导出 TXT。","folderUnsupported":"本机历史，结束时导出 TXT。此浏览器不支持绑定文件夹。","folderError":"文件夹写入失败，已改用 TXT 导出。","folderSaved":"已保存到本机和所选文件夹。","folderSavedHistoryFailed":"TXT 已保存，本机历史保存失败。","decisionsTitle":"完整 AI 决策记录（数值与来源）","buildTitle":"应用版本","confirmedAtTitle":"用户确认结束时间","controllerActionError":"AI 尚未完成有效的对话参数选择，已暂停而未使用固定备用值。点击“继续”重试；详细原因见诊断。","finishSpeaking":"检测到语音，请先说完，再发送文字。","captureInterrupted":"录音设备未能确认末尾音频已全部交付；已保留接收到的内容。","networkRestartError":"无法保存重载请求，请允许此页面使用会话存储后重试。","prepareAgain":"重新准备","licenseTitle":"软件许可"},"en":{"needsPrep":"Not ready","cached":"Cached","ready":"On device","preparing":"Preparing","idle":"Ready to begin","idleHelp":"","listening":"Listening","listeningHelp":"","recognizing":"Transcribing","recognizingHelp":"","thinking":"Thinking","thinkingHelp":"","speaking":"AI is speaking","speakingHelp":"","starting":"Starting","startingHelp":"","closing":"Saving","closingHelp":"","ended":"Conversation ended","endedHelp":"","paused":"Paused","pausedHelp":"","error":"Something needs attention","errorHelp":"","user":"You","assistant":"AI","saved":"Saved on this device","saving":"Saving…","notSaved":"Save failed. Please export.","generatedPartial":"Reply interrupted","notSpoken":"Not fully spoken","contextCut":"Context capacity reached","pendingAudio":"Audio not transcribed. Export it from history.","recordInterrupted":"Recovered","view":"View","delete":"Delete","noneHistory":"No conversations yet.","deleteConfirm":"Delete this conversation and its untranscribed audio?","exportRequested":"TXT export requested.","browserError":"This entry cannot record or run local models. Use a browser with microphone, worker and WebAssembly support; try localhost when local-file permissions are restricted.","storageError":"Local storage is unavailable. Check permissions, free space and private browsing.","micError":"Microphone unavailable. Check permissions and your audio device.","voiceError":"Install an offline system voice for this language.","voicePlaybackError":"Speech did not finish. Text is saved; check volume and local voices.","modelError":"Local model startup failed. See diagnostics; cached resources are retained.","missingAsset":"Local resources are missing or damaged. Choose Prepare to repair them. No automatic download.","tooLong":"The prompt or latest message exceeds the local context capacity. Shorten it and retry.","genericError":"Operation failed. See diagnostics in Settings.","technical":"Technical information: ","checking":"Checking environment…","loadDialogue":"Loading chat model…","loadASR":"Loading speech recognition…","modelTest":"Testing local inference…","coldTest":"Testing with network blocked…","preparationDone":"Ready. This page is now blocked from the network.","preparationCancelled":"Cancelled. Completed downloads are retained.","permissionDone":"Environment checked.","notPersistent":"Persistent storage was not granted. Export important conversations.","download":"Downloading","waitingDownload":"Fetching asset","downloadDone":"Cached","contextNotice":"Using recent turns for context; the full transcript is retained.","audioBacklog":"Audio processing fell behind. Paused; reduce device load before resuming.","lastAudioPending":"Some audio is not transcribed. Export it from history.","preparingHelp":"","offlineLabel":"Page network blocked","importDone":"Imported.","importBad":"Invalid backup file.","importBusy":"End the current conversation first.","backupEmpty":"No conversations yet.","micLost":"Microphone disconnected. Reconnect, then resume.","modelStopped":"Local inference stopped. Restart from cached resources.","testZh":"本地中文语音已准备好。","testEn":"Local English voice is ready.","audioLabel":"Export untranscribed audio","promptTitle":"Prompt","startedTitle":"Started","endedTitle":"Ended","statusLabel":"Status","languageLabel":"Language","notesTitle":"Notes","systemTitle":"System record","complete":"Ended","active":"In progress","interrupted":"Recovered interruption","textOnlyBackup":"This backup contains text only, not untranscribed audio.","directing":"AI is deciding","directingHelp":"","decisionSpeak":"Speak","decisionListen":"Listen","aiOutputLimit":"AI-selected output budget reached","checkingOffline":"Checking","offlineTestNotice":"Checking local models and voices…","offlineTestDone":"Local check passed.","otherTab":"Another copy is active","otherTabHelp":"Another AIChat page is using this data. Close it, then reload.","voicePartial":"Some local voices are missing.","storageSpaceError":"Not enough storage. Free space and retry.","speechLanguageLabel":"Speech language","speechAuto":"Auto","recognitionLanguageLabel":"Recognition","uiLanguageLabel":"Interface language","voiceLanguages":"Local voices","voiceChinese":"Chinese","voiceAvailable":"Available","voiceUnavailable":"Not installed","folderConnected":"Save to","folderOptional":"Local history, with TXT export on End.","folderUnsupported":"Local history, with TXT export on End. Folder binding is not supported here.","folderError":"Folder write failed. Falling back to TXT export.","folderSaved":"Saved to local history and your folder.","folderSavedHistoryFailed":"TXT saved, but local history could not be saved.","decisionsTitle":"Complete AI decision log (values and sources)","buildTitle":"Application build","confirmedAtTitle":"User-confirmed end time","controllerActionError":"AI settings are incomplete. Paused without fixed fallback values. Resume to retry; see Diagnostics for details.","finishSpeaking":"Speech detected. Finish speaking before sending text.","captureInterrupted":"The capture device did not confirm delivery of its final samples. All received content was retained.","networkRestartError":"Cannot store the reload request. Enable session storage and retry.","prepareAgain":"Prepare again","licenseTitle":"Software license"}};
+const EN={"promptLabel":"Prompt","promptOptional":"Optional","promptPlaceholder":"What would you like to talk about?","start":"Start","end":"End","setupTitle":"Local models","checkBrowser":"Browser","checkStorage":"Storage","checkMic":"Microphone","checkVoice":"Local voices","checkModels":"Models","checkOffline":"Offline test","prepare":"Prepare","cancelPrepare":"Cancel","offlineCheck":"Local check","voiceChat":"Voice chat","empty":"Start with a thought","localOnly":"Autosaved on this device","exportText":"Export","retrySave":"Retry save","resume":"Resume","textSupplement":"Type a message","textPlaceholder":"Add a message…","send":"Send","settingsTitle":"Settings","close":"Close","speechLanguageLabel":"Speech language","speechAuto":"Auto","themeLabel":"Appearance","themeAuto":"System","themeLight":"Light","themeDark":"Dark","folderTitle":"Save location","chooseFolder":"Choose folder","forgetFolder":"Disconnect","historyTitle":"History","backupAll":"Back up records","importBackup":"Import backup","diagnosticsTitle":"Diagnostics","recheck":"Check environment","exportDiagnostics":"Export diagnostics","decisionTitle":"AI decision","confirmTitle":"End conversation?","confirmInfo":"Stop recording and speaking, and save the conversation.","keepTalking":"Keep talking","confirmEnd":"End and save","networkTitle":"Prepare models again?","networkInfo":"Reload this page and allow missing resources to download. Existing conversations are kept.","networkConfirm":"Prepare again","experienceTitle":"Local experience","experienceUseLabel":"Use past experience","experienceOn":"On","experienceOff":"Off"};
+const DYNAMIC={"zh-CN":{"needsPrep":"未就绪","cached":"已缓存","ready":"本机运行","preparing":"准备中","idle":"准备开始","idleHelp":"","listening":"正在听","listeningHelp":"","recognizing":"正在识别","recognizingHelp":"","thinking":"正在思考","thinkingHelp":"","speaking":"AI 正在说话","speakingHelp":"","starting":"正在启动","startingHelp":"","closing":"正在保存","closingHelp":"","ended":"对话已结束","endedHelp":"","paused":"对话已暂停","pausedHelp":"","error":"需要处理一个问题","errorHelp":"","user":"你","assistant":"AI","saved":"已保存到本机","saving":"保存中…","notSaved":"保存失败，请导出","generatedPartial":"回答已中断","notSpoken":"未完整朗读","contextCut":"本轮上下文已满","pendingAudio":"语音未转写，可在历史中导出原音频。","recordInterrupted":"中断恢复","view":"查看","delete":"删除","noneHistory":"暂无记录","deleteConfirm":"删除这条记录及待转写语音？","exportRequested":"已请求导出 TXT。","browserError":"当前入口不支持录音或本地推理。请使用支持麦克风、工作线程和 WebAssembly 的浏览器；本地文件权限受限时改用 localhost。","storageError":"无法保存本机数据。请检查存储权限、可用空间和隐私浏览设置。","micError":"无法使用麦克风。请检查浏览器权限和录音设备。","voiceError":"缺少本地朗读语音，请在系统中安装对应语言的离线语音包。","voicePlaybackError":"朗读未完成。文字已保留，请检查音量和本地语音包。","modelError":"模型启动失败，缓存已保留。","missingAsset":"本地资源缺失或损坏。点击“准备”补齐，不会自动联网。","tooLong":"提示词或最新发言超出本机上下文容量，请缩短后重试。","genericError":"操作失败，请重试。","technical":"技术信息：","checking":"检查环境…","loadDialogue":"加载对话模型…","loadASR":"加载语音识别…","modelTest":"检查本地推理…","coldTest":"禁网冷启动自检…","preparationDone":"已就绪","preparationCancelled":"已取消，缓存已保留。","permissionDone":"环境检查完成。","notPersistent":"","download":"下载","waitingDownload":"正在获取文件","downloadDone":"已缓存","contextNotice":"上下文已适配","audioBacklog":"音频处理跟不上录音，已暂停。请检查设备负载后继续。","lastAudioPending":"部分语音未转写，可从历史导出音频。","preparingHelp":"","offlineLabel":"本页禁网","importDone":"已导入。","importBad":"备份文件无效。","importBusy":"请先结束当前对话。","backupEmpty":"暂无记录。","micLost":"麦克风已断开。请重新连接后继续。","modelStopped":"本地推理已停止，可从缓存重新启动。","testZh":"本地中文语音已准备好。","testEn":"Local English voice is ready.","audioLabel":"导出待转写语音","promptTitle":"提示词","startedTitle":"开始时间","endedTitle":"结束时间","statusLabel":"状态","languageLabel":"语言","notesTitle":"备注","systemTitle":"系统记录","complete":"已结束","active":"进行中","interrupted":"中断恢复","textOnlyBackup":"此备份仅含文字，不包含待转写的原始录音。","directing":"AI 正在决定","directingHelp":"","decisionSpeak":"开口","decisionListen":"继续听","aiOutputLimit":"达到 AI 选择的输出长度","checkingOffline":"正在自检","offlineTestNotice":"检查缓存与本地语音…","offlineTestDone":"本地自检通过。","otherTab":"副本已占用","otherTabHelp":"另一个 AIChat 页面正在使用数据，请关闭它后刷新本页。","voicePartial":"部分本地朗读语音缺失。","storageSpaceError":"存储不足，请释放空间后重试。","speechLanguageLabel":"识别语言","speechAuto":"自动","recognitionLanguageLabel":"识别语言","uiLanguageLabel":"界面语言","voiceLanguages":"本地语音","voiceChinese":"中文","voiceAvailable":"可用","voiceUnavailable":"未安装","folderConnected":"保存到","folderOptional":"本机历史","folderUnsupported":"本机历史","folderError":"文件夹写入失败，已改用 TXT 导出。","folderSaved":"已保存到本机和所选文件夹。","folderSavedHistoryFailed":"TXT 已保存，本机历史保存失败。","decisionsTitle":"完整 AI 决策记录（数值与来源）","buildTitle":"应用版本","confirmedAtTitle":"用户确认结束时间","controllerActionError":"对话参数无效，请重试。","finishSpeaking":"检测到语音，请先说完，再发送文字。","captureInterrupted":"录音设备未能确认末尾音频已全部交付；已保留接收到的内容。","networkRestartError":"无法保存重载请求，请允许此页面使用会话存储后重试。","prepareAgain":"重新准备","licenseTitle":"软件许可","experienceCount":"条可参考经验","interruptedByUser":"因检测到你的声音而停止朗读","endingTimeout":"收尾超时，已停止模型并保存当前记录；请检查待转写语音。","executableError":"运行库来源或摘要校验失败；未执行该文件。","retryAudio":"本地补转写","retryingAudio":"正在本地补转写…","audioRetryDone":"补转写完成：成功 {done} 段，待处理 {pending} 段。","confirmedSpeech":"已确认朗读的内容（按浏览器回报）","speechUnconfirmed":"尚无已确认朗读的内容","mutedSpeech":"含静音片段","generatedText":"生成文本","recoveredAudioText":"旧版录音补转写（原始位置未知）","backupContents":"备份包含对话文本、AI 决策、本地经验和仍待转写的录音，不包含已转写后删除的原始录音或模型文件。","backupWorking":"正在备份记录与待转写语音…","backupComplete":"已请求保存完整记录备份，请检查浏览器下载。","importWorking":"正在校验并导入备份…","archiveBusy":"备份或导入正在进行。","backupAudioMissing":"待转写录音缺失，未生成不完整备份。请先检查记录中的录音。","captureRecovered":"已保留检测器尚未确认的末尾录音，可在历史中重试转写或导出。","exportModels":"备份模型","importModels":"导入模型","cancelPack":"取消迁移","packWorking":"正在核验并备份模型…","packImporting":"正在核验并导入模型…","packVerifying":"正在逐块校验…","packSaved":"模型备份已生成，点击“保存模型备份”保存。","saveModelPack":"保存模型备份","packImported":"模型已导入并通过禁网冷启动检查。","packCancelled":"已取消。原有完整缓存和对话保留。","packInvalid":"模型备份无效、版本不匹配或校验失败。","packTrustTitle":"导入可信模型备份？","packTrustInfo":"只导入可信备份。本浏览器首次验证运行库需要联网；之后只接受与本机信任摘要一致的执行文件。","packTrustContinue":"选择可信文件","feedbackAction":"纠正 / 反馈","feedbackEdit":"编辑反馈","feedbackRecorded":"含你的反馈","feedbackTitle":"你的纠正与反馈","feedbackPlaceholder":"可补充纠正或偏好。","saveFeedback":"保存反馈","feedbackSaved":"反馈已保存。已导出的旧 TXT 不会自动更新，请重新导出。","copyTranscript":"复制文字","copied":"对话文字已复制。","copyFailed":"未能访问剪贴板，请使用导出。","savedDownloadHint":"记录已保存在本机。浏览器未出现下载时，请点击“保存 TXT”；重要内容请另存备份。","exportText":"保存 TXT","experienceTitle":"离线优化","experienceUseLabel":"自适应优化","feedbackKindLabel":"反馈类型","feedbackNote":"偏好或说明","feedbackDialogueGood":"回答有帮助","feedbackDialogueBad":"回答需改进","feedbackASRGood":"转写正确","feedbackASRBad":"转写有误","feedbackVADGood":"打断正确","feedbackVADBad":"打断误触","feedbackTTSGood":"朗读合适","feedbackTTSBad":"朗读需改进","preparationFailed":"初始化未完成","preparationFailedHelp":"","preparationCancelledState":"准备已取消","preparationCancelledStateHelp":"","preparationReady":"已就绪","preparationReadyHelp":"","viewDetails":"查看详情","retryPreparation":"重试","repairResources":"修复缺失资源","autoPrepareStart":"自动准备后开始对话","diagnosticMode":"详细日志","diagnosticOn":"开启","diagnosticOff":"关闭","stateNotRun":"未执行","stateRunning":"进行中","statePassed":"已通过","stateFailed":"失败","stateCancelled":"已取消","stateWarning":"部分可用","latestRecorded":"最近记录","targetTokens":"目标","stageFailed":"失败步骤","preparationModelError":"初始化失败，缓存已保留。","resourceError":"内存分配失败，缓存已保留。","downloadError":"资源下载失败，已完成的缓存保留。请重试。","runtimeFault":"本地运行异常，缓存已保留。","workerTimeout":"模型响应超时，已停止。缓存已保留。","progressElapsed":"已用","progressSeconds":"秒","controllerSettings":"对话参数","generatedTokens":"已生成","tokensUnit":"个词元","progressRetry":"重新加载","folderTitle":"保存位置"},"en":{"needsPrep":"Not ready","cached":"Cached","ready":"On device","preparing":"Preparing","idle":"Ready to begin","idleHelp":"","listening":"Listening","listeningHelp":"","recognizing":"Transcribing","recognizingHelp":"","thinking":"Thinking","thinkingHelp":"","speaking":"AI is speaking","speakingHelp":"","starting":"Starting","startingHelp":"","closing":"Saving","closingHelp":"","ended":"Conversation ended","endedHelp":"","paused":"Paused","pausedHelp":"","error":"Something needs attention","errorHelp":"","user":"You","assistant":"AI","saved":"Saved on this device","saving":"Saving…","notSaved":"Save failed. Please export.","generatedPartial":"Reply interrupted","notSpoken":"Not fully spoken","contextCut":"Context capacity reached","pendingAudio":"Audio not transcribed. Export it from history.","recordInterrupted":"Recovered","view":"View","delete":"Delete","noneHistory":"No conversations yet.","deleteConfirm":"Delete this conversation and its untranscribed audio?","exportRequested":"TXT export requested.","browserError":"This entry cannot record or run local models. Use a browser with microphone, worker and WebAssembly support; try localhost when local-file permissions are restricted.","storageError":"Local storage is unavailable. Check permissions, free space and private browsing.","micError":"Microphone unavailable. Check permissions and your audio device.","voiceError":"Install an offline system voice for this language.","voicePlaybackError":"Speech did not finish. Text is saved; check volume and local voices.","modelError":"Model startup failed. Cache retained.","missingAsset":"Local resources are missing or damaged. Choose Prepare to repair them. No automatic download.","tooLong":"The prompt or latest message exceeds the local context capacity. Shorten it and retry.","genericError":"Operation failed. Retry.","technical":"Technical information: ","checking":"Checking environment…","loadDialogue":"Loading chat model…","loadASR":"Loading speech recognition…","modelTest":"Testing local inference…","coldTest":"Testing with network blocked…","preparationDone":"Ready","preparationCancelled":"Cancelled. Cache retained.","permissionDone":"Environment checked.","notPersistent":"","download":"Downloading","waitingDownload":"Fetching asset","downloadDone":"Cached","contextNotice":"Context adapted","audioBacklog":"Audio processing fell behind. Paused; reduce device load before resuming.","lastAudioPending":"Some audio is not transcribed. Export it from history.","preparingHelp":"","offlineLabel":"Page network blocked","importDone":"Imported.","importBad":"Invalid backup file.","importBusy":"End the current conversation first.","backupEmpty":"No conversations yet.","micLost":"Microphone disconnected. Reconnect, then resume.","modelStopped":"Local inference stopped. Restart from cached resources.","testZh":"本地中文语音已准备好。","testEn":"Local English voice is ready.","audioLabel":"Export untranscribed audio","promptTitle":"Prompt","startedTitle":"Started","endedTitle":"Ended","statusLabel":"Status","languageLabel":"Language","notesTitle":"Notes","systemTitle":"System record","complete":"Ended","active":"In progress","interrupted":"Recovered interruption","textOnlyBackup":"This backup contains text only, not untranscribed audio.","directing":"AI is deciding","directingHelp":"","decisionSpeak":"Speak","decisionListen":"Listen","aiOutputLimit":"AI-selected output budget reached","checkingOffline":"Checking","offlineTestNotice":"Checking local models and voices…","offlineTestDone":"Local check passed.","otherTab":"Another copy is active","otherTabHelp":"Another AIChat page is using this data. Close it, then reload.","voicePartial":"Some local voices are missing.","storageSpaceError":"Not enough storage. Free space and retry.","speechLanguageLabel":"Speech language","speechAuto":"Auto","recognitionLanguageLabel":"Recognition","uiLanguageLabel":"Interface language","voiceLanguages":"Local voices","voiceChinese":"Chinese","voiceAvailable":"Available","voiceUnavailable":"Not installed","folderConnected":"Save to","folderOptional":"Local history","folderUnsupported":"Local history","folderError":"Folder write failed. Falling back to TXT export.","folderSaved":"Saved to local history and your folder.","folderSavedHistoryFailed":"TXT saved, but local history could not be saved.","decisionsTitle":"Complete AI decision log (values and sources)","buildTitle":"Application build","confirmedAtTitle":"User-confirmed end time","controllerActionError":"Invalid conversation settings. Retry.","finishSpeaking":"Speech detected. Finish speaking before sending text.","captureInterrupted":"The capture device did not confirm delivery of its final samples. All received content was retained.","networkRestartError":"Cannot store the reload request. Enable session storage and retry.","prepareAgain":"Prepare again","licenseTitle":"Software license","experienceCount":"saved experience records","interruptedByUser":"Playback stopped on detected user voice","endingTimeout":"Closing timed out. Models were stopped and the available record was saved; check pending audio.","executableError":"Runtime trust or digest verification failed. The file was not executed.","retryAudio":"Transcribe pending audio locally","retryingAudio":"Transcribing pending audio locally…","audioRetryDone":"Transcription finished: {done} recovered; {pending} pending.","confirmedSpeech":"Confirmed speech playback (reported by the browser)","speechUnconfirmed":"No confirmed speech playback yet","mutedSpeech":"Includes muted segments","generatedText":"Generated text","recoveredAudioText":"Recovered legacy audio (original position unknown)","backupContents":"The backup contains transcript text, AI decisions, local experience and pending audio. It does not contain original audio already deleted after transcription or model files.","backupWorking":"Backing up records and pending audio…","backupComplete":"A complete record backup was requested. Check your browser downloads.","importWorking":"Validating and importing the backup…","archiveBusy":"A backup or import is in progress.","backupAudioMissing":"Pending audio is missing. No incomplete backup was created. Check the audio in the saved records.","exportModels":"Back up models","importModels":"Import models","cancelPack":"Cancel transfer","packWorking":"Verifying and backing up models…","packImporting":"Verifying and importing models…","packVerifying":"Verifying chunks…","packSaved":"Model backup created. Choose Save model backup to save it.","saveModelPack":"Save model backup","packImported":"Models imported and verified with a network-blocked cold start.","packCancelled":"Cancelled. Previous complete cache and conversations retained.","packInvalid":"Invalid, incompatible or damaged model backup.","packTrustTitle":"Import a trusted model backup?","packTrustInfo":"Import a trusted backup. First runtime verification in this browser requires a connection; later imports must match independently stored executable digests.","packTrustContinue":"Choose trusted file","feedbackAction":"Correct / give feedback","feedbackEdit":"Edit feedback","feedbackRecorded":"Your feedback attached","feedbackTitle":"Your corrections and feedback","feedbackPlaceholder":"Optional correction or preference.","saveFeedback":"Save feedback","feedbackSaved":"Feedback saved. Previously exported TXT files are not updated; export again.","copyTranscript":"Copy text","copied":"Transcript copied.","copyFailed":"Clipboard access failed. Use Export instead.","savedDownloadHint":"The record is stored on this device. If no download appeared, choose Save TXT. Keep a separate backup of important conversations.","exportText":"Save TXT","experienceTitle":"Offline adaptation","experienceUseLabel":"Adaptive optimization","feedbackKindLabel":"Feedback type","feedbackNote":"Preference or note","feedbackDialogueGood":"Helpful reply","feedbackDialogueBad":"Reply needs improvement","feedbackASRGood":"Correct transcription","feedbackASRBad":"Incorrect transcription","feedbackVADGood":"Correct interruption","feedbackVADBad":"False interruption","feedbackTTSGood":"Suitable delivery","feedbackTTSBad":"Delivery needs improvement","preparationFailed":"Initialization incomplete","preparationFailedHelp":"","preparationCancelledState":"Preparation cancelled","preparationCancelledStateHelp":"","preparationReady":"Ready","preparationReadyHelp":"","viewDetails":"View details","retryPreparation":"Retry","repairResources":"Repair missing assets","autoPrepareStart":"Prepare automatically, then start","diagnosticMode":"Detailed logs","diagnosticOn":"On","diagnosticOff":"Off","stateNotRun":"Not run","stateRunning":"Running","statePassed":"Passed","stateFailed":"Failed","stateCancelled":"Cancelled","stateWarning":"Partly available","latestRecorded":"Last recorded","targetTokens":"Target","stageFailed":"Failed step","preparationModelError":"Initialization failed. Cache retained.","resourceError":"Memory allocation failed. Cache retained.","downloadError":"Asset download failed. Completed cache entries are retained. Retry to continue.","runtimeFault":"Local runtime failed. Cache retained.","workerTimeout":"Model response timed out and was stopped. Cache retained.","progressElapsed":"Elapsed","progressSeconds":"s","controllerSettings":"Conversation settings","generatedTokens":"Generated","tokensUnit":"tokens","progressRetry":"Reloading"}};
 const ORIGINAL={};document.querySelectorAll('[data-i18n]').forEach(e=>{ORIGINAL[e.dataset.i18n]=e.textContent;});document.querySelectorAll('[data-placeholder]').forEach(e=>{ORIGINAL[e.dataset.placeholder]=e.placeholder;});
 let useExperience=true;try{useExperience=localStorage.getItem('aichat-experience')!=='no';}catch{}
 let language='zh-CN',speechLanguage='auto';try{language=localStorage.getItem('aichat-language')||(/^en\b/i.test(navigator.language)?'en':'zh-CN');speechLanguage=localStorage.getItem('aichat-speech-language')||'auto';}catch{}
 if(!['en','zh-CN'].includes(language))language='zh-CN';if(!['auto','en','zh-CN'].includes(speechLanguage))speechLanguage='auto';
-Object.assign(EN,{experienceTitle:'Local experience',experienceUseLabel:'Use past experience',experienceOn:'On',experienceOff:'Off'});
-Object.assign(DYNAMIC['zh-CN'],{experienceCount:'条可参考经验',interruptedByUser:'因检测到你的声音而停止朗读',endingTimeout:'收尾超时，已停止模型并保存当前记录；请检查待转写语音。'});
-Object.assign(DYNAMIC.en,{experienceCount:'saved experience records',interruptedByUser:'Playback stopped on detected user voice',endingTimeout:'Closing timed out. Models were stopped and the available record was saved; check pending audio.'});
-Object.assign(DYNAMIC['zh-CN'],{executableError:'运行库来源或摘要校验失败；未执行该文件。',retryAudio:'本地补转写',retryingAudio:'正在本地补转写…',audioRetryDone:'补转写完成：成功 {done} 段，待处理 {pending} 段。',confirmedSpeech:'已确认朗读的内容（按浏览器回报）',speechUnconfirmed:'尚无已确认朗读的内容',mutedSpeech:'含静音片段',generatedText:'生成文本',recoveredAudioText:'旧版录音补转写（原始位置未知）'});
-Object.assign(DYNAMIC.en,{executableError:'Runtime trust or digest verification failed. The file was not executed.',retryAudio:'Transcribe pending audio locally',retryingAudio:'Transcribing pending audio locally…',audioRetryDone:'Transcription finished: {done} recovered; {pending} pending.',confirmedSpeech:'Confirmed speech playback (reported by the browser)',speechUnconfirmed:'No confirmed speech playback yet',mutedSpeech:'Includes muted segments',generatedText:'Generated text',recoveredAudioText:'Recovered legacy audio (original position unknown)'});
-Object.assign(DYNAMIC['zh-CN'],{backupContents:'备份包含对话文本、AI 决策、本地经验和仍待转写的录音，不包含已转写后删除的原始录音或模型文件。',backupWorking:'正在备份记录与待转写语音…',backupComplete:'已请求保存完整记录备份，请检查浏览器下载。',importWorking:'正在校验并导入备份…',archiveBusy:'备份或导入正在进行。',backupAudioMissing:'待转写录音缺失，未生成不完整备份。请先检查记录中的录音。'});
-Object.assign(DYNAMIC.en,{backupContents:'The backup contains transcript text, AI decisions, local experience and pending audio. It does not contain original audio already deleted after transcription or model files.',backupWorking:'Backing up records and pending audio…',backupComplete:'A complete record backup was requested. Check your browser downloads.',importWorking:'Validating and importing the backup…',archiveBusy:'A backup or import is in progress.',backupAudioMissing:'Pending audio is missing. No incomplete backup was created. Check the audio in the saved records.'});
-DYNAMIC['zh-CN'].captureRecovered='已保留检测器尚未确认的末尾录音，可在历史中重试转写或导出。';
 DYNAMIC.en.captureRecovered='Captured audio not yet acknowledged by the detector was retained. Retry transcription or export it from History.';
-
-Object.assign(DYNAMIC["zh-CN"],{"exportModels": "备份模型","importModels": "导入模型","cancelPack": "取消迁移","packWorking": "正在核验并备份模型…","packImporting": "正在核验并导入模型…","packVerifying": "正在逐块校验…","packSaved": "模型备份已生成，点击“保存模型备份”保存。","saveModelPack": "保存模型备份","packImported": "模型已导入并通过禁网冷启动检查。","packCancelled": "已取消。原有完整缓存和对话保留。","packInvalid": "模型备份无效、版本不匹配或校验失败。","packTrustTitle": "导入可信模型备份？","packTrustInfo": "只导入可信备份。本浏览器首次验证运行库需要联网；之后只接受与本机信任摘要一致的执行文件。","packTrustContinue": "选择可信文件","feedbackAction": "纠正 / 反馈","feedbackEdit": "编辑反馈","feedbackRecorded": "含你的反馈","feedbackTitle": "你的纠正与反馈","feedbackPlaceholder": "写下你的纠正或偏好。内容会原样保存，不会改写已发生的对话。","saveFeedback": "保存反馈","feedbackSaved": "反馈已保存。已导出的旧 TXT 不会自动更新，请重新导出。","copyTranscript": "复制文字","copied": "对话文字已复制。","copyFailed": "未能访问剪贴板，请使用导出。","savedDownloadHint": "记录已保存在本机。浏览器未出现下载时，请点击“保存 TXT”；重要内容请另存备份。","exportText": "保存 TXT"});
-Object.assign(DYNAMIC.en,{"exportModels": "Back up models","importModels": "Import models","cancelPack": "Cancel transfer","packWorking": "Verifying and backing up models…","packImporting": "Verifying and importing models…","packVerifying": "Verifying chunks…","packSaved": "Model backup created. Choose Save model backup to save it.","saveModelPack": "Save model backup","packImported": "Models imported and verified with a network-blocked cold start.","packCancelled": "Cancelled. Previous complete cache and conversations retained.","packInvalid": "Invalid, incompatible or damaged model backup.","packTrustTitle": "Import a trusted model backup?","packTrustInfo": "Import a trusted backup. First runtime verification in this browser requires a connection; later imports must match independently stored executable digests.","packTrustContinue": "Choose trusted file","feedbackAction": "Correct / give feedback","feedbackEdit": "Edit feedback","feedbackRecorded": "Your feedback attached","feedbackTitle": "Your corrections and feedback","feedbackPlaceholder": "Write a correction or preference. It will be saved verbatim without rewriting what happened.","saveFeedback": "Save feedback","feedbackSaved": "Feedback saved. Previously exported TXT files are not updated; export again.","copyTranscript": "Copy text","copied": "Transcript copied.","copyFailed": "Clipboard access failed. Use Export instead.","savedDownloadHint": "The record is stored on this device. If no download appeared, choose Save TXT. Keep a separate backup of important conversations.","exportText": "Save TXT"});
-
+const APPLICATION_LICENSE="AIChat application code is MIT licensed. Copyright (c) 2026 AIChat contributors.\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\nExternal models and runtimes retain their own licenses. They are not embedded in this initial HTML.";
 const tr=(key,lang=language)=>DYNAMIC[lang]?.[key]??(lang==='en'?EN[key]:ORIGINAL[key])??key;
-Object.assign(DYNAMIC['zh-CN'],{experienceTitle:'离线优化',experienceUseLabel:'自适应优化',feedbackKindLabel:'反馈类型',feedbackNote:'偏好或说明',feedbackDialogueGood:'回答有帮助',feedbackDialogueBad:'回答需改进',feedbackASRGood:'转写正确',feedbackASRBad:'转写有误',feedbackVADGood:'打断正确',feedbackVADBad:'打断误触',feedbackTTSGood:'朗读合适',feedbackTTSBad:'朗读需改进',preparationDone:'已就绪',notPersistent:'',preparingHelp:'',contextNotice:'上下文已适配',feedbackPlaceholder:'可补充纠正或偏好。'});
-Object.assign(DYNAMIC.en,{experienceTitle:'Offline adaptation',experienceUseLabel:'Adaptive optimization',feedbackKindLabel:'Feedback type',feedbackNote:'Preference or note',feedbackDialogueGood:'Helpful reply',feedbackDialogueBad:'Reply needs improvement',feedbackASRGood:'Correct transcription',feedbackASRBad:'Incorrect transcription',feedbackVADGood:'Correct interruption',feedbackVADBad:'False interruption',feedbackTTSGood:'Suitable delivery',feedbackTTSBad:'Delivery needs improvement',preparationDone:'Ready',notPersistent:'',preparingHelp:'',contextNotice:'Context adapted',feedbackPlaceholder:'Optional correction or preference.'});
-Object.assign(DYNAMIC['zh-CN'],{preparationFailed:'初始化未完成',preparationFailedHelp:'',preparationCancelledState:'准备已取消',preparationCancelledStateHelp:'',preparationReady:'已就绪',preparationReadyHelp:'',viewDetails:'查看详情',retryPreparation:'重试',repairResources:'修复缺失资源',autoPrepareStart:'自动准备后开始对话',diagnosticMode:'详细运行日志（下次加载生效）',diagnosticOn:'开启',diagnosticOff:'关闭',stateNotRun:'未执行',stateRunning:'进行中',statePassed:'已通过',stateFailed:'失败',stateCancelled:'已取消',stateWarning:'部分可用',latestRecorded:'最近记录',targetTokens:'目标',stageFailed:'失败步骤',preparationModelError:'本地初始化未完成。已保留缓存，请查看失败步骤或重试。',resourceError:'这次请求出现明确的内存分配失败。已保留历史验证结果；重试会重新验证，不会直接把中断判成内存不足。',downloadError:'资源下载失败，已完成的缓存保留。请重试。',runtimeFault:'本地运行时异常。已保留原始错误和失败阶段；尚不能据此认定是内存不足。'});
-Object.assign(DYNAMIC.en,{preparationFailed:'Initialization incomplete',preparationFailedHelp:'',preparationCancelledState:'Preparation cancelled',preparationCancelledStateHelp:'',preparationReady:'Ready',preparationReadyHelp:'',viewDetails:'View details',retryPreparation:'Retry',repairResources:'Repair missing assets',autoPrepareStart:'Prepare automatically, then start',diagnosticMode:'Detailed runtime logs (next load)',diagnosticOn:'On',diagnosticOff:'Off',stateNotRun:'Not run',stateRunning:'Running',statePassed:'Passed',stateFailed:'Failed',stateCancelled:'Cancelled',stateWarning:'Partly available',latestRecorded:'Last recorded',targetTokens:'Target',stageFailed:'Failed step',preparationModelError:'Local initialization is incomplete. Cached resources are retained. Review the failed step or retry.',resourceError:'This request encountered an explicit memory allocation failure. Previous verification is retained; retry revalidates instead of treating an interruption as an out-of-memory result.',downloadError:'Asset download failed. Completed cache entries are retained. Retry to continue.',runtimeFault:'Local runtime fault. The original error and stage were retained; this alone does not establish out-of-memory.'});
 const STAGE_LABELS={
-  cleanup:['缓存整理','Cache maintenance'],environment:['环境检查','Environment checks'],storageBefore:['准备前存储采样','Storage before preparation'],persistence:['持久存储请求','Storage persistence'],initialization:['模型初始化','Model initialization'],offlineColdStart:['禁网冷启动','Network-blocked cold start'],speechPlayback:['本地语音播放','Local speech playback'],cacheVerify:['缓存完整性校验','Cache integrity'],savePrepared:['保存就绪状态','Save readiness'],
-  'worker-storage':['模型线程存储','Engine storage'],'engine-runtime':['对话运行库','Dialogue runtime'],loadDialogue:['对话模型加载','Dialogue model'],loadASR:['识别模型加载','Recognition model'],'model-config':['模型配置','Model configuration'],'dialogue-self-test':['对话短自检','Short dialogue test'],'asr-self-test':['识别短自检','Short recognition test'],'context-budget':['控制器请求预算','Controller request budget'],'controller-test':['真实控制器请求','Real controller request'],'delivery-test':['语音表达方案','Speech delivery plan'],adaptation:['离线自适应','Offline adaptation'],'vad-storage':['语音检测线程存储','VAD storage'],'vad-runtime':['语音检测运行库','VAD runtime'],'vad-model':['语音检测模型','VAD model'],'vad-self-test':['语音检测自检','VAD self-test']};
+  cleanup:['缓存整理','Cache maintenance'],environment:['环境检查','Environment checks'],storageBefore:['检查可用空间','Checking free space'],persistence:['持久存储请求','Storage persistence'],initialization:['模型初始化','Model initialization'],offlineColdStart:['禁网冷启动','Network-blocked cold start'],speechPlayback:['本地语音播放','Local speech playback'],cacheVerify:['缓存完整性校验','Cache integrity'],savePrepared:['保存状态','Saving readiness'],
+  'worker-storage':['模型线程存储','Engine storage'],'engine-runtime':['对话运行库','Dialogue runtime'],loadDialogue:['对话模型加载','Dialogue model'],loadASR:['识别模型加载','Recognition model'],'model-config':['模型配置','Model configuration'],'dialogue-self-test':['对话短自检','Short dialogue test'],'asr-self-test':['识别短自检','Short recognition test'],'context-budget':['检查模型容量','Model capacity'],'controller-test':['生成对话参数','Conversation settings'],'delivery-test':['生成朗读参数','Speech delivery settings'],adaptation:['离线自适应','Offline adaptation'],'vad-storage':['语音检测线程存储','VAD storage'],'vad-runtime':['语音检测运行库','VAD runtime'],'vad-model':['语音检测模型','VAD model'],'vad-self-test':['语音检测自检','VAD self-test']};
 const stageLabel=key=>STAGE_LABELS[key]?.[language==='en'?1:0]??tr(key);
 let diagnosticMode=false;try{diagnosticMode=localStorage.getItem('aichat-diagnostic-mode')==='on';}catch{}
 let preparationState=null;const checkStates={};
@@ -1366,7 +1390,7 @@ function applyLanguage(){
   document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=tr(e.dataset.i18n));
   document.querySelectorAll('[data-title]').forEach(e=>{e.title=tr(e.dataset.title);e.setAttribute('aria-label',tr(e.dataset.title));});
   document.querySelectorAll('[data-placeholder]').forEach(e=>e.placeholder=tr(e.dataset.placeholder));
-  for(const [id,state] of Object.entries(checkStates))checkRow(id,state);renderVoiceCapabilities();renderFolder();setPhase(phase);if(current){renderConversation();$('saveStatus').textContent=tr(storeBroken?'notSaved':'saved');}renderHistory().catch(()=>{});updateDiagnostics();updateDecisionPanel();refreshNotice();
+  for(const [id,state] of Object.entries(checkStates))checkRow(id,state);renderVoiceCapabilities();renderFolder();setPhase(phase);if(current){renderConversation();$('saveStatus').textContent=tr(storeBroken?'notSaved':'saved');}renderHistory().catch(()=>{});updateDiagnostics();refreshNotice();if(progressState&&progressState.status!=='running'){progressState.label=tr(progressState.status==='passed'?'preparationDone':progressState.status==='cancelled'?'preparationCancelledState':'preparationFailed');progressState.detail='';paintProgress();}
 }
 function notice(text,error=false,errorObject=null){lastNotice={text,error,errorObject,language};$('notice').textContent=text;$('notice').className='notice'+(error?' error':'');$('notice').hidden=!text;}
 
@@ -1386,6 +1410,7 @@ function refreshNotice(){
 function recordEvent(kind,error){diag.events.push({at:new Date().toISOString(),kind,detail:errText(error),diagnostic:serializeError(error,{role:'page',operation:kind,attemptId:preparationState?.attemptId??null,stage:preparing?preparationState?.stage:null})});if(diag.events.length>40)diag.events.shift();updateDiagnostics();}
 function readableError(e){
   const text=errText(e),outcome=e?.diagnostic?.outcome??errorOutcome(e);
+  if(/WORKER_RESPONSE_TIMEOUT/.test(text))return tr('workerTimeout');
   if(outcome==='resource-exhausted')return tr('resourceError');if(outcome==='runtime-fault')return tr('runtimeFault');
   if(preparing&&/CONTROLLER_|MODEL_DELIVERY/.test(text))return tr('preparationModelError');
   if(/NETWORK_TIMEOUT|HTTP|DOWNLOAD_|Failed to fetch|NetworkError/i.test(text))return tr('downloadError');
@@ -1431,9 +1456,7 @@ function renderPreparationStatus(){
   if(!terminal||!['preparationFailed','preparationCancelledState'].includes(phase))return;
   const stage=preparationState.error?.stage||preparationState.stage;
   const located=preparationState.status==='failed'&&preparationState.error?.stageEvidence!=='last-reported-stage';
-  let text=(located?tr('stageFailed'):tr('latestRecorded'))+'：'+stageLabel(stage);
-  const probe=diag.contextProbe;if(probe?.attemptId===preparationState.attemptId&&(probe.status==='running'||probe.completion==='worker-terminated'))text+=' · '+(located?tr('latestRecorded')+'：':'')+tr('targetTokens')+' '+probe.tokens+' tokens';
-  $('statusHelp').textContent=text;
+  $('statusHelp').textContent=(located?tr('stageFailed'):tr('latestRecorded'))+'：'+stageLabel(stage);
 }
 async function samplePreparationStorage(key,attemptId){
   try{const sample=await preparationSpaceCheck();if(preparationState?.attemptId===attemptId){diag[key]={...sample,attemptId};diag.storageEstimate=diag[key];}return sample;}
@@ -1457,13 +1480,14 @@ function updateDiagnostics(){
   diag.executableTrust={mode:'independent-https-first-use',immutableBuildDigests:false,manifestCanAuthorizeCode:false};
   diag.models=limits;diag.preparation=preparationState;diag.checks={...checkStates};diag.diagnosticMode=diagnosticMode;diag.workerState={engine:engine&&!engine.dead?'alive':'stopped',vad:vad&&!vad.dead?'alive':'stopped'};diag.storageScope='browser storage quota; not inference memory';
 
+  diag.progress=progressState?{mode:progressState.mode,status:progressState.status,percent:progressState.value,step:progressState.label,detail:progressState.detail,elapsedMs:(progressState.ended??performance.now())-progressState.started}:null;
   diag.experience={enabled:useExperience,sources:current?.policy?.experience_sources?.length||0,feedbackEntries:current?.userFeedback?.length||0,mode:'offline-validated-adapter-training',adapterWeightTraining:true,baseModelWeightTraining:false};
   diag.runtimeObservations=current?.runtimeObservations||null;diag.audioRecovery={running:repairingAudio,captureFaulted,pauseDrainPending:!!current&&pauseDrains.has(current),pending:current?.messages.reduce((n,m)=>n+(m.audioKeys?.length||0),0)||0,journalFrames:captureJournal.size,journalSamples:Array.from(captureJournal.values()).reduce((n,frame)=>n+frame.audio.length,0)};diag.playbackContext='confirmed-playback-only';
   diag.policy=current?.policy?{values:Object.fromEntries(Object.entries(current.policy.values).filter(([k])=>!['guidance','experience_note'].includes(k))),source:current.policy.source,rejected:current.policy.rejected}:null;
   networkAudit.page={...NET.stats};diag.networkAudit=networkAudit;diag.operatingSystemVoiceBoundary='Only localService=true voices; browser reports completion, not audibility. Page CSP cannot govern operating-system networking.';
   diag.engineNetworkAllowed=workerNetwork.engine;diag.preparationNetworkAllowed=workerNetwork.engine||workerNetwork.vad;diag.pageNetworkSealed=networkSealed;diag.networkPolicy=networkSealed?'CSP connect-src blob:; cache-only workers':'explicit preparation or first-import runtime verification';diag.modelsPrepared=prepared;diag.modelsLoaded=loaded;diag.storageFailed=storeBroken;
   diag.fixedEngineeringConstraints={audio:AUDIO_SPEC,safety:SAFETY,pins:{llm:PACK.llmRevision,asr:PACK.asrRevision,vad:PACK.vadRevision},ttsInputUTF16Limit:3000,timerMaximumMs:0x7fffffff,controllerDecoding:'model-selected actions and parameters; unresolved settings pause rather than use fixed values'};
-  $('diagnostics').textContent=JSON.stringify(diag,null,2);
+
 }
 
 function checkBrowser(){const supported=!!(globalThis.isSecureContext&&navigator.mediaDevices?.getUserMedia&&globalThis.Worker&&globalThis.WebAssembly&&globalThis.Blob&&globalThis.BigInt64Array&&(globalThis.AudioContext||globalThis.webkitAudioContext)&&globalThis.HTMLDialogElement);
@@ -1523,7 +1547,7 @@ async function environmentCheck(withPermission=false,withSpeech=false,guard=()=>
 }
 class Peer{
   constructor(code,onEvent,{role='storage',attemptId=null,loadId=null}={}){
-    this.id=0;this.pending=new Map();this.dead=false;this.role=role;this.attemptId=attemptId??uid();this.loadId=loadId??uid();this.lastStage=null;
+    this.id=0;this.pending=new Map();this.dead=false;this.role=role;this.attemptId=attemptId??uid();this.loadId=loadId??uid();this.lastStage=null;this.activity=new Map();
     this.url=URL.createObjectURL(new Blob([$('sharedCode').textContent,'\n',code],{type:'text/javascript'}));
     try{this.worker=new Worker(this.url,{type:'module'});}
     catch(e){URL.revokeObjectURL(this.url);this.url=null;this.dead=true;throw diagnosticError(e,this.context('worker-create'));}
@@ -1532,30 +1556,104 @@ class Peer{
       if(this.dead)return;const m=e.data;
       if(!m||typeof m!=='object'){fatal(new Error('WORKER_MESSAGE_INVALID'));return;}
       if((m.loadId&&m.loadId!==this.loadId)||(m.attemptId&&m.attemptId!==this.attemptId))return;
-      if(m.type==='init-stage')this.lastStage=m.key;
+      if(m.type==='init-stage')this.lastStage=m.key;else if(m.stage)this.lastStage=m.stage;
+      this.observe(m);
       if(m.id){
-        const pending=this.pending.get(m.id);if(!pending)return;this.pending.delete(m.id);
+        const pending=this.pending.get(m.id);if(!pending)return;this.pending.delete(m.id);clearTimeout(pending.timer);if(!this.pending.size)this.activity.clear();
         if(m.ok===true)pending.resolve(m.result);
         else pending.reject(restoreError(m.error,m.diagnostic||serializeError(m.error,this.context(pending.op,{requestId:m.id,elapsedMs:performance.now()-pending.started}))));
-      }else onEvent({...m,role:m.role??this.role,attemptId:m.attemptId??this.attemptId,loadId:m.loadId??this.loadId});
+      }else onEvent({...m,stage:m.stage??this.lastStage,role:m.role??this.role,attemptId:m.attemptId??this.attemptId,loadId:m.loadId??this.loadId});
     };
+    this.onTimeout=error=>onEvent({type:'fatal',error:errText(error),diagnostic:error.diagnostic});
     this.worker.onerror=e=>fatal(diagnosticError(e.error??e.message??'WORKER_FAILED',this.context('worker-error',{filename:e.filename??null,line:e.lineno??null,column:e.colno??null})));
     this.worker.onmessageerror=()=>fatal(new Error('WORKER_MESSAGE_FAILED'));
+  }
+  arm(id,pending){
+    clearTimeout(pending.timer);pending.lastProgress=performance.now();
+    pending.timer=setTimeout(()=>{if(this.dead||this.pending.get(id)!==pending)return;const error=diagnosticError(new Error('WORKER_RESPONSE_TIMEOUT'),this.context(pending.op,{requestId:id,elapsedMs:performance.now()-pending.started,idleMs:performance.now()-pending.lastProgress}));this.stop(error);this.onTimeout?.(error);},SAFETY.workerIdleMs);
+  }
+  observe(message){
+    let key=null,value=null;
+    if(message.type==='init-stage'){key='stage';value=message.key+':'+message.status;}
+    else if(['download','asset-progress'].includes(message.type)){key=message.type+':'+message.url;value=message.loaded+':'+!!message.done;}
+    else if(message.type==='inference-progress'){key='tokens:'+message.stage;value=message.generatedTokens+':'+message.inputTokens;}
+    else if(['policy-progress','delivery-progress'].includes(message.type)){key=message.type;value=message.completed;}
+    else if(message.type==='model-progress'&&['done','ready'].includes(message.status)){key='model:'+message.file;value=message.status;}
+    if(key===null||this.activity.get(key)===value)return;this.activity.set(key,value);
+    for(const [id,pending] of this.pending)if(!message.requestId||message.requestId===id)this.arm(id,pending);
   }
   context(operation,extra={}){return {role:this.role,operation,stage:this.lastStage,stageEvidence:'last-reported-stage',attemptId:this.attemptId,loadId:this.loadId,...extra};}
   call(op,args={},transfer=[]){
     if(this.dead)return Promise.reject(diagnosticError(new Error('WORKER_STOPPED'),this.context(op)));const id=++this.id;
     return new Promise((resolve,reject)=>{
-      this.pending.set(id,{resolve,reject,op,started:performance.now()});
-      try{this.worker.postMessage({...args,id,op,attemptId:this.attemptId,loadId:this.loadId},transfer);}catch(e){this.pending.delete(id);reject(diagnosticError(e,this.context(op,{requestId:id})));}
+      const pending={resolve,reject,op,started:performance.now()};if(!this.pending.size)this.lastStage=op;this.pending.set(id,pending);this.arm(id,pending);
+      try{this.worker.postMessage({...args,id,op,attemptId:this.attemptId,loadId:this.loadId},transfer);}catch(e){this.pending.delete(id);clearTimeout(pending.timer);reject(diagnosticError(e,this.context(op,{requestId:id})));}
     });
   }
   send(op,args={},transfer=[]){if(!this.dead)this.worker.postMessage({...args,op,attemptId:this.attemptId,loadId:this.loadId},transfer);}
-  rejectAll(error){for(const [id,pending] of this.pending)pending.reject(diagnosticError(error,this.context(pending.op,{requestId:id,elapsedMs:performance.now()-pending.started})));this.pending.clear();}
+  rejectAll(error){for(const [id,pending] of this.pending){clearTimeout(pending.timer);pending.reject(diagnosticError(error,this.context(pending.op,{requestId:id,elapsedMs:performance.now()-pending.started})));}this.pending.clear();this.activity.clear();}
   stop(error=new Error('WORKER_STOPPED')){
     this.dead=true;if(this.worker){this.worker.onmessage=this.worker.onerror=this.worker.onmessageerror=null;this.worker.terminate();}
     if(this.url){URL.revokeObjectURL(this.url);this.url=null;}this.rejectAll(error);
   }
+}
+
+const PRELOAD_STAGE_KEYS=['vad-storage','vad-runtime','vad-model','vad-self-test','worker-storage','engine-runtime','loadDialogue','loadASR','model-config'];
+const LOAD_STAGE_KEYS=[...PRELOAD_STAGE_KEYS,'dialogue-self-test','asr-self-test','context-budget','controller-test','delivery-test','adaptation'];
+const PREPARATION_PROGRESS_KEYS=['cleanup','environment','storageBefore','persistence',...PRELOAD_STAGE_KEYS.map(key=>'initialization:'+key),...LOAD_STAGE_KEYS.map(key=>'offlineColdStart:'+key),'speechPlayback','cacheVerify','savePrepared'];
+let progressState=null,progressClock=null;
+function paintProgress(){
+  if(!progressState)return;const state=progressState,p=$('progress');
+  $('progressBox').hidden=false;$('progressBox').dataset.state=state.status;
+  p.max=100;p.value=state.value;$('progressPercent').textContent=Math.floor(state.value)+'%';
+  $('progressText').textContent=state.label;$('progressDetail').textContent=state.detail;
+  const seconds=Math.floor(((state.ended??performance.now())-state.started)/1000);
+  $('progressElapsed').textContent=tr('progressElapsed')+' '+seconds+' '+tr('progressSeconds');
+}
+function beginProgress(mode,keys){
+  clearInterval(progressClock);progressState={mode,keys:[...keys],fractions:new Map(),assets:new Map(),value:0,label:tr('checking'),detail:'',status:'running',started:performance.now()};
+  paintProgress();progressClock=setInterval(paintProgress,1000);
+}
+function reportProgress(key,fraction,label,detail=''){
+  const state=progressState;if(!state||state.status!=='running')return;
+  if(state.keys.includes(key)&&Number.isFinite(fraction))state.fractions.set(key,Math.max(state.fractions.get(key)||0,Math.max(0,Math.min(1,fraction))));
+  state.value=Math.max(state.value,Math.min(99,state.keys.reduce((sum,key)=>sum+(state.fractions.get(key)||0),0)/state.keys.length*100));
+  if(label)state.label=label;state.detail=detail;paintProgress();
+}
+function finishProgress(status,label){
+  if(!progressState)return;clearInterval(progressClock);progressClock=null;
+  progressState.status=status;progressState.ended=performance.now();if(status==='passed')progressState.value=100;
+  if(label)progressState.label=label;if(status==='passed')progressState.detail='';paintProgress();
+}
+function preparationStepProgress(key,passed=false){
+  const children=key==='initialization'?PRELOAD_STAGE_KEYS:key==='offlineColdStart'?LOAD_STAGE_KEYS:null;
+  if(children){for(const child of children)reportProgress(key+':'+child,passed?1:0,stageLabel(key));}
+  else reportProgress(key,passed?1:0,stageLabel(key));
+}
+function workerProgressKey(key){return preparing?preparationState?.stage+':'+key:key;}
+function stageAssets(key){
+  const all=requiredAssets();
+  if(key==='engine-runtime')return all.filter(url=>url.startsWith(PACK.transformers));
+  if(key==='vad-runtime')return all.filter(url=>url.startsWith(PACK.ort));
+  if(key==='vad-model')return [PACK.vad];
+  if(key==='loadDialogue')return all.filter(url=>url.startsWith('https://huggingface.co/'+PACK.llm+'/'));
+  if(key==='loadASR')return all.filter(url=>url.startsWith('https://huggingface.co/'+PACK.asr+'/'));
+  return [];
+}
+function assetProgress(message){
+  const state=progressState;if(!state||state.status!=='running')return;
+  const stage=message.stage,key=workerProgressKey(stage),assets=stageAssets(stage);
+  const fraction=message.done?1:message.total>0?Math.min(.99,Math.max(0,message.loaded/message.total)):0;
+  state.assets.set(key+'|'+message.url,Math.max(state.assets.get(key+'|'+message.url)||0,fraction));
+  const completed=assets.length?Math.min(.99,assets.reduce((sum,url)=>sum+(state.assets.get(key+'|'+url)||0),0)/assets.length):0;
+  const bytes=(message.loaded/1024/1024).toLocaleString(language,{maximumFractionDigits:1});
+  const total=message.total>0?' / '+(message.total/1024/1024).toLocaleString(language,{maximumFractionDigits:1}):'';
+  let name;try{name=decodeURIComponent(message.url.split('/').pop());}catch{name='';}
+  reportProgress(key,completed,stage?stageLabel(stage):tr(message.type==='download'?'download':'packVerifying'),name+' · '+bytes+total+' MiB');
+}
+async function exportDiagnostics(){
+  if(preparationState&&!preparing)await samplePreparationStorage('storageAtExport',preparationState.attemptId);
+  updateDiagnostics();exportBlob(new Blob([JSON.stringify(diag,null,2)],{type:'application/json'}),'AIChat_diagnostics.json');
 }
 
 function workerEvent(m){
@@ -1564,17 +1662,19 @@ function workerEvent(m){
     diag.workerStages??={};const key=m.loadId+':'+m.role+':'+m.key;diag.workerStages[key]=m;
     const keys=Object.keys(diag.workerStages);while(keys.length>120)delete diag.workerStages[keys.shift()];
     if(preparing&&preparationState?.attemptId===m.attemptId)preparationState.lastWorkerStage=m;
-    $('progressText').textContent=stageLabel(m.key)+' · '+tr(m.status==='passed'?'statePassed':m.status==='failed'?'stateFailed':m.status==='cancelled'?'stateCancelled':'stateRunning');$('progress').removeAttribute('value');updateDiagnostics();
+    reportProgress(workerProgressKey(m.key),m.status==='passed'?1:0,stageLabel(m.key));updateDiagnostics();
   }else if(m.type==='runtime-log'){
     diag.runtimeLogs??=[];diag.runtimeLogs.push(m);if(diag.runtimeLogs.length>120)diag.runtimeLogs.shift();updateDiagnostics();
   }else if(m.type==='network-stats'){if(Object.hasOwn(networkAudit,m.role))networkAudit[m.role]=m.stats;updateDiagnostics();}
   else if(m.type==='network'){if(Object.hasOwn(workerNetwork,m.role))workerNetwork[m.role]=m.allowed===true;updateDiagnostics();}
   else if(m.type==='context-limit'){if(limits){limits.contextLimit=m.contextLimit;limits.verifiedContext=m.verifiedContext??limits.verifiedContext;limits.candidateContext=m.verified===false?m.contextLimit:null;}diag.contextRecovery=m;updateDiagnostics();}
-  else if(m.type==='context-probe'){$('progressText').textContent=stageLabel(m.stage)+' · '+m.tokens+' tokens · '+tr(m.status==='passed'?'statePassed':m.status==='failed'?'stateFailed':m.status==='cancelled'?'stateCancelled':'stateRunning');diag.contextProbe=m;diag.contextProbeEvents??=[];diag.contextProbeEvents.push(m);if(diag.contextProbeEvents.length>120)diag.contextProbeEvents.shift();updateDiagnostics();}
+  else if(m.type==='context-probe'){diag.contextProbe=m;diag.contextProbeEvents??=[];diag.contextProbeEvents.push(m);if(diag.contextProbeEvents.length>120)diag.contextProbeEvents.shift();updateDiagnostics();}
   else if(m.type==='adaptation'){diag.adaptation=m;updateDiagnostics();}
-  else if(m.type==='policy-progress'){if(current?.id===m.sessionId){diag.controllerField=m.field;updateDiagnostics();}}
-  else if(m.type==='download'){$('progressBox').hidden=false;const filename=decodeURIComponent(m.url.split('/').pop());const downloaded=(m.loaded/1024/1024).toLocaleString(language,{maximumFractionDigits:1});$('progressText').textContent=(m.done?tr('downloadDone'):tr('download'))+' · '+filename+' · '+downloaded+' MiB';const p=$('progress');if(m.total){p.max=m.total;p.value=m.loaded;}else p.removeAttribute('value');}
-  else if(m.type==='stage'){$('progressText').textContent=tr(m.key);$('progress').removeAttribute('value');}
+  else if(m.type==='policy-progress'){if(preparing)reportProgress(workerProgressKey('controller-test'),Math.min(.99,m.completed/m.total),tr('controllerSettings')+' · '+m.completed+'/'+m.total);if(current?.id===m.sessionId){diag.controllerField=m.field;updateDiagnostics();}}
+  else if(m.type==='delivery-progress'){reportProgress(workerProgressKey('delivery-test'),Math.min(.99,m.completed/m.total),stageLabel('delivery-test'),m.completed+'/'+m.total);}
+  else if(m.type==='inference-progress'){diag.inferenceProgress=m;if(progressState?.status==='running')reportProgress(null,0,null,tr('generatedTokens')+' '+m.generatedTokens+' '+tr('tokensUnit'));}
+  else if(m.type==='download'||m.type==='asset-progress')assetProgress(m);
+  else if(m.type==='stage')reportProgress(null,0,tr(m.key));
   else if(m.type==='token'){if(current?.id!==m.sessionId||current.finalized)return;const message=current.messages.find(x=>x.id===m.messageId);if(!message)return;message.text=m.text;queueStreamRender(message);scheduleStreamCheckpoint(current,message);}
   else if(m.type==='context'){if(current?.id===m.sessionId){diag.context={omitted:m.omitted,used:m.used,capacity:m.capacity};if(m.omitted&&!current.contextNotice){current.contextNotice=true;notice(tr('contextNotice'));}updateDiagnostics();}}
   else if(m.type==='fatal'){loaded=false;if(!preparing)fail(restoreError(m.error,m.diagnostic));}
@@ -1629,23 +1729,23 @@ function stopWorkers(error=new Error('WORKER_STOPPED')){
 async function loadWorkers(allowNetwork,options={}){
   if(allowNetwork&&networkSealed)throw new Error('NETWORK_SEALED');
   if(loaded&&engine&&!engine.dead&&vad&&!vad.dead)return;
-  stopWorkers();$('progressBox').hidden=false;
+  stopWorkers();const ownProgress=!preparing&&!packBusy;if(ownProgress)beginProgress('load',LOAD_STAGE_KEYS);
   let lastLimit=Infinity,loadEpoch=workerLoadEpoch;const attemptId=options.attemptId??(preparing?preparationState?.attemptId:null)??uid();
   const guard=()=>{if(loadEpoch!==workerLoadEpoch)throw new Error('WORKER_STOPPED');};
-  for(;;){
+  try{for(;;){
     try{
       guard();
       const loadId=uid(),generation=++vadGeneration;vad=new Peer($('vadCode').textContent,m=>{if(generation===vadGeneration)vadEvent(m);},{role:'vad',attemptId,loadId});await vad.call('init',{allowNetwork,diagnosticMode});guard();
       const peer=new Peer($('engineCode').textContent,m=>{if(engine===peer)workerEvent(m);},{role:'engine',attemptId,loadId});engine=peer;
-      limits=await engine.call('init',{allowNetwork,capabilities:{voices:localVoices.map(v=>({id:voiceIdentity(v),name:v.name,lang:v.lang})),speechLanguage,diagnosticMode}});
-      guard();loaded=true;updateDiagnostics();return;
+      limits=await engine.call('init',{allowNetwork,capabilities:{voices:localVoices.map(v=>({id:voiceIdentity(v),name:v.name,lang:v.lang})),speechLanguage,diagnosticMode,preloadOnly:options.preloadOnly===true}});
+      guard();loaded=options.preloadOnly!==true;if(ownProgress)finishProgress('passed',tr('preparationDone'));updateDiagnostics();return;
     }catch(e){
       guard();stopWorkers(e);loadEpoch=workerLoadEpoch;if(errText(e)!=='ENGINE_CONTEXT_RETRY')throw e;recordEvent('context-recovery',e);
       const capability=await dbGet('meta','capability:'+runtimeEnvironment()),next=capability?.candidateContext;guard();
       if(!Number.isSafeInteger(next)||next<1||next>=lastLimit)throw e;
       lastLimit=next;allowNetwork=false;
     }
-  }
+  }}catch(error){if(ownProgress)finishProgress(errorOutcome(error)==='cancelled'?'cancelled':'failed',readableError(error));throw error;}
 }
 async function engineCall(op,args={}){
   let previous=limits?.contextLimit||Infinity;
@@ -1678,16 +1778,17 @@ async function prepare(options={}){
   const allowNetwork=!networkSealed&&options.cacheOnly!==true;
   unlockPlayback();preparing=true;prepared=false;$('setup').open=true;
   const epoch=++preparationEpoch,attemptId=uid(),startAfterReady=startRequested;
+  beginProgress('prepare',PREPARATION_PROGRESS_KEYS);
   diag.storageBeforePreparation={attemptId,status:'not-run',sampledAt:null};diag.storageAfterPreparation={attemptId,status:'not-run',sampledAt:null};
   preparationState={attemptId,status:'running',stage:'cleanup',startedAt:new Date().toISOString(),allowNetwork,startAfterReady,steps:{},lastWorkerStage:null,error:null};
   for(const key of Object.keys(STAGE_LABELS).filter(key=>['cleanup','environment','storageBefore','persistence','initialization','offlineColdStart','speechPlayback','cacheVerify','savePrepared'].includes(key)))preparationState.steps[key]={status:'not-run'};
-  checkRow('checkModels','not-run');checkRow('checkOffline','not-run');notice('');renderControls();setPhase('starting');$('preparationActions').hidden=true;$('progressBox').hidden=false;$('progressText').textContent=tr('checking');
+  checkRow('checkModels','not-run');checkRow('checkOffline','not-run');notice('');renderControls();setPhase('starting');$('preparationActions').hidden=true;
   const guard=()=>{if(epoch!==preparationEpoch)throw new Error('CANCELLED');};
   const cancelled=new Promise((_,reject)=>{cancelPrepWait=()=>reject(new Error('CANCELLED'));});
   const step=async(key,task)=>{
     guard();preparationState.stage=key;const started=performance.now();preparationState.steps[key]={status:'running',startedAt:new Date().toISOString()};
-    $('progressText').textContent=stageLabel(key);$('statusHelp').textContent=stageLabel(key);updateDiagnostics();
-    try{const result=await Promise.race([Promise.resolve().then(()=>{guard();return task();}),cancelled]);guard();preparationState.steps[key]={...preparationState.steps[key],status:'passed',endedAt:new Date().toISOString(),elapsedMs:performance.now()-started};return result;}
+    preparationStepProgress(key);$('statusHelp').textContent=stageLabel(key);updateDiagnostics();
+    try{const result=await Promise.race([Promise.resolve().then(()=>{guard();return task();}),cancelled]);guard();preparationState.steps[key]={...preparationState.steps[key],status:'passed',endedAt:new Date().toISOString(),elapsedMs:performance.now()-started};preparationStepProgress(key,true);return result;}
     catch(error){const status=epoch!==preparationEpoch||errorOutcome(error)==='cancelled'?'cancelled':'failed';const diagnostic=serializeError(error,{role:'page',operation:'prepare',stage:key,stageEvidence:'caught-at-stage',attemptId,elapsedMs:performance.now()-started});preparationState.steps[key]={...preparationState.steps[key],status,endedAt:new Date().toISOString(),elapsedMs:performance.now()-started,diagnostic};throw restoreError(errText(error),diagnostic);}
   };
   try{
@@ -1695,18 +1796,21 @@ async function prepare(options={}){
     await step('environment',()=>environmentCheck(true,true,guard));
     await step('storageBefore',()=>samplePreparationStorage('storageBeforePreparation',attemptId));
     diag.persistent=await step('persistence',()=>Promise.resolve(navigator.storage?.persist?.()).catch(()=>false))||false;
-    checkRow('checkModels','running');await step('initialization',()=>loadWorkers(allowNetwork,{attemptId}));checkRow('checkModels','passed');
-    checkRow('checkOffline','running');await step('offlineColdStart',async()=>{stopWorkers();sealNetwork();await loadWorkers(false,{attemptId});});checkRow('checkOffline','passed');
+    checkRow('checkModels','running');await step('initialization',async()=>{
+      const cached=await collectAssetManifest();guard();if(await verifyAssetManifest(cached)){guard();return;}guard();await loadWorkers(allowNetwork,{attemptId,preloadOnly:true});
+    });
+    checkRow('checkOffline','running');await step('offlineColdStart',async()=>{stopWorkers();sealNetwork();await loadWorkers(false,{attemptId});});checkRow('checkModels','passed');checkRow('checkOffline','passed');
     await step('speechPlayback',()=>testPlannedSpeech(guard));
     const manifest=await step('cacheVerify',async()=>{const manifest=await collectAssetManifest();guard();if(!manifest.length||!await verifyAssetManifest(manifest))throw new Error('CACHE_DAMAGED: manifest');return manifest;});
     await step('savePrepared',async()=>{
       const proof={build:BUILD,at:new Date().toISOString(),attemptId,limits,networkBlockedColdStart:true,pins:{llm:PACK.llmRevision,asr:PACK.asrRevision,vad:PACK.vadRevision},resourceBytes:manifest.reduce((n,x)=>n+x.size,0),manifest};
       await dbPut('meta','prepared',proof);guard();modelsProof=proof;
     });
-    guard();prepared=true;preparationState.status='passed';$('setup').open=false;notice(tr('preparationDone'));
+    guard();prepared=true;preparationState.status='passed';notice(tr('preparationDone'));
   }catch(error){
     const cancelled=epoch!==preparationEpoch||errorOutcome(error)==='cancelled';preparationState.status=cancelled?'cancelled':'failed';preparationState.error=serializeError(error,{role:'page',operation:'prepare',stage:preparationState.stage,attemptId});
-    for(const [id,key] of [['checkModels','initialization'],['checkOffline','offlineColdStart']])if(preparationState.steps[key].status!=='not-run')checkRow(id,preparationState.steps[key].status);
+    const cold=preparationState.steps.offlineColdStart.status,warm=preparationState.steps.initialization.status;
+    if(cold!=='not-run'){checkRow('checkModels',cold);checkRow('checkOffline',cold);}else if(warm!=='not-run')checkRow('checkModels',warm==='passed'?'not-run':warm);
     if(preparationState.stage==='speechPlayback')checkRow('checkVoice',cancelled?'cancelled':'failed');
     if(cancelled)notice(tr('preparationCancelled'));else fail(error,{pause:false});
     stopWorkers(error);await settleInterruptedProbes(attemptId,cancelled?'cancelled':'unknown').catch(e=>recordEvent('probe-settlement',e));
@@ -1714,7 +1818,7 @@ async function prepare(options={}){
   }finally{
     closeNetwork();cancelPrepWait=null;
     await samplePreparationStorage('storageAfterPreparation',attemptId);
-    preparationState.endedAt=new Date().toISOString();preparing=false;$('progressBox').hidden=true;
+    preparationState.endedAt=new Date().toISOString();preparing=false;finishProgress(preparationState.status,tr(preparationState.status==='passed'?'preparationDone':preparationState.status==='cancelled'?'preparationCancelledState':'preparationFailed')); 
     setPhase(preparationState.status==='passed'?'preparationReady':preparationState.status==='cancelled'?'preparationCancelledState':'preparationFailed');renderControls();updateDiagnostics();
   }
 }
@@ -1872,7 +1976,7 @@ async function deleteSessionData(s){
   }));savingQueue=task;await task;
   for(const key of unsavedAudio.keys())if(key.startsWith(id+'/'))unsavedAudio.delete(key);
   try{localStorage.removeItem('aichat-rescue-'+id);}catch{}
-  if(current?.id===id){current=null;renderConversation();updateDecisionPanel();$('saveStatus').textContent='';setPhase('idle');}
+  if(current?.id===id){current=null;renderConversation();$('saveStatus').textContent='';setPhase('idle');}
   if(historySelected?.id===id){historySelected=null;$('historyText').textContent='';$('historyAudio').replaceChildren();$('historyDialog').close();}
   }catch(e){removedSessionIds.delete(id);throw e;}
 }
@@ -1969,7 +2073,7 @@ async function startConversation(){
   const s={id:uid(),language,uiLanguage:language,speechLanguage,useExperience,prompt:$('prompt').value.trim(),createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),state:'active',build:BUILD,messages:[],decisions:[],notes:[],policy:null,paused:document.hidden,finalized:false,revision:0,storageFormat:2,messageSeq:0,decisionSeq:0};
   current=s;pendingSegments=new Set();asrQueue=Promise.resolve();turnTask=Promise.resolve();activeTurns.clear();voiceInProgress=false;
   detectorStats={frames:0,meanProbability:0,varianceAccumulator:0};lastVoiceStarted=null;
-  renderConversation();updateDecisionPanel();renderControls();
+  renderConversation();renderControls();
   const guard=()=>{if(epoch!==startEpoch||current!==s||s.state!=='active'||s.finalized)throw new Error('CANCELLED');};
   try{
     checkBrowser();sealNetwork();
@@ -2604,7 +2708,7 @@ async function runDecision(s,event){
       s.policy=result;s.pendingAction=result.ready?result.values.action:null;s.pendingEvent=null;
       if(result.ready&&result.source.experience_note==='ai'){const evidence=s.messages.filter(m=>m.role==='user'&&m.text).at(-1);s.experience=result.values.experience_note.trim()?{note:result.values.experience_note,at:new Date().toISOString(),evidence:evidence?.text||s.prompt,messageId:evidence?.id||null,settings:Object.fromEntries(['pause_seconds','speech_probability','minimum_voice_seconds','recognition_language','speech_rate','speech_pitch','speech_volume','interrupt_on_voice'].map(k=>[k,result.values[k]]))}:null;}
       markDecision(s,{at:new Date().toISOString(),event,...result});
-      await saveSession(s);updateDecisionPanel();updateDiagnostics();
+      await saveSession(s);updateDiagnostics();
       if(!result.ready)throw new Error('CONTROLLER_SETTINGS_UNRESOLVED:'+(result.unresolved||[]).join(','));
       await vad.call('configure',{values:result.values,windowSeconds:limits.windowSeconds,contextLimit:limits.contextLimit});
       if(s.paused||$('endDialog').open)return;
@@ -2622,13 +2726,6 @@ async function executeDecision(s){
   }else if(action==='listen')await listen();
   else throw new Error('CONTROLLER_ACTION_UNRESOLVED');
   return null;
-}
-function updateDecisionPanel(){
-  const p=current?.policy;
-  $('decisionPanel').hidden=!p;
-  if(!p)return;
-  $('decisionSummary').textContent=tr(p.values.action==='speak'?'decisionSpeak':'decisionListen');
-  $('decisionText').textContent=JSON.stringify({decision_source:p.decision_source,repair_attempted:p.repair_attempted,repair_succeeded:p.repair_succeeded,ready:p.ready,unresolved:p.unresolved,values:p.values,source:p.source,repaired_fields:p.repaired_fields,missing:p.missing,rejected:p.rejected},null,2);
 }
 async function checkWorkerStorage(){
   const key='shared-probe-'+uid();await dbPut('meta',key,BUILD);
@@ -2652,8 +2749,8 @@ function clearModelPackDownload(){
   $('modelPackDownload').hidden=true;$('modelPackDownload').removeAttribute('href');
 }
 function packProgress(key,loaded,total){
-  $('progressBox').hidden=false;$('progressText').textContent=tr(key)+(Number.isFinite(loaded)?' · '+(loaded/1024/1024).toLocaleString(language,{maximumFractionDigits:1})+' MiB':'');
-  if(total>0){$('progress').max=total;$('progress').value=loaded||0;}else $('progress').removeAttribute('value');
+  const step=key==='packWorking'?'archive':key==='packVerifying'?'verify':key==='packImporting'?'import':null;
+  reportProgress(step,total>0?Math.min(1,Math.max(0,loaded||0)/total):0,tr(key),Number.isFinite(loaded)?(loaded/1024/1024).toLocaleString(language,{maximumFractionDigits:1})+' MiB':'');
 }
 async function makeModelArchive(guard=()=>{}){
   const entries=(await dbEntries('files')).filter(([url,item])=>item?.complete&&assetRevision(String(url))).sort((a,b)=>a[0].localeCompare(b[0]));
@@ -2712,12 +2809,12 @@ async function commitModelRows(rows,proof){
 }
 async function exportModelPack(){
   if(packBusy||isLive()||preparing||starting||checkingOffline||repairingAudio||archiving||appBlocked||!bootReady||!prepared)return;
-  packBusy=true;const epoch=++packEpoch;const guard=()=>{if(epoch!==packEpoch)throw new Error('CANCELLED');};renderControls();notice(tr('packWorking'));clearModelPackDownload();
+  packBusy=true;beginProgress('packExport',['archive','save']);const epoch=++packEpoch;const guard=()=>{if(epoch!==packEpoch)throw new Error('CANCELLED');};renderControls();notice(tr('packWorking'));clearModelPackDownload();
   try{
     const blob=await makeModelArchive(guard);guard();modelPackDownloadURL=URL.createObjectURL(blob);
-    const link=$('modelPackDownload');link.href=modelPackDownloadURL;link.download='AIChat_models_'+BUILD+'.aichat-models';link.hidden=false;notice(tr('packSaved'));
-  }catch(e){recordEvent('model-export',e);notice(tr(errText(e)==='CANCELLED'?'packCancelled':'packInvalid'),errText(e)!=='CANCELLED');}
-  finally{packBusy=false;$('progressBox').hidden=true;renderControls();}
+    const link=$('modelPackDownload');link.href=modelPackDownloadURL;link.download='AIChat_models_'+BUILD+'.aichat-models';link.hidden=false;notice(tr('packSaved'));finishProgress('passed',tr('packSaved'));
+  }catch(e){finishProgress(errText(e)==='CANCELLED'?'cancelled':'failed',tr(errText(e)==='CANCELLED'?'packCancelled':'packInvalid'));recordEvent('model-export',e);notice(tr(errText(e)==='CANCELLED'?'packCancelled':'packInvalid'),errText(e)!=='CANCELLED');}
+  finally{packBusy=false;renderControls();}
 }
 async function ensureExecutableTrust(guard=()=>{}){
   for(const url of executableAssets()){
@@ -2730,12 +2827,12 @@ async function ensureExecutableTrust(guard=()=>{}){
 async function importModelPack(file){
   if(!file)return;
   if(packBusy||isLive()||preparing||starting||checkingOffline||repairingAudio||archiving||appBlocked||!bootReady){$('modelPackFile').value='';return;}
-  packBusy=true;const epoch=++packEpoch,guard=()=>{if(epoch!==packEpoch)throw new Error('CANCELLED');};renderControls();notice(tr('packImporting'));
+  packBusy=true;beginProgress('packImport',['trust','verify','import',...LOAD_STAGE_KEYS,'speech','save']);const epoch=++packEpoch,guard=()=>{if(epoch!==packEpoch)throw new Error('CANCELLED');};renderControls();notice(tr('packImporting'));
   const stageKey='partial:modelpack:'+uid(),keys=[],prior=[],staged=[];let committed=false,accepted=false,rollbackComplete=false;
   const oldProof=modelsProof,oldPrepared=prepared,oldLimits=limits;
   try{
     checkBrowser();await checkStorage();guard();await cleanupAssetCache(false);guard();
-    await ensureExecutableTrust(guard);guard();sealNetwork();await getLocalVoices();guard();
+    await ensureExecutableTrust(guard);guard();reportProgress('trust',1,tr('packVerifying'));sealNetwork();await getLocalVoices();guard();
     const rows=await readModelArchive(file,guard);guard();
     const estimate=await navigator.storage?.estimate?.().catch(()=>null);guard();
     const bytes=rows.reduce((sum,row)=>sum+row.size,0);
@@ -2751,20 +2848,20 @@ async function importModelPack(file){
       staged.push([row.url,{complete:true,status:row.status,size:row.size,type:row.type,parts,hashes}]);
     }
     guard();await commitModelRows(staged,null);committed=true;guard();prepared=false;modelsProof=null;
-    packProgress('coldTest');await loadWorkers(false);guard();await testPlannedSpeech(guard);guard();
+    packProgress('coldTest');await loadWorkers(false);guard();await testPlannedSpeech(guard);guard();reportProgress('speech',1,stageLabel('speechPlayback'));
     const manifest=await collectAssetManifest();guard();if(!await verifyAssetManifest(manifest))throw new Error('CACHE_DAMAGED: imported manifest');guard();
     const proof={build:BUILD,at:new Date().toISOString(),limits,networkBlockedColdStart:true,pins:{llm:PACK.llmRevision,asr:PACK.asrRevision,vad:PACK.vadRevision},resourceBytes:manifest.reduce((n,x)=>n+x.size,0),manifest,imported:true};
     await dbPut('meta','prepared',proof);guard();modelsProof=proof;prepared=true;accepted=true;
-    await dbDelete('meta',stageKey);await cleanupAssetCache(false);checkRow('checkModels',true);checkRow('checkOffline',true);await getLocalVoices().catch(e=>recordEvent('voices',e));notice(tr('packImported'));
+    await dbDelete('meta',stageKey);await cleanupAssetCache(false);checkRow('checkModels',true);checkRow('checkOffline',true);await getLocalVoices().catch(e=>recordEvent('voices',e));notice(tr('packImported'));finishProgress('passed',tr('packImported'));
   }catch(e){
-    stopWorkers();recordEvent('model-import',e);
+    stopWorkers(e);finishProgress(errText(e)==='CANCELLED'?'cancelled':'failed',tr(errText(e)==='CANCELLED'?'packCancelled':'packInvalid'));recordEvent('model-import',e);
     if(committed&&!accepted){try{await commitModelRows(prior,oldProof);rollbackComplete=true;}catch(rollbackError){recordEvent('model-import-rollback',rollbackError);}}
     prepared=accepted?true:(!committed||rollbackComplete)?oldPrepared:false;modelsProof=accepted?modelsProof:(!committed||rollbackComplete)?oldProof:null;limits=accepted?limits:oldLimits;
     if(committed&&!accepted&&!rollbackComplete)await dbDelete('meta',stageKey).catch(()=>{});
     notice(tr(errText(e)==='CANCELLED'?'packCancelled':errText(e).startsWith('STORAGE_SPACE')?'storageSpaceError':'packInvalid'),errText(e)!=='CANCELLED');
   }finally{
     if(!accepted&&(!committed||rollbackComplete)){for(const key of keys)await dbDelete('chunks',key).catch(()=>{});await dbDelete('meta',stageKey).catch(()=>{});}
-    closeNetwork();packBusy=false;$('modelPackFile').value='';$('progressBox').hidden=true;setPhase(current?.state==='ended'?'ended':'idle');renderControls();updateDiagnostics();
+    closeNetwork();packBusy=false;$('modelPackFile').value='';setPhase(current?.state==='ended'?'ended':'idle');renderControls();updateDiagnostics();
   }
 }
 
@@ -2783,7 +2880,8 @@ function applyTheme(value){const theme=['light','dark'].includes(value)?value:'a
 
 $('diagnosticMode').value=diagnosticMode?'on':'off';
 $('diagnosticMode').addEventListener('change',()=>{diagnosticMode=$('diagnosticMode').value==='on';try{localStorage.setItem('aichat-diagnostic-mode',$('diagnosticMode').value);}catch{}updateDiagnostics();});
-$('showPreparationDetails').addEventListener('click',()=>{$('settingsDialog').showModal();$('diagnosticsPanel').open=true;$('diagnosticsPanel').scrollIntoView({block:'nearest'});});
+$('showPreparationDetails').addEventListener('click',()=>exportDiagnostics().catch(e=>fail(e,{pause:false})));
+$('exportLicense').addEventListener('click',()=>exportBlob(new Blob([APPLICATION_LICENSE],{type:'text/plain;charset=utf-8'}),'AIChat_LICENSE.txt'));
 $('retryPreparation').addEventListener('click',()=>{if(preparationState?.startAfterReady)beginConversation();else prepare({cacheOnly:networkSealed});});
 $('repairResources').addEventListener('click',()=>{if(!preparing&&!isLive())$('networkDialog').showModal();});
 $('exportModels').addEventListener('click',()=>exportModelPack().catch(e=>fail(e,{pause:false})));
@@ -2822,9 +2920,9 @@ $('resume').addEventListener('click',resumeConversation);$('sendText').addEventL
 $('pendingAudioCurrent').addEventListener('click',()=>{if(current)viewHistory(current).catch(e=>fail(e,{pause:false}));});
 $('retryHistoryAudio').addEventListener('click',()=>retryHistoryAudio().catch(e=>fail(e,{pause:false})));
 $('historyPanel').addEventListener('toggle',()=>{if($('historyPanel').open)renderHistory().catch(e=>fail(e,{pause:false}));});$('historyClose').addEventListener('click',()=>$('historyDialog').close());$('historyExport').addEventListener('click',()=>{if(historySelected)exportSession(historySelected);});
-$('backupAll').addEventListener('click',()=>backupAll().catch(e=>fail(e,{pause:false})));$('importBackup').addEventListener('click',()=>$('backupFile').click());$('backupFile').addEventListener('change',()=>importBackup($('backupFile').files[0]));$('exportDiagnostics').addEventListener('click',async()=>{if(preparationState&&!preparing)await samplePreparationStorage('storageAtExport',preparationState.attemptId);updateDiagnostics();exportBlob(new Blob([JSON.stringify(diag,null,2)],{type:'application/json'}),'AIChat_diagnostics.json');});
+$('backupAll').addEventListener('click',()=>backupAll().catch(e=>fail(e,{pause:false})));$('importBackup').addEventListener('click',()=>$('backupFile').click());$('backupFile').addEventListener('change',()=>importBackup($('backupFile').files[0]));$('exportDiagnostics').addEventListener('click',()=>exportDiagnostics().catch(e=>fail(e,{pause:false})));
 document.addEventListener('visibilitychange',()=>pauseForVisibility().catch(e=>recordEvent('visibility',e)));
-window.addEventListener('pagehide',()=>{if(current&&!current.finalized){current.paused=true;current.updatedAt=new Date().toISOString();current.revision=(current.revision||0)+1;emergencySave(current);}clearQuiet();captureStop();cancelSpeech();});
+window.addEventListener('pagehide',()=>{if(current&&!current.finalized){current.paused=true;current.updatedAt=new Date().toISOString();current.revision=(current.revision||0)+1;emergencySave(current);}clearQuiet();clearInterval(progressClock);captureStop();cancelSpeech();});
 window.addEventListener('pageshow',()=>{if(current?.state==='active'&&current.paused)setPhase('paused');});
 window.addEventListener('beforeunload',event=>{if(isLive()||preparing||repairingAudio||archiving||packBusy){if(current){current.updatedAt=new Date().toISOString();current.revision=(current.revision||0)+1;emergencySave(current);}event.preventDefault();event.returnValue='';}});
 window.addEventListener('unhandledrejection',event=>{recordEvent('unhandled-rejection',event.reason);if(current?.state==='active')fail(event.reason);});
