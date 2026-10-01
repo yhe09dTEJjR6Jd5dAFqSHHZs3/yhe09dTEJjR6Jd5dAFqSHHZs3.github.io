@@ -1,15 +1,48 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><meta name="referrer" content="no-referrer"><meta name="theme-color" content="#f3f5f4"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'wasm-unsafe-eval' blob:; worker-src blob:; connect-src blob: https: wss://test.mosquitto.org:8081 wss://broker.hivemq.com:8884; style-src 'unsafe-inline'; img-src data: blob:; media-src blob:; base-uri 'none'; form-action 'none'; object-src 'none'"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%231c6554'/%3E%3Cpath d='M8 14v4m5-8v12m6-15v18m5-11v4' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"><title>Yuan</title><style>
-:root{color-scheme:light;--bg:#f3f5f4;--card:#fff;--sub:#f5f7f6;--ink:#18342b;--muted:#63756c;--line:#dce5df;--accent:#1c6554;--soft:#e9f3ed;--danger:#a14343;--shadow:0 10px 32px #17392b06;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
-*{box-sizing:border-box}html,body{margin:0;min-width:280px;min-height:100%;background:var(--bg);color:var(--ink)}body{font-size:14px;line-height:1.45}button,select,textarea{font:inherit;color:inherit}button,select{touch-action:manipulation}button{cursor:pointer;min-height:44px;border:1px solid var(--line);border-radius:11px;padding:9px 16px;background:var(--card);font-weight:650}button:disabled{opacity:.42;cursor:default}button:not(:disabled):hover{filter:brightness(.96)}button:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}button.primary{background:var(--accent);border-color:var(--accent);color:#fff}button.end:not(:disabled){color:var(--danger)}[hidden]{display:none!important}
-.shell{max-width:1600px;margin:auto;height:100vh;height:100dvh;min-height:460px;padding:clamp(10px,1.6vw,22px);display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:12px}header{display:flex;align-items:center;justify-content:space-between;gap:12px}h1{margin:0;font-size:28px;letter-spacing:-1px;font-weight:740}.brand{display:flex;align-items:center;gap:10px}.brandmark{width:33px;height:33px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;gap:3px}.brandmark i{background:#fff;width:3px;border-radius:2px;height:12px}.brandmark i:nth-child(2){height:22px}.brandmark i:nth-child(3){height:17px}.badge{font-size:12px;background:var(--soft);color:var(--accent);border-radius:100px;padding:6px 12px;text-align:center;max-width:65%}.workspace{display:grid;grid-template-columns:minmax(290px,360px) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:12px;min-height:0}.controls{display:flex;flex-direction:column;min-height:0;gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}.configure{padding:18px;display:flex;flex-direction:column;gap:14px;min-height:0;flex:1}.prompt-field,.display-field{min-width:0}.field-label{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;font-weight:650}.optional{font-size:11px;font-weight:400;color:var(--muted)}textarea{width:100%;resize:none;min-height:64px;height:clamp(64px,12vh,116px);background:var(--sub);border:1px solid var(--line);border-radius:10px;padding:10px;line-height:1.55;display:block;margin-top:6px;font-size:16px}textarea:disabled{opacity:.8}.display-field select{margin-top:6px}.languages{display:grid;gap:10px 8px;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;overflow:auto;min-height:58px;flex:1;scrollbar-width:thin;padding:2px}.language-row{display:grid;gap:5px;min-width:0;font-size:11px;color:var(--muted)}select{min-height:42px;border:1px solid var(--line);border-radius:9px;background:var(--sub);width:100%;min-width:0;padding:7px 8px;font-size:15px;color:var(--ink);text-overflow:ellipsis}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:auto}.activity{padding:14px 18px}.section-line{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px}.section-line span:last-child{font-size:11px;color:var(--muted);text-align:right;max-width:65%}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 0}.metric{min-width:0}.metric dt{font-size:11px;color:var(--muted);min-height:16px}.metric dd{font-size:23px;font-weight:680;margin:2px 0 0;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis}.progress-card{padding:12px 18px;display:grid;grid-template-columns:minmax(140px,1fr) minmax(120px,2fr) 44px;align-items:center;gap:16px}.progress-copy{min-width:0;font-size:12px}.progress-copy strong{font-weight:650;font-size:13px}.progress-detail{display:block;color:var(--muted);font-size:11px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-height:0}.progress-detail:empty{display:none}progress{appearance:none;-webkit-appearance:none;width:100%;height:6px;border:0;border-radius:20px;overflow:hidden;background:var(--line);color:var(--accent)}progress::-webkit-progress-bar{background:var(--line)}progress::-webkit-progress-value{background:var(--accent);border-radius:20px;transition:width .25s}progress::-moz-progress-bar{background:var(--accent);border-radius:20px}.percent{text-align:right;font-size:13px;font-variant-numeric:tabular-nums}.conversation{display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0;min-width:0;overflow:hidden}.conversation-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.state{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:650;min-width:0}.orb{width:9px;height:9px;flex:0 0 9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px var(--soft)}.orb.busy,.orb.listening,.orb.speaking{animation:pulse 1.7s ease-in-out infinite}.voice-state{font-size:11px;color:var(--muted);text-align:right;max-width:45%}.conversation-body{min-height:0;position:relative;display:grid}.chat{overflow:auto;overscroll-behavior:contain;min-height:0;padding:20px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}.empty{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;color:var(--line);font-size:clamp(38px,6vw,72px);font-weight:740;letter-spacing:-3px}.empty small{font-size:12px;font-weight:400;letter-spacing:0;color:var(--muted);padding:0 12px;text-align:center}.bubble{max-width:90%;margin:0 0 18px;overflow-wrap:anywhere}.bubble.user{margin-left:auto}.bubble-label{font-size:11px;margin-bottom:5px;color:var(--muted)}.bubble.user .bubble-label{text-align:right}.bubble-text{padding:12px 15px;border-radius:14px;background:var(--sub);white-space:pre-wrap;font-size:16px;line-height:1.65}.bubble.user .bubble-text{background:var(--soft)}.bubble.pending .bubble-label::after{content:' ···'}.conversation-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 20px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);min-height:37px}.notice{color:var(--danger);font-size:12px;overflow-wrap:anywhere;max-height:72px;overflow:auto}.save{margin-left:auto;white-space:nowrap}dialog{border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--ink);padding:24px;width:min(370px,calc(100% - 24px));box-shadow:0 24px 80px #0002}dialog::backdrop{background:#18342b50;backdrop-filter:blur(5px)}dialog h2{font-size:20px;margin:0 0 22px}.dialog-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.confirming dialog[open]{position:fixed;z-index:100;inset:50% auto auto 50%;transform:translate(-50%,-50%);margin:0}.confirming::after{content:'';position:fixed;inset:0;background:#18342b50;z-index:99}@keyframes pulse{50%{box-shadow:0 0 0 8px var(--soft);opacity:.55}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}@media(prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#101713;--card:#18221c;--sub:#202d24;--ink:#e4eee6;--muted:#a2b5a8;--line:#314336;--accent:#91d6b5;--soft:#263f30;--danger:#efa6a1;--shadow:none}button.primary{color:#13251b}.brandmark i{background:#13251b}}
-@media(max-width:700px) and (min-height:501px),(max-width:600px){.shell{padding:10px;gap:8px;min-height:500px}h1{font-size:25px}.brandmark{width:29px;height:29px}.badge{font-size:11px;padding:5px 9px}.progress-card{padding:9px 12px;gap:10px;grid-template-columns:minmax(92px,1fr) minmax(50px,1.2fr) 37px;border-radius:13px}.progress-copy strong{font-size:12px}.progress-detail{font-size:10px}.workspace{grid-template-columns:1fr;grid-template-rows:auto minmax(100px,1fr);gap:8px}.controls{gap:8px}.configure{padding:12px;gap:9px;display:grid;grid-template-columns:1.15fr 1fr;align-items:start;border-radius:14px}.field-label{font-size:12px}.optional{font-size:10px}textarea{height:58px;min-height:58px;margin-top:5px;padding:6px 8px}.display-field select{height:58px;margin-top:5px}.languages{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr));max-height:118px;min-height:0;gap:7px}.language-row{gap:3px;font-size:10px}select{min-height:36px;font-size:14px;padding:5px 6px}.actions{grid-column:1/-1;margin:0;gap:8px}.actions button{min-height:42px;padding:7px 10px}.activity{padding:9px 12px;border-radius:13px;display:grid;grid-template-columns:minmax(72px,1fr) 2fr;gap:8px;align-items:center}.activity .section-line{align-items:flex-start;flex-direction:column;gap:2px;font-size:12px}.activity .section-line span:last-child{font-size:10px;text-align:left;max-width:100%}.metrics{margin:0;gap:5px}.metric dt{font-size:10px}.metric dd{font-size:18px;margin:0}.conversation{border-radius:14px}.conversation-head{padding:11px 14px}.state{font-size:13px}.chat{padding:14px}.bubble{max-width:95%;margin-bottom:12px}.bubble-text{font-size:15px;padding:10px 12px}.conversation-foot{padding:8px 12px;min-height:32px}.empty{font-size:40px;letter-spacing:-2px;gap:5px}.empty small{font-size:11px}}
-@media(max-width:600px) and (max-height:680px){.shell{padding:8px;gap:7px;min-height:480px}.workspace,.controls{gap:7px}.configure{padding:9px;gap:7px}h1{font-size:23px}.brandmark{width:27px;height:27px}textarea,.display-field select{height:46px;min-height:46px}.progress-card{padding:8px 10px}.languages{max-height:105px}.language-row{gap:2px}select{min-height:33px;font-size:13px}.actions button{min-height:38px}.activity{padding:7px 10px}.conversation-head{padding:9px 12px}.empty{font-size:32px}.conversation-foot{padding:6px 10px;min-height:28px}}
-@media(min-width:501px) and (max-height:620px){.shell{padding:9px;gap:8px;min-height:350px}h1{font-size:23px}.brandmark{width:27px;height:27px}.progress-card{padding:8px 12px}.workspace{grid-template-columns:minmax(230px, min(46%,310px)) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:9px}.controls{gap:8px}.configure{padding:10px;gap:7px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto minmax(0,1fr) auto}.prompt-field,.display-field{min-width:0}.field-label{font-size:11px}.optional{font-size:10px}textarea,.display-field select{height:42px;min-height:42px;margin-top:4px;padding:5px 7px;font-size:14px}.languages{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr));min-height:0;gap:5px}.language-row{font-size:10px;gap:2px}select{min-height:32px;padding:4px 5px;font-size:13px}.actions{grid-column:1/-1;margin:0;gap:7px}.actions button{min-height:34px;padding:5px 8px;font-size:13px}.activity{padding:7px 10px;display:grid;grid-template-columns:minmax(68px,1fr) 2fr;gap:7px;align-items:center}.activity .section-line{font-size:10px;flex-direction:column;align-items:start;gap:0}.activity .section-line span:last-child{font-size:9px;max-width:100%;text-align:left}.metrics{margin:0;gap:5px}.metric dt{font-size:9px}.metric dd{font-size:16px;margin:0}.conversation-head{padding:11px 14px}.conversation-foot{padding:8px 12px}.empty{font-size:42px}}
-@media(max-height:500px){.shell{min-height:0}.conversation-head{padding:7px 9px}.conversation-foot{padding:5px 9px}.voice-state{overflow-wrap:anywhere}.configure{min-height:0}.empty{font-size:28px}}
-@media(max-width:500px) and (max-height:500px){.shell{padding:6px;gap:5px}header{gap:6px}h1{font-size:21px}.brandmark{width:25px;height:25px}.workspace{gap:5px;grid-template-rows:auto minmax(36px,1fr)}.controls{gap:5px}.configure{padding:6px;gap:5px}.progress-card{padding:5px 8px}.progress-copy strong{font-size:11px}.progress-detail{font-size:9px}textarea,.display-field select{height:36px;min-height:36px}.languages{max-height:50px;gap:4px}.language-row{font-size:9px}.actions button{min-height:34px;padding:4px 7px}.activity{padding:4px 7px}.metric dt{font-size:9px}.metric dd{font-size:15px}.conversation-head{padding:5px 8px}.state{font-size:12px}.conversation-foot:has(.notice[hidden]){min-height:0;padding:2px 8px}.empty{font-size:23px;gap:1px}.empty>span{display:none}.empty small{font-size:10px}}
-</style></head><body><main class="shell"><header><div class="brand"><span class="brandmark" aria-hidden="true"><i></i><i></i><i></i></span><h1>Yuan</h1></div><span class="badge" id="readyBadge" role="status">自动准备中</span></header><section class="card progress-card" data-i18n-aria="准备进度" aria-label="准备进度"><div class="progress-copy"><strong id="progressText">自动准备</strong><span id="progressDetail" class="progress-detail"></span></div><progress id="progress" max="100" value="0" data-i18n-aria="准备进度" aria-label="准备进度"></progress><span id="progressPercent" class="percent">0%</span></section><div class="workspace"><aside class="controls"><section class="card configure"><div class="prompt-field"><label class="field-label" for="prompt"><span data-i18n="提示词">提示词</span><span class="optional" data-i18n="可选">可选</span></label><textarea id="prompt" spellcheck="false" data-i18n-aria="提示词，可选" aria-label="提示词，可选"></textarea></div><div class="display-field"><label class="field-label" for="displayLanguage"><span data-i18n="显示语言">显示语言</span><span class="optional" data-i18n="可选">可选</span></label><select id="displayLanguage" data-i18n-aria="显示语言，可选" aria-label="显示语言，可选"><option value="" data-i18n="自动">自动</option><option value="zh-CN" lang="zh-CN">简体中文</option><option value="zh-TW" lang="zh-TW">繁體中文</option><option value="en" lang="en">English</option></select></div><div class="languages" id="languageRows"></div><div class="actions"><button class="primary" id="start" data-i18n="开始" type="button" disabled>开始</button><button class="end" id="end" data-i18n="结束" type="button" disabled>结束</button></div></section><section class="card activity" data-i18n-aria="自动协作" aria-label="自动协作"><div class="section-line"><span data-i18n="自动协作">自动协作</span><span id="cooperationStatus" role="status">连接中</span></div><dl class="metrics"><div class="metric"><dt data-i18n="在线同伴">在线同伴</dt><dd id="peerCount">0</dd></div><div class="metric"><dt data-i18n="本机轮次">本机轮次</dt><dd id="roundCount">—</dd></div><div class="metric"><dt data-i18n="已验证更新">已验证更新</dt><dd id="acceptedCount">0</dd></div></dl></section></aside><section class="card conversation" data-i18n-aria="对话" aria-label="对话"><div class="conversation-head"><div class="state"><span id="orb" class="orb" aria-hidden="true"></span><span id="statusTitle" role="status">准备开始</span></div><span id="voiceState" class="voice-state">语音加载中</span></div><div class="conversation-body"><div class="empty" id="empty" aria-hidden="true"><span>Yuan</span><small data-i18n="开始后，直接说话">开始后，直接说话</small></div><div class="chat" id="chat" role="log" data-i18n-aria="对话内容" aria-label="对话内容" aria-live="polite" aria-relevant="additions text"></div></div><div class="conversation-foot"><span class="notice" id="notice" role="alert" hidden></span><span id="saveStatus" class="save"></span></div></section></div></main><dialog id="endDialog" aria-labelledby="endTitle"><h2 id="endTitle" data-i18n="确认结束对话？">确认结束对话？</h2><div class="dialog-actions"><button id="cancelEnd" data-i18n="继续对话" type="button">继续对话</button><button class="primary" id="confirmEnd" data-i18n="确认结束" type="button">确认结束</button></div></dialog>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><meta name="referrer" content="no-referrer"><meta name="theme-color" content="#f3f2f8" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#10111e" media="(prefers-color-scheme: dark)"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'wasm-unsafe-eval' blob:; worker-src blob:; connect-src blob: https: wss://test.mosquitto.org:8081 wss://broker.hivemq.com:8884; style-src 'unsafe-inline'; img-src data: blob:; media-src blob:; base-uri 'none'; form-action 'none'; object-src 'none'"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%236854bd'/%3E%3Cpath d='M8 14v4m5-8v12m6-15v18m5-11v4' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"><title>Yuan</title><style>
+:root{color-scheme:light;--bg:#f3f2f8;--card:#ffffffeb;--sub:#f5f3fa;--ink:#2c2843;--muted:#716b86;--line:#e4e0ee;--accent:#6854bd;--soft:#eee9fb;--danger:#ad4058;--shadow:0 12px 48px #3020590d;--sphere-a:#ffe6da;--sphere-b:#c5b6f3;--sphere-c:#7361cb;--glass:#ffffff8c;--meter:.14;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}html,body{margin:0;min-width:240px;min-height:100%;background:var(--bg);color:var(--ink)}body{font-size:14px;line-height:1.5;background:radial-gradient(ellipse at 5% 0%,#eadbec99,transparent 48%),radial-gradient(ellipse at 90% 90%,#d9def399,transparent 52%),var(--bg)}button,select,textarea{font:inherit;color:inherit}button,select{touch-action:manipulation}button{cursor:pointer;min-height:46px;border:1px solid var(--line);border-radius:14px;padding:11px 16px;background:var(--card);font-weight:650;transition:background .2s,box-shadow .2s,transform .2s}button:disabled{opacity:.45;cursor:default}button:not(:disabled):hover{background:var(--sub);box-shadow:0 4px 18px #3020590d}button:not(:disabled):active{transform:translateY(1px)}button:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}button.primary{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 6px 20px #6854bd22}button.primary:not(:disabled):hover{background:color-mix(in srgb,var(--accent) 88%,#000);box-shadow:0 8px 24px #6854bd30}button.end:not(:disabled){color:var(--danger);border-color:color-mix(in srgb,var(--danger) 28%,var(--line))}[hidden]{display:none!important}
+.shell{max-width:1580px;margin:auto;height:100vh;height:100dvh;padding:clamp(12px,2vw,30px);padding-top:max(clamp(12px,2vw,30px),env(safe-area-inset-top));padding-bottom:max(clamp(12px,2vw,30px),env(safe-area-inset-bottom));padding-left:max(clamp(12px,2vw,30px),env(safe-area-inset-left));padding-right:max(clamp(12px,2vw,30px),env(safe-area-inset-right));display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:16px}header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 3px}h1{margin:0;font-size:29px;letter-spacing:-1.25px;font-weight:730}.brand{display:flex;align-items:center;gap:11px}.brandmark{width:38px;height:38px;border-radius:13px;background:linear-gradient(145deg,#8e76ce,#4c408c);box-shadow:inset 0 1px 1px #ffffff5c,0 4px 10px #4c408c20;display:flex;align-items:center;justify-content:center;gap:3px;transform:rotate(-5deg)}.brandmark i{background:#f6f0ff;width:3px;border-radius:2px;height:13px;transform:rotate(5deg)}.brandmark i:nth-child(2){height:23px}.brandmark i:nth-child(3){height:17px}.badge{display:flex;align-items:center;gap:7px;font-size:12px;background:var(--glass);border:1px solid var(--line);color:var(--accent);border-radius:100px;padding:7px 12px;text-align:center;max-width:60%}.badge::before{content:'';width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:currentColor}.badge[data-state=blocked]{color:var(--danger)}
+.workspace{display:grid;grid-template-columns:minmax(280px,350px) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:16px;min-height:0}.controls{display:flex;flex-direction:column;min-height:0;gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}.configure{padding:24px;display:flex;flex-direction:column;gap:20px;min-height:0;flex:1}.prompt-field,.display-field{min-width:0}.prompt-field{display:flex;flex-direction:column;flex:1;min-height:94px}.field-label{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;font-weight:650}.optional{font-size:10px;font-weight:450;color:var(--muted);border:1px solid var(--line);border-radius:6px;line-height:1.5;padding:1px 5px}textarea{width:100%;resize:none;flex:1;min-height:64px;height:120px;max-height:260px;background:linear-gradient(145deg,var(--sub),var(--card));border:1px solid var(--line);border-radius:14px;padding:14px;line-height:1.7;display:block;margin-top:10px;font-size:16px;transition:border-color .2s,box-shadow .2s}textarea::placeholder{color:var(--muted);opacity:.8;font-size:13px}textarea:focus{border-color:var(--accent)}textarea:disabled{opacity:.7}.display-field select{margin-top:8px}.languages{display:grid;gap:10px 8px;grid-template-columns:repeat(3,minmax(0,1fr));align-content:start;overflow:auto;min-height:0;flex:0 1 auto;scrollbar-width:thin;padding:3px;margin:-3px}.language-row{display:grid;gap:7px;min-width:0;font-size:11px;color:var(--muted)}select{min-height:44px;border:1px solid var(--line);border-radius:11px;background:var(--sub);width:100%;min-width:0;padding:9px 8px;font-size:14px;color:var(--ink);text-overflow:ellipsis}select:disabled{opacity:.65}.actions{display:grid;grid-template-columns:1.35fr 1fr;gap:10px;margin-top:auto}.actions button{display:flex;align-items:center;justify-content:center;gap:9px;min-height:48px}.actions #start::before{content:'';width:11px;height:13px;background:currentColor;clip-path:polygon(0 0,100% 50%,0 100%)}.actions #end::before{content:'';width:10px;height:10px;border:1.5px solid currentColor;border-radius:3px}.activity{padding:18px 22px;background:linear-gradient(135deg,var(--card),var(--soft));position:relative;overflow:hidden}.section-line{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;font-weight:650}.section-line span:last-child{font-size:10px;color:var(--muted);font-weight:450;text-align:right;max-width:64%;overflow-wrap:anywhere}.section-line span:first-child::before{content:'';display:inline-block;width:7px;height:7px;margin-right:7px;background:var(--accent);border-radius:50%;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 8%,transparent)}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0 0}.metric{min-width:0}.metric+.metric{border-left:1px solid var(--line);padding-left:10px}.metric dt{font-size:10px;color:var(--muted);min-height:15px}.metric dd{font-size:25px;font-weight:600;letter-spacing:-.6px;margin:4px 0 0;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis}
+.progress-card{padding:10px 17px;display:grid;grid-template-columns:minmax(155px,1.5fr) minmax(80px,2fr) 42px;align-items:center;gap:18px;border-radius:16px;background:var(--glass);box-shadow:none}.progress-copy{min-width:0;font-size:12px}.progress-copy strong{font-weight:550;font-size:12px}.progress-detail{display:block;color:var(--muted);font-size:10px;overflow-wrap:anywhere;min-height:0;line-height:1.45}.progress-detail:empty{display:none}progress{appearance:none;-webkit-appearance:none;width:100%;height:4px;border:0;border-radius:20px;overflow:hidden;background:var(--line);color:var(--accent)}progress::-webkit-progress-bar{background:var(--line)}progress::-webkit-progress-value{background:linear-gradient(90deg,#d8b7f2,var(--accent));border-radius:20px;transition:width .25s}progress::-moz-progress-bar{background:var(--accent);border-radius:20px}.percent{text-align:right;font-size:11px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.conversation{display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0;min-width:0;overflow:hidden;position:relative;background:radial-gradient(ellipse at 65% 38%,color-mix(in srgb,var(--soft) 55%,transparent),transparent 60%),var(--card)}.conversation-head{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px}.state{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;min-width:0}.orb{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px var(--soft)}.orb.blocked{background:var(--danger);box-shadow:0 0 0 5px color-mix(in srgb,var(--danger) 10%,transparent)}.orb.busy{animation:status-breathe 1.8s ease-in-out infinite}.voice-info{display:flex;align-items:center;justify-content:flex-end;gap:12px;max-width:50%;min-width:0}.voice-state{font-size:10px;color:var(--muted);text-align:right;overflow-wrap:anywhere}.voice-bars{display:flex;align-items:center;justify-content:center;gap:3px;height:22px;width:26px;flex:0 0 26px;color:var(--accent);opacity:.7}.voice-bars i{display:block;width:3px;height:20px;border-radius:4px;background:currentColor;transform:scaleY(var(--meter));transition:transform .12s ease}.voice-bars i:nth-child(2),.voice-bars i:nth-child(4){height:14px}.voice-bars i:first-child,.voice-bars i:last-child{height:9px}body[data-phase=speaking] .voice-bars i{animation:voice-flow 1s ease-in-out infinite alternate}body[data-phase=speaking] .voice-bars i:nth-child(2){animation-delay:-.45s}body[data-phase=speaking] .voice-bars i:nth-child(3){animation-delay:-.7s}body[data-phase=speaking] .voice-bars i:nth-child(4){animation-delay:-.2s}
+.conversation-body{min-height:0;position:relative;display:grid;isolation:isolate}.chat{overflow:auto;overscroll-behavior:contain;min-height:0;padding:28px;scrollbar-width:thin;scrollbar-color:var(--line) transparent;overflow-anchor:none}.empty{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;overflow:hidden}.empty>span{font-size:clamp(24px,2.6vw,36px);font-weight:550;letter-spacing:-1px;color:var(--ink);z-index:1}.empty small{font-size:12px;letter-spacing:.2px;color:var(--muted);padding:0 16px;text-align:center;z-index:1}.presence{width:clamp(145px,21vw,270px);height:clamp(145px,21vw,270px);flex:0 1 auto;aspect-ratio:1;position:relative;margin-bottom:22px;filter:drop-shadow(0 24px 24px #7361cb25)}.presence::before{content:'';position:absolute;inset:-20%;border-radius:50%;background:radial-gradient(ellipse,#d3b4ef80,transparent 68%);transform:scale(1.1);opacity:.7}.presence-core{position:absolute;inset:12%;border-radius:50%;background:radial-gradient(ellipse at 28% 20%,#ffffffeb 0%,transparent 40%),radial-gradient(ellipse at 70% 76%,var(--sphere-c),transparent 62%),conic-gradient(from 35deg,var(--sphere-a),var(--sphere-b),var(--sphere-c),var(--sphere-a));box-shadow:inset 1px 2px 6px #ffffffda,inset -9px -14px 28px #4b367b35,0 0 38px #d0b4ee6b;animation:sphere-float 8s ease-in-out infinite}.presence-core::before{content:'';position:absolute;inset:7%;border-radius:46% 54% 58% 42%;border:1px solid #ffffff73;transform:rotate(-30deg);box-shadow:inset 0 0 20px #ffe4db60}.presence-core::after{content:'';position:absolute;inset:20% 5%;border-radius:50%;border-top:1px solid #fff9;border-bottom:1px solid #ffffff35;transform:rotate(-38deg)}.presence-ring{position:absolute;inset:3%;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 17%,transparent);transform:rotate(-30deg) scaleY(.67)}.presence-ring:nth-child(3){inset:-7%;border-color:color-mix(in srgb,var(--accent) 9%,transparent);transform:rotate(33deg) scaleY(.83)}.presence-ring::after{content:'';position:absolute;top:16%;left:11%;width:5px;height:5px;border-radius:50%;background:var(--sphere-b);box-shadow:0 0 10px var(--sphere-b)}.presence-light{position:absolute;inset:25%;border:1px solid #ffffff80;border-radius:50%;transform:rotate(45deg) scaleX(.55);mix-blend-mode:soft-light}.bubble{max-width:88%;margin:0 0 24px;overflow-wrap:anywhere;animation:message-enter .22s ease-out}.bubble.user{margin-left:auto;max-width:80%}.bubble-label{font-size:10px;margin-bottom:7px;color:var(--muted);display:flex;align-items:center;gap:6px}.bubble:not(.user) .bubble-label::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent)}.bubble.user .bubble-label{justify-content:flex-end}.bubble-text{padding:15px 18px;border:1px solid var(--line);border-radius:5px 18px 18px 18px;background:var(--card);white-space:pre-wrap;font-size:16px;line-height:1.8}.bubble.user .bubble-text{background:var(--soft);border-color:transparent;border-radius:18px 5px 18px 18px}.bubble.pending .bubble-label::after{content:' ···';letter-spacing:2px}.conversation-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 24px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);min-height:36px}.notice{color:var(--danger);font-size:11px;overflow-wrap:anywhere;max-height:65px;overflow:auto}.save{margin-left:auto;white-space:nowrap}
+dialog{border:1px solid var(--line);border-radius:24px;background:var(--card);color:var(--ink);padding:28px;width:min(400px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow:auto;box-shadow:0 24px 100px #24133c45;backdrop-filter:blur(24px)}dialog::backdrop{background:#231b3c66;backdrop-filter:blur(7px)}dialog h2{font-size:21px;font-weight:650;margin:0 0 10px;letter-spacing:-.4px}.dialog-copy{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 24px}.dialog-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.dialog-actions .primary{background:var(--danger);border-color:var(--danger);box-shadow:none}.dialog-actions .primary:not(:disabled):hover{background:color-mix(in srgb,var(--danger) 90%,#000)}.confirming dialog[open]{position:fixed;z-index:100;inset:50% auto auto 50%;transform:translate(-50%,-50%);margin:0}.confirming::after{content:'';position:fixed;inset:0;background:#231b3c66;z-index:99}body[data-page-hidden=true] *,body[data-page-hidden=true] *::before,body[data-page-hidden=true] *::after{animation-play-state:paused!important}
+@keyframes status-breathe{50%{opacity:.5;box-shadow:0 0 0 7px var(--soft)}}@keyframes sphere-float{50%{transform:translateY(-7px) rotate(7deg)}}@keyframes voice-flow{from{transform:scaleY(.2)}to{transform:scaleY(.95)}}@keyframes message-enter{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#10111e;--card:#1a1a2ce8;--sub:#232239;--ink:#f1edf9;--muted:#b4abc7;--line:#36314c;--accent:#c5b1ff;--soft:#302743;--danger:#ffb0be;--shadow:0 12px 48px #00000024;--sphere-a:#ffe0cf;--sphere-b:#bda6f5;--sphere-c:#6350b3;--glass:#202035b0}body{background:radial-gradient(ellipse at 80% 0%,#3c2b5370,transparent 52%),var(--bg)}button.primary{color:#241538}.conversation{background:radial-gradient(ellipse at 60% 36%,#51426830,transparent 65%),var(--card)}.presence::before{opacity:.15}.presence{filter:drop-shadow(0 24px 32px #b497ef25)}.presence-core{box-shadow:inset 1px 2px 6px #ffffff91,inset -9px -14px 28px #29123e4a,0 0 38px #c397f125}.dialog-actions .primary{color:#3a1626}}
+@media(max-width:960px){.shell{padding:18px;gap:12px}.workspace{grid-template-columns:minmax(260px,300px) minmax(0,1fr);gap:12px}.configure{padding:19px;gap:16px}.controls{gap:12px}.activity{padding:16px 18px}.conversation-head{padding:17px 20px}.voice-info{gap:8px}.presence{width:200px;height:200px}}
+@media(max-width:700px) and (min-height:501px),(max-width:600px){.shell{padding:12px;padding-top:max(12px,env(safe-area-inset-top));padding-bottom:max(12px,env(safe-area-inset-bottom));gap:9px}.brandmark{width:31px;height:31px;border-radius:10px}.brand{gap:8px}h1{font-size:25px}.badge{font-size:10px;padding:5px 9px}.progress-card{padding:8px 12px;gap:10px;grid-template-columns:minmax(110px,1fr) minmax(40px,1.2fr) 33px;border-radius:13px}.progress-copy strong{font-size:11px}.progress-detail{font-size:9px}.percent{font-size:10px}.workspace{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:9px}.controls{gap:8px}.card{border-radius:20px}.configure{padding:13px;gap:11px;display:grid;grid-template-columns:1.25fr 1fr;align-items:start}.prompt-field{min-height:0}.field-label{font-size:11px}.optional{font-size:9px;padding:0 4px}textarea{flex:none;height:58px;min-height:58px;max-height:none;margin-top:6px;padding:8px 10px;font-size:16px;border-radius:10px}textarea::placeholder{font-size:11px}.display-field select{height:58px;margin-top:6px}.languages{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr));max-height:130px;min-height:0;gap:8px;flex:none}.language-row{gap:4px;font-size:10px}select{min-height:40px;padding:7px 6px;font-size:14px;border-radius:9px}.actions{grid-column:1/-1;margin:0;gap:8px}.actions button{min-height:44px;padding:8px 10px;border-radius:11px}.activity{padding:10px 13px;display:grid;grid-template-columns:minmax(77px,1fr) 2fr;gap:9px;align-items:center;border-radius:16px}.activity .section-line{align-items:flex-start;flex-direction:column;gap:3px;font-size:11px}.activity .section-line span:last-child{font-size:9px;text-align:left;max-width:100%}.metrics{margin:0;gap:6px}.metric+.metric{padding-left:6px}.metric dt{font-size:9px}.metric dd{font-size:20px;margin:0}.conversation-head{padding:12px 15px}.state{font-size:12px;gap:9px}.voice-state{font-size:9px}.voice-info{max-width:47%;gap:6px}.voice-bars{width:20px;flex-basis:20px;gap:2px}.voice-bars i{width:2px}.chat{padding:16px}.bubble{max-width:95%;margin-bottom:16px}.bubble.user{max-width:90%}.bubble-text{font-size:15px;padding:11px 13px;line-height:1.75}.conversation-foot{padding:7px 14px;min-height:29px}.empty{gap:6px}.empty>span{font-size:24px;letter-spacing:-.6px}.empty small{font-size:10px}.presence{width:154px;height:154px;max-height:48%;margin-bottom:9px}.notice{font-size:10px;max-height:43px}}
+@media(max-width:600px) and (max-height:710px){.shell{padding:9px;gap:7px}.workspace,.controls{gap:7px}.configure{padding:10px;gap:8px}.brandmark{width:28px;height:28px}h1{font-size:23px}.progress-card{padding:6px 10px}textarea,.display-field select{height:46px;min-height:46px}.languages{max-height:118px}.language-row{gap:3px}select{min-height:36px;padding:5px 6px}.actions button{min-height:42px}.activity{padding:8px 11px}.conversation-head{padding:10px 13px}.conversation-foot{padding:5px 12px;min-height:26px}.presence{width:112px;height:112px;margin-bottom:3px;max-height:48%}.empty>span{font-size:21px}.empty{gap:5px}}
+@media(min-width:501px) and (max-height:620px){.shell{padding:10px;gap:8px}.brandmark{width:28px;height:28px}h1{font-size:23px}.badge{padding:4px 9px;font-size:10px}.progress-card{padding:7px 12px;grid-template-columns:minmax(140px,1fr) minmax(80px,2fr) 35px}.workspace{grid-template-columns:minmax(255px,min(44%,320px)) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:10px}.controls{gap:8px}.configure{padding:11px;gap:8px;display:grid;grid-template-columns:1.15fr 1fr;grid-template-rows:auto minmax(0,1fr) auto;border-radius:18px}.prompt-field{min-height:0}.field-label{font-size:11px}.optional{font-size:9px;padding:0 3px}textarea{flex:none}textarea,.display-field select{height:45px;min-height:45px;max-height:none;margin-top:5px;padding:6px 7px}textarea::placeholder{font-size:11px}.languages{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr));max-height:none;gap:6px}.language-row{font-size:10px;gap:3px}select{min-height:36px;padding:5px;font-size:13px}.actions{grid-column:1/-1;margin:0;gap:8px}.actions button{min-height:40px;padding:6px 8px}.activity{padding:8px 11px;display:grid;grid-template-columns:minmax(75px,1fr) 2fr;gap:7px;align-items:center;border-radius:16px}.activity .section-line{font-size:10px;flex-direction:column;align-items:start;gap:0}.activity .section-line span:last-child{font-size:9px;max-width:100%;text-align:left}.metrics{margin:0;gap:5px}.metric+.metric{padding-left:5px}.metric dt{font-size:9px}.metric dd{font-size:18px;margin:0}.conversation-head{padding:11px 15px}.conversation-foot{padding:6px 15px;min-height:27px}.state{font-size:12px}.voice-state{font-size:9px}.empty>span{font-size:24px}.presence{width:135px;height:135px;max-height:48%;margin-bottom:4px}.empty{gap:5px}}
+@media(max-height:420px){.shell{gap:6px;padding:7px}.progress-card{padding:5px 10px}.workspace,.controls{gap:6px}.configure{padding:9px;gap:6px}.conversation-head{padding:9px 12px}.conversation-foot{min-height:22px;padding:4px 12px}.presence{width:100px;height:100px;margin-bottom:0}.empty>span{font-size:21px}.empty small{font-size:10px}.actions button{min-height:36px}.activity{padding:6px 10px}.metric dd{font-size:16px}}
+@media(max-width:500px) and (max-height:500px){.shell{padding:6px;gap:5px}.brandmark{width:25px;height:25px}h1{font-size:21px}.workspace{gap:5px}.configure{padding:7px;gap:5px}.controls{gap:5px}.progress-card{padding:4px 8px}.field-label{font-size:10px}.optional{font-size:8px}textarea,.display-field select{height:36px;min-height:36px;padding:5px 7px;margin-top:4px}.languages{max-height:58px;gap:4px}.language-row{font-size:9px;gap:2px}select{min-height:32px;padding:4px 5px;font-size:13px}.actions button{min-height:34px;padding:4px 7px}.activity{padding:5px 8px}.metric dd{font-size:16px}.conversation-head{padding:6px 10px}.state{font-size:11px}.voice-info{max-width:48%}.voice-bars{display:none}.conversation-foot{min-height:20px;padding:3px 10px}.presence{width:65px;height:65px;max-height:45%;margin:0}.empty>span{font-size:16px}.empty small{font-size:9px}.empty{gap:3px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}@media(forced-colors:active){.presence{display:none}.badge::before,.orb,.voice-bars i{background:CanvasText}.card,button,select,textarea{border:1px solid CanvasText}.bubble-text{border-color:CanvasText}}
+
+:root{--orb-glow:#b29ae42e;--focus-ring:color-mix(in srgb,var(--accent) 24%,transparent)}
+.shell{isolation:isolate}header{min-width:0}.brandmark{transform:none;position:relative;background:linear-gradient(145deg,#a187da,#584697);box-shadow:inset 0 1px 1px #ffffff80,0 6px 18px #69538e26}.brandmark i{transform:none}h1{letter-spacing:-1.4px;font-weight:680}
+.card{box-shadow:0 8px 36px #33214706,inset 0 1px #ffffff30}.configure{background:linear-gradient(155deg,var(--card),color-mix(in srgb,var(--card) 95%,var(--soft)))}.field-label{letter-spacing:.01em}textarea{background:var(--sub);transition:border-color .2s,box-shadow .2s}textarea:focus{outline:none;box-shadow:0 0 0 4px var(--focus-ring)}select{cursor:pointer}.actions button{white-space:normal;line-height:1.25}.actions button.primary{background:linear-gradient(125deg,#846bcc,#6351b5);border-color:transparent;color:#fff;box-shadow:0 7px 20px #7160ae26}.actions button.primary:not(:disabled):hover{background:linear-gradient(125deg,#947ad8,#725dc4);box-shadow:0 9px 24px #7160ae35}.actions #start[aria-busy=true]::before{width:12px;height:12px;clip-path:none;background:none;border:2px solid #ffffff60;border-top-color:#fff;border-radius:50%;animation:button-spin 1s linear infinite;flex:none}.actions #end::before{flex:none}.actions button:disabled{opacity:.46}.actions #start[aria-busy=true]{opacity:.75}.badge{backdrop-filter:blur(14px)}.badge[data-state=active]{background:var(--soft)}
+.conversation{background:radial-gradient(ellipse at 52% 40%,var(--orb-glow),transparent 63%),var(--card)}.conversation-head{background:color-mix(in srgb,var(--card) 75%,transparent);z-index:2}.conversation-body{container-type:size}.presence{flex:none;width:min(260px,52cqw,54cqh);height:auto;aspect-ratio:1;max-height:none;margin-bottom:min(18px,4cqh);filter:drop-shadow(0 16px 35px #8b63bc22)}.presence-core{inset:9%;background:radial-gradient(ellipse at 30% 15%,#fffaf5 0%,#ffedf480 22%,transparent 53%),radial-gradient(ellipse at 65% 82%,#5a49ac 0%,transparent 62%),conic-gradient(from 45deg,#f6d7cf,#d4c5f7,#a0adea,#8b6bc4,#f6d7cf);box-shadow:inset 2px 3px 9px #fff9,inset -7px -12px 22px #52337535,0 0 40px #b89ed22e}.presence-core::before{inset:9%;border-color:#fff8;transform:rotate(-32deg);box-shadow:inset 0 0 22px #fee8fa60}.presence-core::after{inset:14% 2%;border-top:1px solid #fff9;border-bottom:1px solid #fff5;transform:rotate(-32deg)}.presence-ring{inset:-4%;border-color:color-mix(in srgb,var(--accent) 18%,transparent);transform:rotate(-25deg) scaleY(.63);animation:orbit-drift 16s ease-in-out infinite}.presence-ring:nth-child(3){inset:-13%;border-color:color-mix(in srgb,var(--accent) 10%,transparent);transform:rotate(35deg) scaleY(.85);animation:orbit-drift-alt 22s ease-in-out infinite}.presence-light{inset:17%;opacity:.6}.empty{padding:16px;gap:10px}.empty>span{font-weight:520;text-align:center;max-width:100%;font-size:clamp(20px,3.7cqw,36px);line-height:1.35;letter-spacing:-.6px}.empty small{line-height:1.6;max-width:94%;padding:0}.orb{transition:box-shadow .3s,background .3s}.orb.listening{box-shadow:0 0 0 5px var(--soft),0 0 16px var(--focus-ring)}body[data-phase=listening] .presence-core{transform:scale(calc(1 + var(--meter)*.065));animation:none;transition:transform .12s}body[data-phase=thinking] .presence-core,body[data-phase=recognizing] .presence-core{animation:sphere-float 3.5s ease-in-out infinite}body[data-waiting=true] .presence-core{animation:none;filter:saturate(.6)}.activity[data-state=paused] .section-line span:first-child::before{background:var(--muted);box-shadow:none;opacity:.6}.activity[data-state=active] .section-line span:first-child::before{animation:status-breathe 2s ease-in-out infinite}.metric dd{font-weight:560}.progress-card[data-state=passed]{opacity:.84}.progress-card[data-state=blocked]{border-color:color-mix(in srgb,var(--danger) 36%,var(--line))}.chat:focus-visible{outline:2px solid var(--accent);outline-offset:-4px}.bubble-text{font-size:16px;line-height:1.85}.bubble.user .bubble-text{background:linear-gradient(135deg,var(--soft),color-mix(in srgb,var(--soft) 72%,var(--card)))}.conversation-foot{align-items:center}.notice{max-height:65px;line-height:1.6}.save{font-variant-numeric:tabular-nums}
+@keyframes button-spin{to{transform:rotate(360deg)}}@keyframes orbit-drift{50%{transform:rotate(-10deg) scaleY(.7)}}@keyframes orbit-drift-alt{50%{transform:rotate(20deg) scaleY(.78)}}
+@media(prefers-color-scheme:dark){:root{--orb-glow:#51426838}body{background:radial-gradient(ellipse at 20% 0%,#4030484a,transparent 52%),radial-gradient(ellipse at 100% 100%,#29365645,transparent 52%),var(--bg)}.conversation{background:radial-gradient(ellipse at 52% 40%,var(--orb-glow),transparent 63%),var(--card)}.card{box-shadow:inset 0 1px #ffffff08,0 12px 44px #00000018}.presence-core{box-shadow:inset 2px 3px 9px #fff8,inset -7px -12px 22px #25133450,0 0 56px #b89ed226}.presence::before{opacity:.34}.actions button.primary{background:linear-gradient(125deg,#b7a1ea,#8e7acc);color:#161224}.actions #start[aria-busy=true]::before{border-color:#30205040;border-top-color:currentColor}}
+@media(max-width:700px) and (min-height:501px),(max-width:600px){.empty{padding:10px;gap:6px}.empty>span{font-size:clamp(20px,6cqw,26px)}.presence{width:min(172px,48cqw,54cqh);margin-bottom:8px}.configure{gap:10px}.progress-copy strong{line-height:1.3;display:block}.progress-detail{font-size:9px;line-height:1.35}.languages{max-height:min(126px,18dvh)}.conversation-head{min-width:0}.voice-info{max-width:46%}.state{line-height:1.4}.empty small{font-size:11px}}
+@media(max-width:600px) and (max-height:710px){.configure{gap:7px}.empty{gap:4px;padding:6px}.presence{width:min(110px,40cqw,42cqh);margin-bottom:2px}.empty>span{font-size:clamp(16px,6cqw,22px)}.empty small{font-size:10px;line-height:1.4}.languages{max-height:100px}}
+@media(min-width:501px) and (max-height:620px){.configure{gap:7px}.languages{max-height:none}.presence{width:min(145px,45cqw,50cqh)}.empty{gap:5px;padding:8px}.empty>span{font-size:24px}.empty small{font-size:11px}}
+@media(max-width:500px) and (max-height:500px){.configure{gap:4px}.languages{max-height:52px}.presence{width:min(70px,28cqw,32cqh);margin-bottom:0}.empty{padding:4px;gap:3px}.empty>span{font-size:16px}.empty small{font-size:9px}.notice{max-height:30px}.progress-detail{font-size:8px}.progress-card{grid-template-columns:minmax(100px,1.7fr) minmax(20px,.7fr) 30px;gap:7px}}
+@media(max-width:320px){.badge{max-width:57%;padding:4px 7px}.activity{grid-template-columns:minmax(64px,.85fr) 2fr;gap:5px}.section-line span:first-child{white-space:nowrap}.metrics{gap:4px}.metric+.metric{padding-left:4px}.metric dt{font-size:9px}.conversation-head{gap:8px}.voice-info{max-width:43%}.voice-bars{display:none}.progress-card{grid-template-columns:minmax(100px,1.5fr) minmax(20px,1fr) 29px;gap:7px}.optional{padding:0 3px}.empty>span{letter-spacing:0}}
+@container (max-height:180px){.empty{gap:5px;padding:8px}.presence{width:min(85px,35cqh);margin-bottom:0}.empty>span{font-size:18px}.empty small{font-size:10px}}
+@container (max-height:120px){.presence{display:none}.empty{padding:6px;gap:4px}.empty>span{font-size:16px;line-height:1.25}.empty small{line-height:1.35}}
+@container (max-height:70px){.empty>span{font-size:14px}.empty small{font-size:9px;line-height:1.25}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}progress::-webkit-progress-value{transition:none!important}}@media(forced-colors:active){.presence{display:none}.actions button.primary{background:ButtonFace;color:ButtonText;border:1px solid ButtonText}.orb,.activity .section-line span:first-child::before{background:CanvasText}.actions #start[aria-busy=true]::before{border-color:ButtonText}}
+
+:root{--muted:#6e6682}textarea::placeholder{color:var(--muted);opacity:.8}.progress-detail{font-variant-numeric:tabular-nums}.progress-card{min-width:0}.progress-copy{min-width:0}.progress-detail{white-space:normal;overflow-wrap:anywhere;overflow:visible;text-overflow:clip;line-height:1.55;max-height:none}.percent{font-variant-numeric:tabular-nums}progress{position:relative;overflow:hidden}progress:not([value]){background:var(--line);border-radius:99px;appearance:none;-webkit-appearance:none}progress:not([value])::-webkit-progress-bar{background:transparent}progress:not([value])::after{content:'';position:absolute;inset:0 auto 0 0;width:32%;border-radius:99px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:download-flow 1.65s ease-in-out infinite}.progress-card[data-state=retrying]{border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}.progress-card[data-state=retrying] progress{opacity:.5}.presence-core{background:radial-gradient(ellipse at 26% 16%,#fffefc 0%,#fff0f67d 22%,transparent 55%),radial-gradient(ellipse at 66% 82%,#5542a9 0%,transparent 61%),conic-gradient(from 35deg,#f7d4d1,#d6c5f6,#a8b8f0,#9270cf,#f7d4d1)}.conversation{box-shadow:0 12px 52px #47316009,inset 0 1px #ffffff55}.empty>span{font-weight:650}.bubble-text{overflow-wrap:anywhere}.languages{scrollbar-width:thin;scrollbar-color:var(--line) transparent}.language-row{min-width:0}.language-row select{max-width:100%}select:disabled,textarea:disabled{cursor:default}.actions button{transition:background .2s,box-shadow .2s,transform .2s,opacity .2s}.empty small{text-wrap:balance}.conversation-foot:has(.notice[hidden]):has(.save:empty){padding-top:0;padding-bottom:0;min-height:14px}.progress-copy strong{font-weight:600}.progress-card[data-indeterminate=true] .percent{font-size:18px;line-height:1}.badge[data-state=active]::before{box-shadow:0 0 0 4px color-mix(in srgb,currentColor 10%,transparent)}
+@keyframes download-flow{0%{transform:translateX(-100%)}100%{transform:translateX(415%)}}
+@media(max-width:700px) and (min-height:501px),(max-width:600px){.progress-card{grid-template-columns:minmax(0,1fr) 32px;gap:4px 8px;padding:7px 11px}.progress-copy{grid-column:1}.progress-card progress{grid-column:1;grid-row:2;width:100%;height:3px}.progress-card .percent{grid-column:2;grid-row:1/3;align-self:center}.progress-detail{font-size:10px;line-height:1.4}.conversation-foot:has(.notice[hidden]):has(.save:empty){min-height:8px}.language-row select{font-size:12px;padding-left:5px;padding-right:4px}.empty small{max-width:100%}.configure:has(.languages[data-count="4"]),.configure:has(.languages[data-count="5"]),.configure:has(.languages[data-count="6"]){gap:7px}.languages{max-height:min(126px,20dvh)}.language-row{align-self:start}}
+@media(min-width:501px) and (max-height:620px){.progress-card{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(40px,1fr) 32px;gap:8px}.progress-copy{grid-column:1}.progress-card progress{grid-column:2;grid-row:1}.progress-card .percent{grid-column:3;grid-row:1}.progress-detail{font-size:10px;line-height:1.3}.language-row select{font-size:12px;padding:4px}.empty>span{font-size:clamp(17px,6cqw,24px)}}
+@media(max-width:500px) and (max-height:500px){.progress-card{padding:4px 8px;gap:2px 6px}.progress-detail{font-size:9px}.languages{max-height:52px}}
+@media(prefers-color-scheme:dark){:root{--muted:#b4abc7}.conversation{box-shadow:0 12px 52px #0002,inset 0 1px #ffffff09}.presence-core{box-shadow:inset 2px 3px 9px #fff8,inset -7px -12px 22px #25133450,0 0 56px #b89ed226}}
+@media(prefers-reduced-motion:reduce){progress:not([value])::after{animation:none;transform:none;width:100%;opacity:.65}}
+@media(forced-colors:active){progress:not([value])::after{background:Highlight}.progress-detail{color:CanvasText}}
+</style></head><body data-phase="idle"><main class="shell"><header><div class="brand"><span class="brandmark" aria-hidden="true"><i></i><i></i><i></i></span><h1>Yuan</h1></div><span class="badge" id="readyBadge" role="status">自动准备中</span></header><section class="card progress-card" data-i18n-aria="准备进度" aria-label="准备进度"><div class="progress-copy"><strong id="progressText">自动准备</strong><span id="progressDetail" class="progress-detail"></span></div><progress id="progress" max="100" value="0" data-i18n-aria="准备进度" aria-label="准备进度"></progress><span id="progressPercent" class="percent">0%</span></section><div class="workspace"><aside class="controls"><section class="card configure"><div class="prompt-field"><label class="field-label" for="prompt"><span data-i18n="提示词">提示词</span><span class="optional" data-i18n="可选">可选</span></label><textarea id="prompt" spellcheck="false" data-i18n-placeholder="你想和 Yuan 聊些什么？" placeholder="你想和 Yuan 聊些什么？" data-i18n-aria="提示词，可选" aria-label="提示词，可选"></textarea></div><div class="display-field"><label class="field-label" for="displayLanguage"><span data-i18n="显示语言">显示语言</span><span class="optional" data-i18n="可选">可选</span></label><select id="displayLanguage" data-i18n-aria="显示语言，可选" aria-label="显示语言，可选"><option value="" data-i18n="自动">自动</option><option value="zh-CN" lang="zh-CN">简体中文</option><option value="zh-TW" lang="zh-TW">繁體中文</option><option value="en" lang="en">English</option></select></div><div class="languages" id="languageRows"></div><div class="actions"><button class="primary" id="start" data-i18n="开始" type="button" disabled>开始</button><button class="end" id="end" data-i18n="结束" type="button" disabled>结束</button></div></section><section class="card activity" data-i18n-aria="自动协作" aria-label="自动协作"><div class="section-line"><span data-i18n="自动协作">自动协作</span><span id="cooperationStatus" role="status">连接中</span></div><dl class="metrics"><div class="metric"><dt data-i18n="在线同伴">在线同伴</dt><dd id="peerCount">0</dd></div><div class="metric"><dt data-i18n="本机轮次">本机轮次</dt><dd id="roundCount">—</dd></div><div class="metric"><dt data-i18n="已验证更新">已验证更新</dt><dd id="acceptedCount">0</dd></div></dl></section></aside><section class="card conversation" data-i18n-aria="对话" aria-label="对话"><div class="conversation-head"><div class="state"><span id="orb" class="orb" aria-hidden="true"></span><span id="statusTitle" role="status">准备开始</span></div><div class="voice-info"><span class="voice-state" id="voiceState">语音加载中</span><span class="voice-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div></div><div class="conversation-body"><div class="empty" id="empty"><div class="presence" aria-hidden="true"><i class="presence-core"></i><i class="presence-ring"></i><i class="presence-ring"></i><i class="presence-light"></i></div><span id="emptyTitle" data-i18n="从一句话开始">从一句话开始</span><small id="emptyHint">开始后，直接说话</small></div><div class="chat" id="chat" tabindex="0" role="log" data-i18n-aria="对话内容" aria-label="对话内容" aria-live="polite" aria-relevant="additions text"></div></div><div class="conversation-foot"><span class="notice" id="notice" role="alert" hidden></span><span id="saveStatus" class="save"></span></div></section></div></main><dialog id="endDialog" aria-labelledby="endTitle" aria-describedby="endDescription"><h2 id="endTitle" data-i18n="确认结束对话？">确认结束对话？</h2><p class="dialog-copy" id="endDescription" data-i18n="确认后将停止麦克风与语音播放。">确认后将停止麦克风与语音播放。</p><div class="dialog-actions"><button id="cancelEnd" data-i18n="继续对话" type="button">继续对话</button><button class="primary" id="confirmEnd" data-i18n="确认结束" type="button">确认结束</button></div></dialog>
 <script id="federationCore">
 const COOP = Object.freeze({
   version:1,
@@ -556,7 +589,7 @@ onmessage=async e=>{
 
 </script>
 <script id="sharedCode">
-const BUILD = '2026-10-01.12-yuan-worker-watchdog';
+const BUILD = '2026-10-01.16-yuan-resilient';
 const CONTROL_PROTOCOL='runtime-turns-v11-attentive-dialogue';
 const ADAPTER_VERSION=5;
 const DB_NAME = 'AIChat-local-v1';
@@ -584,8 +617,8 @@ function setAsrMode(value){ACTIVE_ASR_MODE=normalizeAsrMode(value);return ASR_MO
 function asrSpec(value=ACTIVE_ASR_MODE){return ASR_MODES[normalizeAsrMode(value)];}
 const SPEECH_LIMITS=Object.freeze({maxText:1000});
 const AUDIO_SPEC = {rate:16000, frame:512, context:64, stateLayers:2, stateWidth:128};
-const SAFETY = {chunkBytes:4*1024*1024, idleNetworkMs:90000, dbOpenMs:15000,
-  endGraceMs:15000, micPermissionMs:45000, voiceWaitMs:1200, speechWatchdogMs:120000, streamCheckpointMs:1500, workerIdleMs:120000, workerStartupMs:120000, workerRequestIdleMs:120000, workerInitIdleMs:600000, learningRowsPerObjective:2048, idleDebounceMs:750, workerQueue:64, cursorRows:128, renderMessages:80, validationAlpha:0.05};
+const SAFETY = {chunkBytes:4*1024*1024, idleNetworkMs:25000, connectNetworkMs:12000, assetAttemptMaxMs:900000, dbOpenMs:15000,
+  endGraceMs:15000, micPermissionMs:45000, voiceWaitMs:1200, speechWatchdogMs:120000, streamCheckpointMs:1500, workerIdleMs:120000, workerStartupMs:120000, workerRequestIdleMs:120000, workerInitIdleMs:180000, workerQueueWaitMs:120000, workerInitMaxMs:900000, workerStageMaxMs:480000, workerRequestMaxMs:300000, workerDownloadMaxMs:3600000, learningRowsPerObjective:2048, idleDebounceMs:750, workerQueue:64, cursorRows:128, renderMessages:80, validationAlpha:0.05};
 const EMPTY_POLICY = Object.freeze({action:null,revisit_seconds:null,pause_seconds:null,speech_probability:null,
   minimum_voice_seconds:null,speech_rate:null,speech_pitch:null,speech_volume:null,
   voice:null,recognition_language:null,history_tokens:null,temperature:null,top_p:null,output_tokens:null,guidance:null,interrupt_on_voice:null,experience_note:null});
@@ -711,11 +744,17 @@ async function prefetchRuntimeAssets(profile,{guard=()=>{}}={}){
     }
     optional.add(root+'generation_config.json');
   }
-  for(const url of [...required,...optional]){
-    guard();const response=await cachedFetch(url);guard();
-    if(!response.ok&&!(optional.has(url)&&response.status===404))throw new Error('MODEL_ASSET_MISSING: '+url);
-    await response.body?.cancel();guard();
-  }
+  const queue=[...required,...optional];let next=0;
+  NET.notify({type:'asset-plan',urls:Array.from(required)});
+  const download=async()=>{
+    while(next<queue.length){
+      const url=queue[next++];guard();const response=await cachedFetch(url);guard();
+      if(!response.ok&&!(optional.has(url)&&response.status===404))throw new Error('MODEL_ASSET_MISSING: '+url);
+      await response.body?.cancel();guard();
+      if(required.has(url))NET.notify({type:'asset-complete',url});
+    }
+  };
+  await Promise.all([download(),download()]);
   return {...profile,downloadOnly:true};
 }
 function manifestComplete(manifest,profile=null){return Array.isArray(manifest)&&(profile?[profile]:[{dtype:'q8'},{dtype:'q4f16'}]).some(choice=>requiredAssets(choice).every(url=>manifest.some(item=>item?.url===url&&item.status===200&&item.size>0)));}
@@ -737,7 +776,7 @@ async function verifyAssetManifest(manifest,{guard=()=>{},force=false}={}){
 }
 function readyProofCompatible(proof){
   const selected=asrSpec();
-  return !!(proof?.build===BUILD&&proof.environment===runtimeEnvironment()&&proof.controlProtocol===CONTROL_PROTOCOL&&proof.limits?.controllerProbe?.protocol===CONTROL_PROTOCOL&&proof.networkBlockedColdStart&&proof.limits?.asrMode===ACTIVE_ASR_MODE&&proof.pins?.llm===PACK.llmRevision&&proof.pins?.asr===selected.revision&&proof.pins?.asrModel===selected.model&&proof.pins?.vad===PACK.vadRevision);
+  return !!(proof?.build===BUILD&&proof.environment===runtimeEnvironment()&&proof.controlProtocol===CONTROL_PROTOCOL&&proof.limits?.controllerProbe?.protocol===CONTROL_PROTOCOL&&proof.networkBlockedColdStart&&proof.limits?.asrIsolated===true&&proof.limits?.asrSelfTest==='passed'&&proof.limits?.asrMode===ACTIVE_ASR_MODE&&proof.pins?.llm===PACK.llmRevision&&proof.pins?.asr===selected.revision&&proof.pins?.asrModel===selected.model&&proof.pins?.vad===PACK.vadRevision);
 }
 function createReadyProof({limits,manifest,voiceTests=[],languagePriority=[],attemptId=null,imported=false}={}){
   const selected=asrSpec();
@@ -795,7 +834,9 @@ function errorOutcome(error){
   if(/QuotaExceeded|STORAGE|IndexedDB|IDB|CACHE_WRITE/i.test(name+' '+text))return 'storage';
   if(name==='OutOfMemoryError'||/out of memory|\boom\b|allocation failed|failed to allocate|cannot allocate|could not allocate|memory\.grow|bad_alloc|array buffer allocation/i.test(text))return 'resource-exhausted';
   if(/memory access out of bounds|invalid array length|unreachable|RuntimeError/i.test(name+' '+text))return 'runtime-fault';
-  if(/WORKER_RESPONSE_TIMEOUT/.test(text))return 'timeout';
+  if(/WORKER_(?:RESPONSE|QUEUE|START)_TIMEOUT/.test(text))return 'timeout';
+  if(typeof error==='number'||/^\d+$/.test(text)||/Aborted\(|WebAssembly|WASM_.*(?:TRAP|FAILED)/i.test(text))return 'runtime-fault';
+  if(/NETWORK|HTTP|DOWNLOAD|fetch|OFFLINE_ASSET/i.test(text))return 'network';
   return 'unknown';
 }
 function serializeError(error,context={}){
@@ -823,7 +864,7 @@ const WORK_DIAG={role:null,operation:null,stage:null,requestId:null,attemptId:nu
 function workerContext(extra={}){
   const selected=asrSpec();
   return {role:WORK_DIAG.role,operation:WORK_DIAG.operation,stage:WORK_DIAG.stage,stageEvidence:'caught-at-stage',requestId:WORK_DIAG.requestId,
-    attemptId:WORK_DIAG.attemptId,loadId:WORK_DIAG.loadId,backend:'wasm',dtype:WORK_DIAG.role==='vad'?'float32':'q8',
+    attemptId:WORK_DIAG.attemptId,loadId:WORK_DIAG.loadId,backend:WORK_DIAG.backend||'wasm',dtype:WORK_DIAG.dtype||(WORK_DIAG.role==='vad'?'float32':'q8'),
     models:{llm:PACK.llm,llmRevision:PACK.llmRevision,asr:selected.model,asrRevision:selected.revision,asrMode:ACTIVE_ASR_MODE,vadRevision:PACK.vadRevision},
     runtime:WORK_DIAG.runtime??{transformers:PACK.transformersVersion,vadOnnx:PACK.ortVersion},...extra};
 }
@@ -939,7 +980,7 @@ function partialAssetKeys(value,url){
 }
 function strongAssetETag(value){return typeof value==='string'&&/^"[\x21\x23-\x7E\x80-\xFF]*"$/.test(value)?value:null;}
 function validPartialAsset(value,url){
-  return value?.version===2&&value.url===url&&!!assetRevision(url)&&value.revision===assetRevision(url)&&validAssetMetadata(value)&&value.parts.every(key=>key.startsWith(url+'#'))&&Number.isSafeInteger(value.total)&&value.total>=0&&(!value.total||value.size<=value.total)&&!!strongAssetETag(value.etag)&&typeof value.type==='string';
+  return value?.version===3&&value.identity===true&&downloadCandidates(url).includes(value.source)&&value.url===url&&!!assetRevision(url)&&value.revision===assetRevision(url)&&validAssetMetadata(value)&&value.parts.every(key=>key.startsWith(url+'#'))&&Number.isSafeInteger(value.total)&&value.total>=0&&(!value.total||value.size<=value.total)&&!!strongAssetETag(value.etag)&&typeof value.type==='string';
 }
 async function deleteIncompleteParts(url){
   const partial=await dbGet('meta','partial:'+url);if(!partial)return;
@@ -958,78 +999,102 @@ async function resumableAsset(url,guard){
   if(size!==partial.size){await deleteIncompleteParts(url);return null;}
   return partial;
 }
+function downloadCandidates(url){
+  if(url.startsWith('https://cdn.jsdelivr.net/npm/'))return [url,url.replace('https://cdn.jsdelivr.net/npm/','https://unpkg.com/')];
+  if(url===PACK.vad)return [url,'https://cdn.jsdelivr.net/gh/snakers4/silero-vad@'+PACK.vadRevision+'/src/silero_vad/data/silero_vad.onnx'];
+  return [url];
+}
+function decodedAssetLength(response,range=null){
+  if(range)return range.total;
+  const value=response.headers.get('content-length'),encoding=response.headers.get('content-encoding')?.trim().toLowerCase();
+  if(!value||!/^\d+$/.test(value)||encoding&&encoding!=='identity'||!encoding&&response.type==='cors')return 0;
+  const size=Number(value);return Number.isSafeInteger(size)&&size>0?size:0;
+}
 async function downloadResource(url){
   if(isExecutableAsset(url)&&!executableAssets().includes(url)&&!isNeuralAsset(url))throw new Error('EXECUTABLE_NOT_ALLOWED: '+url);
-  if(!NET.allowed)throw networkBlocked('OFFLINE_ASSET_MISSING: '+url);
-  const controller=new AbortController();NET.controllers.add(controller);
-  let timer,reader,response;
-  const guard=()=>{if(!NET.allowed||controller.signal.aborted)throw controller.signal.reason||new Error('DOWNLOAD_CANCELLED');};
-  const touch=()=>{clearTimeout(timer);timer=setTimeout(()=>controller.abort(new Error('DOWNLOAD_STALLED')),SAFETY.idleNetworkMs);};
-  try{
-    let partial=await resumableAsset(url,guard);guard();
-    const candidates=[url];if(url.startsWith('https://cdn.jsdelivr.net/npm/'))candidates.push(url.replace('https://cdn.jsdelivr.net/npm/','https://unpkg.com/'));
-    const fetchResponse=async headers=>{
-      let last;
-      for(const candidate of candidates){
-        guard();touch();
-        try{
-          auditNetwork('networkRequests');const result=await nativeFetch(candidate,{signal:controller.signal,credentials:'omit',referrerPolicy:'no-referrer',cache:'no-store',headers});guard();
-          if(result.ok||result.status===416||result.status===404&&candidates.length===1)return result;
-          last=new Error('HTTP '+result.status);await result.body?.cancel().catch(()=>{});
-        }catch(error){last=error;if(controller.signal.aborted||!NET.allowed)throw error;}
+  const guard=()=>{if(!NET.allowed)throw networkBlocked('OFFLINE_ASSET_MISSING: '+url);};guard();
+  const candidates=downloadCandidates(url);let lastError;
+  for(let attempt=0;attempt<candidates.length*2;attempt++){
+    guard();const candidate=candidates[attempt%candidates.length],controller=new AbortController();NET.controllers.add(controller);
+    let timer=null,deadline=null,reader=null,response=null,flush=null,buffered=0;
+    const touch=ms=>{clearTimeout(timer);timer=setTimeout(()=>controller.abort(new Error('DOWNLOAD_STALLED')),ms);};
+    const active=()=>{guard();if(controller.signal.aborted)throw controller.signal.reason||new Error('DOWNLOAD_CANCELLED');};
+    try{
+      let partial=await resumableAsset(url,guard);active();
+      if(partial&&partial.total>0&&partial.size===partial.total){
+        await trustDownloadedExecutable(url,partial.parts,partial.size);active();
+        await writeStores(['files','meta'],tx=>{tx.objectStore('files').put({complete:true,status:200,parts:partial.parts,hashes:partial.hashes,size:partial.size,type:partial.type},url);tx.objectStore('meta').delete('partial:'+url);},{guard});
+        verifiedAssets.delete(url);NET.notify({type:'download',url,loaded:partial.size,total:partial.size,done:true,resumed:true});return;
       }
-      throw last||new Error('DOWNLOAD_FAILED');
-    };
-    let range=null,requestRange=!!partial;
-    for(let attempt=0;attempt<2;attempt++){
-      const headers=requestRange&&partial?{Range:'bytes='+partial.size+'-','If-Range':partial.etag}:{};
-      try{response=await fetchResponse(headers);}
-      catch(error){guard();if(!partial||attempt)throw error;requestRange=false;continue;}
-      clearTimeout(timer);guard();
-      if(response.status===200){if(partial){await deleteIncompleteParts(url);partial=null;}break;}
-      if(response.status===404){await deleteIncompleteParts(url);await dbPut('files',url,{complete:true,status:404,parts:[],size:0,type:'text/plain'});return;}
-      const match=response.status===206?response.headers.get('content-range')?.match(/^bytes (\d+)-(\d+)\/(\d+)$/i):null;
-      const encoding=response.headers.get('content-encoding')?.trim().toLowerCase();
-      if(requestRange&&partial&&match){
-        const [start,end,total]=match.slice(1).map(Number),etag=strongAssetETag(response.headers.get('etag'));
-        if([start,end,total].every(Number.isSafeInteger)&&start===partial.size&&end>=start&&end===total-1&&(!partial.total||total===partial.total)&&(!etag||etag===partial.etag)&&(!encoding||encoding==='identity')){range={start,end,total};break;}
+      if(partial&&partial.source!==candidate){await deleteIncompleteParts(url);partial=null;}
+      if(attempt)NET.notify({type:'download-retry',url,attempt:attempt+1,sources:candidates.length});
+      deadline=setTimeout(()=>controller.abort(new Error('DOWNLOAD_ATTEMPT_TIMEOUT')),SAFETY.assetAttemptMaxMs);
+      let range=null;
+      for(let request=0;request<2;request++){
+        active();touch(SAFETY.connectNetworkMs);
+        const headers=partial?{Range:'bytes='+partial.size+'-','If-Range':partial.etag}:{};
+        auditNetwork('networkRequests');
+        try{response=await nativeFetch(candidate,{signal:controller.signal,credentials:'omit',referrerPolicy:'no-referrer',cache:'no-store',headers});}
+        catch(error){active();if(partial&&request===0){await deleteIncompleteParts(url);partial=null;continue;}throw error;}
+        clearTimeout(timer);active();
+        if(response.status===200){if(partial){await deleteIncompleteParts(url);partial=null;}break;}
+        if(response.status===404&&candidates.length===1){await response.body?.cancel().catch(()=>{});await deleteIncompleteParts(url);await dbPut('files',url,{complete:true,status:404,parts:[],size:0,type:'text/plain'});return;}
+        const match=response.status===206?response.headers.get('content-range')?.match(/^bytes (\d+)-(\d+)\/(\d+)$/i):null;
+        const encoding=response.headers.get('content-encoding')?.trim().toLowerCase();
+        if(partial&&match&&(!encoding||encoding==='identity')){
+          const [start,end,total]=match.slice(1).map(Number),etag=strongAssetETag(response.headers.get('etag'));
+          if([start,end,total].every(Number.isSafeInteger)&&start===partial.size&&end>=start&&end===total-1&&(!partial.total||partial.total===total)&&etag===partial.etag){range={start,end,total};break;}
+        }
+        await response.body?.cancel().catch(()=>{});const status=response.status;response=null;
+        if(partial){await deleteIncompleteParts(url);partial=null;continue;}
+        throw new Error('HTTP '+status+': '+url);
       }
-      await response.body?.cancel().catch(()=>{});response=null;
-      if(!partial||attempt)throw new Error('DOWNLOAD_RANGE_INVALID: '+url);
-      requestRange=false;
+      active();if(!response||![200,206].includes(response.status))throw new Error('DOWNLOAD_RANGE_INVALID: '+url);
+      const expected=decodedAssetLength(response,range),encoding=response.headers.get('content-encoding')?.trim().toLowerCase();
+      const identity=!!range||encoding==='identity'||!encoding&&response.type!=='cors';
+      const etag=identity?(strongAssetETag(response.headers.get('etag'))||partial?.etag||null):null;
+      const type=response.headers.get('content-type')||partial?.type||'application/octet-stream';
+      let loaded=partial?.size||0,committed=loaded,fragments=[],parts=partial?.parts.slice()||[],hashes={...partial?.hashes};
+      const stamp=crypto.randomUUID?.()||String(Date.now())+'-'+Math.random();
+      flush=async()=>{
+        if(!buffered)return;guard();
+        const blob=new Blob(fragments),key=url+'#'+stamp+'#'+parts.length,hash=await sha256Blob(blob);guard();
+        const nextParts=[...parts,key],nextHashes={...hashes,[key]:hash},size=committed+blob.size;
+        const record={version:3,url,revision:assetRevision(url),source:candidate,identity,parts:nextParts,hashes:nextHashes,size,total:expected,etag,type};
+        await writeStores(['meta','chunks'],tx=>{tx.objectStore('chunks').put(blob,key);tx.objectStore('meta').put(record,'partial:'+url);},{guard});
+        parts=nextParts;hashes=nextHashes;committed=size;fragments=[];buffered=0;
+      };
+      const progress=done=>NET.notify({type:'download',url,loaded,total:done?loaded:expected,done:!!done,resumed:!!partial});
+      const receive=async bytes=>{
+        if(!(bytes instanceof Uint8Array))throw new Error('DOWNLOAD_CHUNK_INVALID');
+        for(let offset=0;offset<bytes.length;){
+          active();const count=Math.min(bytes.length-offset,SAFETY.chunkBytes-buffered);
+          fragments.push(bytes.slice(offset,offset+count));buffered+=count;loaded+=count;offset+=count;
+          if(!Number.isSafeInteger(loaded)||expected&&loaded>expected)throw new Error('DOWNLOAD_INCOMPLETE: '+url);
+          if(buffered===SAFETY.chunkBytes)await flush();
+        }
+        progress(false);
+      };
+      progress(false);
+      if(response.body){
+        reader=response.body.getReader();
+        for(;;){active();touch(SAFETY.idleNetworkMs);const item=await reader.read();clearTimeout(timer);active();if(item.done)break;await receive(item.value);}
+      }else{touch(SAFETY.idleNetworkMs);const data=await response.arrayBuffer();clearTimeout(timer);active();await receive(new Uint8Array(data));}
+      if(!loaded||expected&&loaded!==expected)throw new Error('DOWNLOAD_INCOMPLETE: '+url);
+      await flush();active();await trustDownloadedExecutable(url,parts,loaded);active();
+      await writeStores(['files','meta'],tx=>{tx.objectStore('files').put({complete:true,status:200,parts,hashes,size:loaded,type},url);tx.objectStore('meta').delete('partial:'+url);},{guard});
+      verifiedAssets.delete(url);progress(true);return;
+    }catch(error){
+      lastError=error;const outcome=errorOutcome(error);
+      if(NET.allowed&&flush&&buffered&&!['storage','resource-exhausted'].includes(outcome))await flush().catch(()=>{});
+      if(!NET.allowed||['storage','resource-exhausted','cancelled'].includes(outcome)||/EXECUTABLE_|INTEGRITY|NETWORK_(?:SCHEME|HOST|RESOURCE)_BLOCKED/.test(errText(error)))throw error;
+    }finally{
+      clearTimeout(timer);clearTimeout(deadline);controller.abort();
+      try{await reader?.cancel().catch(()=>{});if(!reader)await response?.body?.cancel().catch(()=>{});reader?.releaseLock();}catch{}
+      NET.controllers.delete(controller);
     }
-    guard();if(!response||![200,206].includes(response.status))throw new Error('DOWNLOAD_FAILED: '+url);
-    const length=response.headers.get('content-length'),encoding=response.headers.get('content-encoding')?.trim().toLowerCase();
-    const declared=length&&/^\d+$/.test(length)?Number(length):null;
-    const knownLength=Number.isSafeInteger(declared)&&declared>=0&&(encoding==='identity'||!encoding&&response.type!=='cors');
-    const expected=range?.total??(knownLength?declared:0),total=expected||(Number.isSafeInteger(declared)&&declared>0?declared:0);
-    let loaded=partial?.size||0,committed=loaded,buffered=0,fragments=[],parts=partial?.parts.slice()||[],hashes={...partial?.hashes};
-    const type=response.headers.get('content-type')||partial?.type||'application/octet-stream',etag=strongAssetETag(response.headers.get('etag'))||partial?.etag||null;
-    const stamp=crypto.randomUUID?.()||String(Date.now())+'-'+Math.random();
-    async function flush(){
-      if(!buffered)return;guard();
-      const blob=new Blob(fragments),key=url+'#'+stamp+'#'+parts.length,hash=await sha256Blob(blob);guard();
-      const nextParts=[...parts,key],nextHashes={...hashes,[key]:hash},size=committed+blob.size;
-      const record={version:2,url,revision:assetRevision(url),parts:nextParts,hashes:nextHashes,size,total:expected,etag,type};
-      await writeStores(['meta','chunks'],tx=>{tx.objectStore('chunks').put(blob,key);tx.objectStore('meta').put(record,'partial:'+url);},{guard});
-      parts=nextParts;hashes=nextHashes;committed=size;fragments=[];buffered=0;
-    }
-    NET.notify({type:'download',url,loaded,total,resumed:loaded>0});
-    if(response.body){
-      reader=response.body.getReader();
-      for(;;){guard();touch();const item=await reader.read();clearTimeout(timer);guard();if(item.done)break;
-        if(!(item.value instanceof Uint8Array))throw new Error('DOWNLOAD_CHUNK_INVALID');
-        fragments.push(item.value);buffered+=item.value.byteLength;loaded+=item.value.byteLength;
-        if(!Number.isSafeInteger(loaded)||expected&&loaded>expected)throw new Error('DOWNLOAD_INCOMPLETE: '+url);
-        if(buffered>=SAFETY.chunkBytes)await flush();NET.notify({type:'download',url,loaded,total});
-      }
-    }else{touch();const data=await response.arrayBuffer();clearTimeout(timer);guard();fragments=[data];buffered=data.byteLength;loaded+=buffered;}
-    if(!loaded||expected&&loaded!==expected)throw new Error('DOWNLOAD_INCOMPLETE: '+url);
-    await flush();guard();await trustDownloadedExecutable(url,parts,loaded);guard();
-    await writeStores(['files','meta'],tx=>{tx.objectStore('files').put({complete:true,status:200,parts,hashes,size:loaded,type},url);tx.objectStore('meta').delete('partial:'+url);},{guard});
-    verifiedAssets.delete(url);NET.notify({type:'download',url,loaded,total:loaded,done:true});
-  }catch(error){controller.abort(error);await reader?.cancel(error).catch(()=>{});throw error;}
-  finally{clearTimeout(timer);reader?.releaseLock();NET.controllers.delete(controller);}
+  }
+  throw lastError||new Error('DOWNLOAD_FAILED: '+url);
 }
 function checkAbort(signal){if(signal?.aborted)throw signal.reason??new DOMException('The operation was aborted.','AbortError');}
 function abortable(promise,signal){
@@ -1710,7 +1775,7 @@ function runtimeDeliveryPlan({text,segments=null,languagePriority=[],voices=[],s
 <script id="engineCode" type="text/plain">
 NET.notify=data=>postMessage(data);
 globalThis.fetch=cachedFetch;
-let tf,asr,llm,stopper,limits,policy,contextLimit=0,dialogueThroughput=null;
+let tf,llm,stopper,limits,policy,contextLimit=0,dialogueThroughput=null;
 let engineQueue=[],engineBusy=false,activeCancellable=true,cancelledSessions=new Set(),softInterrupted=false,operationEpoch=0;
 function progress(x){postMessage({type:'model-progress',...x});}
 let capabilityKey='',capabilityRecord=null,controllerMinimum=0,probeSerial=0,initializing=false,activeRequestEpoch=0;
@@ -1861,7 +1926,7 @@ async function dialogueBackendFailure(error,profile){
   await dbPut('meta','dialogue-backend:'+runtimeEnvironment(),{device:'wasm',at:Date.now(),reason:errText(error).slice(0,300)});assertEngineAttempt();
   throw diagnosticError(new Error('DIALOGUE_BACKEND_RETRY'),{cause:serializeError(error),profile});
 }
-async function initialize(allowNetwork,{voices=[],speechLanguage='auto',languagePriority=[],diagnosticMode=false,preloadOnly=false,downloadOnly=false,asrMode='base'}={}){
+async function initialize(allowNetwork,{voices=[],speechLanguage='auto',languagePriority=[],diagnosticMode=false,preloadOnly=false,downloadOnly=false,asrMode='base',asrLimits=null}={}){
   setAsrMode(asrMode);initializing=true;softInterrupted=false;NET.role='engine';setNetworkAccess(allowNetwork);installWorkerDiagnostics(diagnosticMode);
   try{
     await workerStage('worker-storage',async()=>{await dbPut('meta','worker-probe',BUILD);if(await dbGet('meta','worker-probe')!==BUILD)throw new Error('WORKER_STORAGE_UNAVAILABLE');});
@@ -1873,26 +1938,21 @@ async function initialize(allowNetwork,{voices=[],speechLanguage='auto',language
       tf.env.backends.onnx.wasm.wasmPaths={mjs:await assetModule(PACK.transformers+'ort-wasm-simd-threaded.jsep.mjs'),wasm:await assetBinaryURL(PACK.transformers+'ort-wasm-simd-threaded.jsep.wasm')};
     });
     const profile=await dialogueBackend(),options={dtype:'q8',device:'wasm',progress_callback:progress},selectedAsr=asrSpec();
-    const llmRevision=PACK.llmRevision,asrRevision=selectedAsr.revision;
+    const llmRevision=PACK.llmRevision,asrRevision=selectedAsr.revision;WORK_DIAG.backend=profile.device;WORK_DIAG.dtype=profile.dtype;
     llm=await workerStage('loadDialogue',async()=>{try{return await tf.pipeline('text-generation',PACK.llm,{...options,...profile,revision:llmRevision});}catch(error){return dialogueBackendFailure(error,profile);}});
-    asr=await workerStage('loadASR',()=>tf.pipeline('automatic-speech-recognition',selectedAsr.model,{...options,revision:asrRevision}));
     await workerStage('model-config',async()=>{
-      const feature=asr.processor.feature_extractor.config,rate=feature.sampling_rate,modelWindowSeconds=feature.chunk_length??feature.n_samples/rate;
-      const windowSeconds=Math.floor(modelWindowSeconds*rate/AUDIO_SPEC.frame)*AUDIO_SPEC.frame/rate;
-      if(rate!==AUDIO_SPEC.rate||!Number.isFinite(windowSeconds)||windowSeconds<=0)throw new Error('ASR_AUDIO_CONFIG_UNSUPPORTED');
+      if(!asrLimits||asrLimits.asrIsolated!==true||asrLimits.asrModel!==selectedAsr.model||asrLimits.asrRevision!==asrRevision||asrLimits.asrMode!==ACTIVE_ASR_MODE||!preloadOnly&&asrLimits.asrSelfTest!=='passed')throw new Error('ASR_CAPABILITIES_INVALID');
+      const {rate,windowSeconds,modelWindowSeconds,recognitionLanguages}=asrLimits;
+      if(rate!==AUDIO_SPEC.rate||!Number.isFinite(modelWindowSeconds)||modelWindowSeconds<=0||!Number.isFinite(windowSeconds)||windowSeconds<=0||windowSeconds>modelWindowSeconds)throw new Error('ASR_AUDIO_CONFIG_UNSUPPORTED');
+      if(!Array.isArray(recognitionLanguages)||!recognitionLanguages.length||recognitionLanguages.some(tag=>typeof tag!=='string'||!/^[a-z]{2,3}$/.test(tag)))throw new Error('ASR_LANGUAGE_CONFIG_MISSING');
       const modelMax=llm.model.config.max_position_embeddings;if(!Number.isSafeInteger(modelMax)||modelMax<1)throw new Error('LLM_CONTEXT_CONFIG_MISSING');
-      const tokenizerData=await (await cachedFetch('https://huggingface.co/'+selectedAsr.model+'/resolve/'+selectedAsr.revision+'/tokenizer.json')).json();
-      const tokens=[...Object.keys(tokenizerData.model?.vocab||{}),...(tokenizerData.added_tokens||[]).map(item=>item.content)];
-      const recognitionLanguages=Array.from(new Set(tokens.map(token=>typeof token==='string'?token.match(/^<\|([a-z]{2,3})\|>$/)?.[1]:null).filter(Boolean))).sort();
-      if(!recognitionLanguages.length)throw new Error('ASR_LANGUAGE_CONFIG_MISSING');
-      contextLimit=modelMax;limits={rate,windowSeconds,modelWindowSeconds,modelMax,contextLimit,llmRevision,asrRevision,asrModel:selectedAsr.model,asrMode:ACTIVE_ASR_MODE,recognitionLanguages,device:profile.device,dtype:profile.dtype,modelName:'Qwen3 1.7B'};
+      contextLimit=modelMax;limits={rate,windowSeconds,modelWindowSeconds,modelMax,contextLimit,llmRevision,asrRevision,asrModel:selectedAsr.model,asrMode:ACTIVE_ASR_MODE,asrIsolated:true,asrSelfTest:asrLimits.asrSelfTest,recognitionLanguages,device:profile.device,dtype:profile.dtype,modelName:'Qwen3 1.7B'};
     });
     closeNetwork();if(preloadOnly)return limits;
     await workerStage('dialogue-self-test',async()=>{
       try{const test=await trackedInference(chatString([{role:'user',content:'Reply with OK.'}]),{max_new_tokens:8,do_sample:false,return_full_text:false});
       if(typeof test?.[0]?.generated_text!=='string'||!visibleAssistantText(test[0].generated_text).trim())throw new Error('LLM_SELF_TEST_FAILED');}catch(error){await dialogueBackendFailure(error,profile);}
     });
-    await workerStage('asr-self-test',async()=>{const test=await asr(new Float32Array(limits.rate),{language:'english',task:'transcribe',max_new_tokens:8});if(typeof test?.text!=='string')throw new Error('ASR_SELF_TEST_FAILED');},{inputSamples:limits.rate,outputBudget:8});
     await workerStage('context-budget',()=>measureContext(voices,speechLanguage,languagePriority));
     limits.controllerProbe=await controllerProbe(voices,speechLanguage,languagePriority);assertEngineAttempt();
     await updateCapability(record=>({...record,candidateContext:null,lastWorkingContext:contextLimit,recovery:false,lastReadiness:{at:new Date().toISOString(),attemptId:WORK_DIAG.attemptId,loadId:WORK_DIAG.loadId,contextLimit,protocol:'real-request-v3'}}));
@@ -2251,21 +2311,12 @@ async function planRecognition({speechLanguage='auto',languagePriority=[],sessio
   if(!allowed.length)throw new Error('ASR_LANGUAGE_UNSUPPORTED:'+languagePriority.join(','));
   return {recognition_language:allowed.includes('auto')?'auto':allowed[0],source:'language_priority'};
 }
-async function transcribe({audio,speechLanguage='auto'}){
-  if(!asr)throw new Error('MODELS_NOT_LOADED');
-  if(!(audio instanceof ArrayBuffer)||audio.byteLength%Float32Array.BYTES_PER_ELEMENT)throw new Error('AUDIO_BUFFER_INVALID');
-  const pcm=new Float32Array(audio);if(!pcm.length)return {text:''};
-  if(!pcm.every(Number.isFinite))throw new Error('AUDIO_SAMPLES_INVALID');
-  const options={task:'transcribe'};
-  if(speechLanguage!=='auto'){const code=toASRCode(speechLanguage,limits.recognitionLanguages);if(!code)throw new Error('ASR_LANGUAGE_UNSUPPORTED:'+speechLanguage);options.language=code;}
-  const r=await asr(pcm,options);if(typeof r?.text!=='string')throw new Error('ASR_RESULT_INVALID');
-  return {text:r.text.trim(),language:r.language||speechLanguage};
-}
+
 function interactiveOperation(op){return ['plan','generate','delivery','voice-probe','lm-train','lm-evaluate','lm-retention'].includes(op);}
 async function drainEngineQueue(){
   if(engineBusy)return;engineBusy=true;
   try{while(engineQueue.length){
-    const now=performance.now(),priority={init:-1,transcribe:0,recognition:1,delivery:2,plan:3,generate:4,'voice-probe':4};
+    const now=performance.now(),priority={init:-1,recognition:1,delivery:2,plan:3,generate:4,'voice-probe':4};
     engineQueue.sort((a,b)=>((now-a.queuedAt>=SAFETY.workerIdleMs?-2:priority[a.message.op]??5)-(now-b.queuedAt>=SAFETY.workerIdleMs?-2:priority[b.message.op]??5))||a.queuedAt-b.queuedAt);
     const {message:m,epoch}=engineQueue.shift();workerRequest(m,'engine');activeCancellable=interactiveOperation(m.op)||m.op==='init';activeRequestEpoch=activeCancellable?epoch:operationEpoch;
     try{
@@ -2276,7 +2327,6 @@ async function drainEngineQueue(){
       else if(m.op==='generate')result=await generate(m);
       else if(m.op==='delivery')result=await planDelivery(m);
       else if(m.op==='recognition')result=await planRecognition(m);
-      else if(m.op==='transcribe')result=await transcribe(m);
       else if(m.op==='voice-probe')result=await probeLanguageVoice(m);
       else if(m.op==='lm-train')result=await lmTrainOperation(m);
       else if(m.op==='lm-evaluate')result=await lmEvaluateOperation(m);
@@ -2421,6 +2471,68 @@ async function lmGenerationProcessor({thinking=false}={}){
   return lmProcessor((ids,logits)=>lmApply(resolved.weights,ids,logits));
 }
 
+</script>
+<script id="asrCode" type="text/plain">
+NET.role='asr';
+NET.notify=data=>postMessage({...workerContext(),...data});
+globalThis.fetch=cachedFetch;
+let tf,transcriber,recognizerLimits,recognitionSerial=Promise.resolve(),recognitionQueued=0;
+async function initializeRecognizer({allowNetwork=false,diagnosticMode=false,asrMode='base',preloadOnly=false}={}){
+  const selected=setAsrMode(asrMode);setNetworkAccess(allowNetwork);installWorkerDiagnostics(diagnosticMode);
+  try{
+    await workerStage('asr-storage',async()=>{await dbPut('meta','asr-worker-probe',BUILD);if(await dbGet('meta','asr-worker-probe')!==BUILD)throw new Error('ASR_STORAGE_UNAVAILABLE');});
+    await workerStage('asr-runtime',async()=>{
+      tf=await import(await assetModule(PACK.transformers+'transformers.min.js'));
+      tf.env.allowLocalModels=false;tf.env.allowRemoteModels=true;tf.env.useBrowserCache=false;tf.env.useFSCache=false;tf.env.useCustomCache=false;
+      WORK_DIAG.runtime={transformers:PACK.transformersVersion,onnx:tf.env.backends.onnx.versions??null};configureRuntimeDiagnostics(tf.env.backends.onnx);
+      tf.env.backends.onnx.wasm.numThreads=1;tf.env.backends.onnx.wasm.proxy=false;
+      tf.env.backends.onnx.wasm.wasmPaths={mjs:await assetModule(PACK.transformers+'ort-wasm-simd-threaded.jsep.mjs'),wasm:await assetBinaryURL(PACK.transformers+'ort-wasm-simd-threaded.jsep.wasm')};
+    });
+    transcriber=await workerStage('loadASR',()=>tf.pipeline('automatic-speech-recognition',selected.model,{dtype:'q8',device:'wasm',revision:selected.revision,progress_callback:progress=>postMessage({...workerContext(),type:'model-progress',...progress})}));
+    await workerStage('asr-config',async()=>{
+      const feature=transcriber.processor.feature_extractor.config,rate=feature.sampling_rate,modelWindowSeconds=feature.chunk_length??feature.n_samples/rate;
+      const windowSeconds=Math.floor(modelWindowSeconds*rate/AUDIO_SPEC.frame)*AUDIO_SPEC.frame/rate;
+      if(rate!==AUDIO_SPEC.rate||!Number.isFinite(modelWindowSeconds)||modelWindowSeconds<=0||!Number.isFinite(windowSeconds)||windowSeconds<=0)throw new Error('ASR_AUDIO_CONFIG_UNSUPPORTED');
+      const tokenizerData=await (await cachedFetch('https://huggingface.co/'+selected.model+'/resolve/'+selected.revision+'/tokenizer.json')).json();
+      const tokens=[...Object.keys(tokenizerData.model?.vocab||{}),...(tokenizerData.added_tokens||[]).map(item=>item.content)];
+      const recognitionLanguages=Array.from(new Set(tokens.map(token=>typeof token==='string'?token.match(/^<\|([a-z]{2,3})\|>$/)?.[1]:null).filter(Boolean))).sort();
+      if(!recognitionLanguages.length)throw new Error('ASR_LANGUAGE_CONFIG_MISSING');
+      recognizerLimits={rate,windowSeconds,modelWindowSeconds,recognitionLanguages,asrModel:selected.model,asrRevision:selected.revision,asrMode:ACTIVE_ASR_MODE,asrIsolated:true,asrSelfTest:'not-run'};
+    });
+    closeNetwork();
+    if(!preloadOnly)await workerStage('asr-self-test',async()=>{
+      const test=await transcriber(new Float32Array(recognizerLimits.rate),{language:'english',task:'transcribe',max_new_tokens:8});
+      if(typeof test?.text!=='string')throw new Error('ASR_SELF_TEST_FAILED');recognizerLimits.asrSelfTest='passed';
+    },{inputSamples:recognizerLimits.rate,outputBudget:8});
+    return recognizerLimits;
+  }finally{closeNetwork();}
+}
+async function recognizeAudio({audio,speechLanguage='auto'}){
+  if(!transcriber||!recognizerLimits)throw new Error('MODELS_NOT_LOADED');
+  if(!(audio instanceof ArrayBuffer)||audio.byteLength%Float32Array.BYTES_PER_ELEMENT)throw new Error('AUDIO_BUFFER_INVALID');
+  const pcm=new Float32Array(audio);if(!pcm.length)return {text:'',language:speechLanguage};
+  if(!pcm.every(Number.isFinite))throw new Error('AUDIO_SAMPLES_INVALID');
+  const options={task:'transcribe'};
+  if(speechLanguage!=='auto'){const code=toASRCode(speechLanguage,recognizerLimits.recognitionLanguages);if(!code)throw new Error('ASR_LANGUAGE_UNSUPPORTED:'+speechLanguage);options.language=code;}
+  const result=await transcriber(pcm,options);if(typeof result?.text!=='string')throw new Error('ASR_RESULT_INVALID');
+  return {text:result.text.trim(),language:result.language||speechLanguage};
+}
+onmessage=event=>{
+  const m=event.data;if(!m||typeof m.op!=='string')return;
+  if(m.op==='network-off'){closeNetwork();return;}
+  if(!m.id)return;
+  if(recognitionQueued>=SAFETY.workerQueue){postMessage({id:m.id,ok:false,error:'WORKER_QUEUE_FULL',diagnostic:serializeError(new Error('WORKER_QUEUE_FULL'),{role:'asr',operation:m.op})});return;}
+  recognitionQueued++;
+  const run=async()=>{
+    workerRequest(m,'asr');
+    try{
+      const result=m.op==='init'?await initializeRecognizer(m):m.op==='transcribe'?await recognizeAudio(m):(()=>{throw new Error('UNKNOWN_ASR_OPERATION');})();
+      postMessage({id:m.id,ok:true,result});
+    }catch(error){postMessage({id:m.id,ok:false,error:errText(error),diagnostic:serializeError(error,workerContext())});}
+    finally{recognitionQueued--;}
+  };
+  recognitionSerial=recognitionSerial.then(run,run);
+};
 </script>
 <script id="vadCode" type="text/plain">
 let playbackActive=false;
@@ -2703,7 +2815,7 @@ async function prepareLocalSpeech(allowNetwork=false){
   await getLocalVoices();if(localSpeech.ready)return localSpeech.voices;if(localSpeech.loading)return localSpeech.loading;
   const planned=languagePriority.length?languagePriority.slice():automaticVoiceLanguages();
   if(!planned.some(tag=>['zh','en'].includes(ttsLanguageGroup(tag))))return localVoices;
-  if(planned.length&&planned.every(tag=>{const voice=resolveTTSVoice(tag,localVoices);return voice?.localService===true&&voiceQuality(voice)>=96;}))return localVoices;
+  if(localVoices.length&&(languagePriority.length?languagePriority.every(tag=>resolveTTSVoice(tag,localVoices)):!!resolveTTSVoice(planned[0],localVoices)))return localVoices;
   if(Date.now()<localSpeech.retryAt&&localVoices.length&&languagePriority.every(tag=>resolveTTSVoice(tag,localVoices)))return localVoices;
   const epoch=++localSpeech.epoch,guard=()=>{if(epoch!==localSpeech.epoch)throw new Error('CANCELLED');};
   const task=(async()=>{
@@ -2786,8 +2898,14 @@ const DYNAMIC={"start":"开始","end":"结束","checkBrowser":"浏览器","check
 const UI_TRANSLATIONS={"en":{"开始":"Start","结束":"End","继续对话":"Continue","确认结束":"End conversation","确认结束对话？":"End this conversation?","提示词":"Prompt","可选":"Optional","提示词，可选":"Prompt, optional","显示语言":"Display language","显示语言，可选":"Display language, optional","自动":"Automatic","自动识别":"Automatic","开始后，直接说话":"Press Start, then speak naturally.","自动协作":"Idle collaboration","准备进度":"Preparation progress","对话":"Conversation","对话内容":"Conversation history","在线同伴":"Idle peers","本机轮次":"Local rounds","已验证更新":"Verified updates","浏览器":"Browser","存储":"Storage","麦克风":"Microphone","语音（自然音色优先）":"Speech (natural voices preferred)","模型":"Models","禁网自检":"Offline check","准备":"Preparing","从一句话开始":"Start with a sentence","结束并保存":"End and save","本机运行":"Running locally","准备开始":"Ready to begin","正在听":"Listening","正在识别":"Transcribing","正在思考":"Thinking","Yuan 正在说话":"Yuan is speaking","正在启动":"Starting","正在保存":"Saving","对话已结束":"Conversation ended","正在恢复":"Recovering","运行中断":"Interrupted","你":"You","已保存":"Saved","保存中…":"Saving…","正在重试保存":"Retrying save","中断恢复":"Recovering conversation","自动检查":"Checking automatically","对话模型":"Dialogue model","识别模型":"Recognition model","已就绪":"Ready","已暂停":"Paused","下载":"Download","上下文已适配":"Context adjusted","语音处理繁忙":"Processing audio","语音处理中":"Processing speech","麦克风暂不可用":"Microphone unavailable","已结束":"Ended","进行中":"Active","正在准备回答":"Preparing a reply","其他页面正在运行":"Yuan is running in another tab","末尾音频处理中":"Processing remaining audio","正在逐块校验…":"Verifying cached data…","自动重连中":"Reconnecting automatically","对话控制":"Dialogue control","已生成":"Generated","个词元":"tokens","正在重新连接":"Reconnecting","语音模型":"Speech model","缓存整理":"Preparing cache","环境检查":"Checking environment","检查可用空间":"Checking storage","模型初始化":"Initializing models","本地运行检查":"Checking local execution","语音校验":"Checking speech","缓存完整性校验":"Verifying cache","保存状态":"Saving readiness","模型线程存储":"Checking model storage","对话运行库":"Dialogue runtime","对话模型加载":"Loading dialogue model","识别模型加载":"Loading recognition model","模型配置":"Model configuration","对话校验":"Checking dialogue","识别校验":"Checking recognition","检查模型容量":"Checking model capacity","离线自适应":"Local adaptation","语音检测线程存储":"Speech detector storage","语音检测运行库":"Speech detector runtime","语音检测模型":"Speech detection model","语音检测自检":"Checking speech detection","等待可用":"Waiting for access","对话中":"In conversation","自动准备中":"Preparing automatically","自动连接中":"Connecting automatically","麦克风未获授权":"Microphone permission was not granted","所选语言暂不支持识别":"Recognition is unavailable for a selected language","语音暂不可用":"Speech is temporarily unavailable","本机存储暂不可用":"Local storage is temporarily unavailable","当前浏览器未开放运行权限":"Required browser capabilities are unavailable","可用内存不足":"Not enough available memory","当前内容超出模型容量":"This content exceeds the model capacity","等待网络恢复":"Waiting for the network","资源连接中断，正在自动重连":"Resource connection lost; reconnecting automatically","运行中断，正在自动恢复":"Interrupted; recovering automatically","神经语音":"Neural voice","系统语音":"System voice","语音加载中":"Loading voice","自动准备":"Preparing automatically","正在识别…":"Transcribing…","等待运行":"Waiting to run","等待存储":"Waiting for storage","初始化":"Initializing","等待联网":"Waiting for the network","正在训练":"Training locally","正在验证":"Validating an update","保持能力检查":"Checking retained abilities","协作已连接":"Connected to peers","协作连接中":"Connecting to relays","等待空闲同伴":"Waiting for idle peers","后台已暂停":"Paused while hidden","节省流量":"Data saver active","低电量暂停":"Paused for low battery","准备训练":"Preparing training","连接中":"Connecting","第{n}语言":"Language {n}","本地神经语音":"Local neural voice","本地增强语音":"Enhanced local voice","系统语音（后备）":"System voice (fallback)","在线语音 · 回答文本发送至系统语音服务":"Online voice · Replies sent to system speech service"},"zh-TW":{"开始":"開始","结束":"結束","继续对话":"繼續對話","确认结束":"確認結束","确认结束对话？":"確認結束對話？","提示词":"提示詞","可选":"可選","提示词，可选":"提示詞，可選","显示语言":"顯示語言","显示语言，可选":"顯示語言，可選","自动":"自動","自动识别":"自動辨識","开始后，直接说话":"開始後，直接說話","自动协作":"自動協作","准备进度":"準備進度","对话":"對話","对话内容":"對話內容","在线同伴":"線上同伴","本机轮次":"本機輪次","已验证更新":"已驗證更新","浏览器":"瀏覽器","存储":"儲存","麦克风":"麥克風","语音（自然音色优先）":"語音（自然音色優先）","模型":"模型","禁网自检":"離線自我檢查","准备":"準備","从一句话开始":"從一句話開始","结束并保存":"結束並儲存","本机运行":"本機執行","准备开始":"準備開始","正在听":"正在聽","正在识别":"正在辨識","正在思考":"正在思考","Yuan 正在说话":"Yuan 正在說話","正在启动":"正在啟動","正在保存":"正在儲存","对话已结束":"對話已結束","正在恢复":"正在恢復","运行中断":"執行中斷","你":"你","已保存":"已儲存","保存中…":"儲存中…","正在重试保存":"正在重試儲存","中断恢复":"中斷恢復","自动检查":"自動檢查","对话模型":"對話模型","识别模型":"辨識模型","已就绪":"已就緒","已暂停":"已暫停","下载":"下載","上下文已适配":"上下文已調整","语音处理繁忙":"語音處理繁忙","语音处理中":"語音處理中","麦克风暂不可用":"麥克風暫時無法使用","已结束":"已結束","进行中":"進行中","正在准备回答":"正在準備回答","其他页面正在运行":"其他頁面正在執行","末尾音频处理中":"末尾音訊處理中","正在逐块校验…":"正在逐塊驗證…","自动重连中":"自動重新連線中","对话控制":"對話控制","已生成":"已產生","个词元":"個詞元","正在重新连接":"正在重新連線","语音模型":"語音模型","缓存整理":"快取整理","环境检查":"環境檢查","检查可用空间":"檢查可用空間","模型初始化":"模型初始化","本地运行检查":"本機執行檢查","语音校验":"語音驗證","缓存完整性校验":"快取完整性驗證","保存状态":"儲存狀態","模型线程存储":"模型執行緒儲存","对话运行库":"對話執行程式庫","对话模型加载":"載入對話模型","识别模型加载":"載入辨識模型","模型配置":"模型設定","对话校验":"對話驗證","识别校验":"辨識驗證","检查模型容量":"檢查模型容量","离线自适应":"離線自我調整","语音检测线程存储":"語音偵測執行緒儲存","语音检测运行库":"語音偵測執行程式庫","语音检测模型":"語音偵測模型","语音检测自检":"語音偵測自我檢查","等待可用":"等待可用","对话中":"對話中","自动准备中":"自動準備中","自动连接中":"自動連線中","麦克风未获授权":"麥克風未獲授權","所选语言暂不支持识别":"所選語言暫不支援辨識","语音暂不可用":"語音暫時無法使用","本机存储暂不可用":"本機儲存暫時無法使用","当前浏览器未开放运行权限":"目前瀏覽器未開放執行權限","可用内存不足":"可用記憶體不足","当前内容超出模型容量":"目前內容超出模型容量","等待网络恢复":"等待網路恢復","资源连接中断，正在自动重连":"資源連線中斷，正在自動重新連線","运行中断，正在自动恢复":"執行中斷，正在自動恢復","神经语音":"神經語音","系统语音":"系統語音","语音加载中":"語音載入中","自动准备":"自動準備","正在识别…":"正在辨識…","等待运行":"等待執行","等待存储":"等待儲存","初始化":"初始化","等待联网":"等待連線","正在训练":"正在訓練","正在验证":"正在驗證","保持能力检查":"保留能力檢查","协作已连接":"協作已連線","协作连接中":"協作連線中","等待空闲同伴":"等待閒置同伴","后台已暂停":"背景已暫停","节省流量":"節省流量","低电量暂停":"低電量暫停","准备训练":"準備訓練","连接中":"連線中","第{n}语言":"第{n}語言","本地神经语音":"本機神經語音","本地增强语音":"本機增強語音","系统语音（后备）":"系統語音（備援）","在线语音 · 回答文本发送至系统语音服务":"線上語音 · 回答文字傳送至系統語音服務"}};
 Object.assign(UI_TRANSLATIONS.en,{"正在自动恢复":"Recovering automatically","准备受阻":"Preparation blocked","已等待":"Waiting","秒":"seconds","秒后重试":"seconds until retry","模型正在切换到低内存模式":"Switching to the low-memory model","模型初始化耗时较长，正在继续准备":"Model initialization is taking longer; preparation will continue","低内存模式仍无法启动识别模型":"The recognition model could not start even in low-memory mode"});
 Object.assign(UI_TRANSLATIONS['zh-TW'],{"正在自动恢复":"正在自動恢復","准备受阻":"準備受阻","已等待":"已等待","秒":"秒","秒后重试":"秒後重試","模型正在切换到低内存模式":"模型正在切換到低記憶體模式","模型初始化耗时较长，正在继续准备":"模型初始化耗時較長，正在繼續準備","低内存模式仍无法启动识别模型":"低記憶體模式仍無法啟動辨識模型"});
+Object.assign(UI_TRANSLATIONS["en"],{"识别线程存储": "Recognition worker storage", "识别运行库": "Recognition runtime", "识别模型配置": "Recognition model configuration", "资源校验失败": "Resource verification failed", "资源连接中断": "Resource connection interrupted", "运行响应超时": "Runtime response timed out", "识别模型启动失败": "Recognition model could not start", "识别模型暂不可用": "Recognition model is unavailable", "自动重试已暂停": "Automatic retries paused", "重试": "Retry"});
+Object.assign(UI_TRANSLATIONS["zh-TW"],{"识别线程存储": "辨識執行緒儲存", "识别运行库": "辨識執行程式庫", "识别模型配置": "辨識模型設定", "资源校验失败": "資源驗證失敗", "资源连接中断": "資源連線中斷", "运行响应超时": "執行回應逾時", "识别模型启动失败": "辨識模型無法啟動", "识别模型暂不可用": "辨識模型暫時無法使用", "自动重试已暂停": "自動重試已暫停", "重试": "重試"});
 function displayLocale(value){const tag=canonicalLanguage(value);return tag?.startsWith('zh')?/(?:Hant|TW|HK|MO)/.test(tag)?'zh-TW':'zh-CN':'en';}
 function browserDisplayLocale(){return displayLocale(navigator.languages?.[0]||navigator.language||'zh-CN');}
+Object.assign(UI_TRANSLATIONS.en,{'对话模型':'Conversation model','识别模型':'Recognition model','对话模型配置':'Conversation configuration','已用时':'Elapsed','个文件':'files','正在切换资源连接':'Switching download connection','第{n}次连接':'Connection attempt {n}','无需重复点击，准备好后自动开始':'No need to press again. Your conversation starts when ready.','你想和 Yuan 聊些什么？':'What would you like to talk about?','确认后将停止麦克风与语音播放。':'This will stop the microphone and voice playback.','准备完成后，即可开始对话':'Your conversation will be ready after setup.','正在为你准备对话':'Getting your conversation ready.','直接说话，Yuan 在听':'Speak naturally. Yuan is listening.','正在理解你说的话':'Understanding what you said.','Yuan 正在组织回答':'Yuan is preparing a response.','正在结束这次对话':'Ending this conversation.','点击开始，开启新的对话':'Press Start to begin a new conversation.','等待结束确认':'Waiting for your confirmation.'});
+Object.assign(UI_TRANSLATIONS['zh-TW'],{'对话模型':'對話模型','识别模型':'辨識模型','对话模型配置':'對話模型設定','已用时':'已用時','个文件':'個檔案','正在切换资源连接':'正在切換資源連線','第{n}次连接':'第{n}次連線','无需重复点击，准备好后自动开始':'無需重複點擊，準備好後自動開始','你想和 Yuan 聊些什么？':'你想和 Yuan 聊些什麼？','确认后将停止麦克风与语音播放。':'確認後將停止麥克風與語音播放。','准备完成后，即可开始对话':'準備完成後，即可開始對話','正在为你准备对话':'正在為你準備對話','直接说话，Yuan 在听':'直接說話，Yuan 在聽','正在理解你说的话':'正在理解你說的話','Yuan 正在组织回答':'Yuan 正在組織回答','正在结束这次对话':'正在結束這次對話','点击开始，开启新的对话':'點擊開始，開啟新的對話','等待结束确认':'等待結束確認'});
+Object.assign(UI_TRANSLATIONS["en"],{"正在准备…":"Preparing…","正在启动…":"Starting…","等待联网":"Waiting for network","联网后自动继续":"Resumes automatically when online.","我在听":"I’m listening","正在结束":"Ending conversation","结束已确认":"Conversation ended"});
+Object.assign(UI_TRANSLATIONS["zh-TW"],{"正在准备…":"正在準備…","正在启动…":"正在啟動…","等待联网":"等待連線","联网后自动继续":"連線恢復後會自動繼續","我在听":"我在聽","正在结束":"正在結束","结束已确认":"對話已結束"});
 const UI_SOURCE_TEXT=new Map(Object.values(UI_TRANSLATIONS).flatMap(table=>Object.entries(table).map(([source,translated])=>[translated,source])));
 function uiText(value,locale=language){const source=UI_SOURCE_TEXT.get(value)??value;return UI_TRANSLATIONS[displayLocale(locale)]?.[source]??source;}
 let useExperience=true,lastNotice=null;
@@ -2801,15 +2919,15 @@ speechLanguage=languagePriority.length===1?languagePriority[0]:'auto';
 const tr=(key,locale=language)=>uiText(DYNAMIC[key]??key,locale);
 const STAGE_LABELS={neuralSpeech:'语音模型','cache-download':'下载',
   cleanup:"缓存整理",environment:"环境检查",storageBefore:"检查可用空间",initialization:"模型初始化",offlineColdStart:"本地运行检查",speechPlayback:"语音校验",cacheVerify:"缓存完整性校验",savePrepared:"保存状态",
-  'worker-storage':"模型线程存储",'engine-runtime':"对话运行库",loadDialogue:"对话模型加载",loadASR:"识别模型加载",'model-config':"模型配置",'dialogue-self-test':"对话校验",'asr-self-test':"识别校验",'context-budget':"检查模型容量",'controller-test':"对话校验",'delivery-test':"语音校验",adaptation:"离线自适应",'vad-storage':"语音检测线程存储",'vad-runtime':"语音检测运行库",'vad-model':"语音检测模型",'vad-self-test':"语音检测自检"};
+  'asr-storage':"识别线程存储",'asr-runtime':"识别运行库",'asr-config':"识别模型配置",'worker-storage':"模型线程存储",'engine-runtime':"对话运行库",loadDialogue:"对话模型加载",loadASR:"识别模型加载",'model-config':"模型配置",'dialogue-self-test':"对话校验",'asr-self-test':"识别校验",'context-budget':"检查模型容量",'controller-test':"对话校验",'delivery-test':"语音校验",adaptation:"离线自适应",'vad-storage':"语音检测线程存储",'vad-runtime':"语音检测运行库",'vad-model':"语音检测模型",'vad-self-test':"语音检测自检"};
 const stageLabel=key=>uiText(STAGE_LABELS[key]??DYNAMIC[key]??key);
 let diagnosticMode=false;
 let preparationState=null;
 const checkStates={};
-const workerNetwork={engine:false,vad:false};
+const workerNetwork={engine:false,vad:false,asr:false};
 let repairingAudio=false,archiving=false,vadGeneration=0,workerLoadEpoch=0,packBusy=false,feedbackTarget=null;
-const networkAudit={page:{...NET.stats},engine:null,vad:null,cspViolations:0};
-let phase='idle',preparing=false,starting=false,prepared=false,loaded=false,current=null,engine=null,vad=null,limits=null,preparationEpoch=0,cancelPrepWait=null;
+const networkAudit={page:{...NET.stats},engine:null,vad:null,asr:null,cspViolations:0};
+let phase='idle',preparing=false,starting=false,prepared=false,loaded=false,current=null,engine=null,vad=null,recognizer=null,limits=null,preparationEpoch=0,cancelPrepWait=null;
 let captureAccept=false,captureSerial=0,captureDrain=Promise.resolve(),captureResolvers=new Map(),captureFaulted=false;
 const pauseDrains=new WeakMap(),confirmationStates=new WeakMap(),decisionRuns=new WeakMap(),decisionEvents=new WeakMap(),pausedTasks=new WeakMap();
 let captureSequence=0;
@@ -2844,7 +2962,7 @@ function runtimeContext(s){return {mean_probability:detectorStats.frames?detecto
 function optimizeExperience(){idleCompletedKey=null;idleRetryAt=0;syncIdleLearning();}
 let detectorStats={frames:0,meanProbability:0,varianceAccumulator:0},lastVoiceStarted=null;
 let folderWriteQueue=Promise.resolve();
-let appBlocked=false,bootReady=false,releaseAppLock=null,resuming=false,startRequested=false;
+let appBlocked=false,bootReady=false,releaseAppLock=null,resuming=false,startRequested=false,waitingForStartNetwork=false;
 let renderFrame=0;
 const streamRenderQueue=new Map(),streamCheckpointTimers=new Map(),streamCheckpointWrites=new Map();
 const dirtyMessages=new WeakMap(),dirtyDecisions=new WeakMap(),unsavedAudio=new Map(),removedSessionIds=new Set();
@@ -2874,6 +2992,7 @@ function persistLanguages(){
   renderLanguageSettings();renderControls();updateDiagnostics();
 }
 function renderLanguageSettings(){
+  const focusedIndex=$('languageRows').contains(document.activeElement)?Number(document.activeElement.dataset.languageIndex):null;
   const options=languageOptions(),fragment=document.createDocumentFragment(),count=Math.max(3,languagePriority.length+1);
   for(let index=0;index<count;index++){
     const tag=languagePriority[index]||'',row=document.createElement('label');row.className='language-row';
@@ -2884,6 +3003,7 @@ function renderLanguageSettings(){
     select.value=tag;select.disabled=isLive()||starting||startRequested||!bootReady||appBlocked;row.append(title,select);fragment.append(row);
   }
   $('languageRows').replaceChildren(fragment);$('languageRows').dataset.count=String(count);
+  if(Number.isInteger(focusedIndex))$('languageRows').querySelectorAll('select')[Math.min(focusedIndex,count-1)]?.focus({preventScroll:true});
 }
 function renderLearningStatus(){renderCooperation();}
 function canLearnIdle(){
@@ -2933,18 +3053,50 @@ function setPhase(key){
   phase=key;$('statusTitle').textContent=tr(key);$('orb').className='orb'+(key==='listening'?' listening':['recognizing','thinking','directing','starting','closing'].includes(key)?' busy':key==='speaking'?' speaking':'');
   document.body.dataset.phase=key;renderControls();
 }
+function renderPresence(){
+  const active=isLive(),pending=starting||startRequested;
+  document.body.dataset.pageHidden=String(document.hidden);
+  $('readyBadge').dataset.state=appBlocked||progressState?.status==='blocked'?'blocked':active?'active':prepared?'ready':'preparing';
+  $('start').setAttribute('aria-busy',String(pending));
+  $('end').setAttribute('aria-busy',String(current?.state==='closing'));
+  const labels={listening:'直接说话，Yuan 在听',recognizing:'正在理解你说的话',thinking:'Yuan 正在组织回答',directing:'Yuan 正在组织回答',speaking:'Yuan 正在说话',starting:'正在为你准备对话',closing:'正在结束这次对话',ended:'点击开始，开启新的对话',paused:'已暂停'};
+  const hint=$('endDialog').open?'等待结束确认':active||pending?labels[phase]||'正在为你准备对话':phase==='ended'?'点击开始，开启新的对话':!prepared?'准备完成后，即可开始对话':'开始后，直接说话';
+  const title=$('endDialog').open?'确认结束对话？':waitingForStartNetwork?'等待联网':pending?preparing||!prepared?'正在准备…':'正在启动…':progressState?.status==='blocked'&&!active?'准备受阻':active&&phase==='listening'&&gate?'我在听':active?tr(phase):phase==='ended'?'结束已确认':'从一句话开始';
+  $('emptyTitle').textContent=uiText(title);
+  $('emptyHint').textContent=uiText(waitingForStartNetwork?'联网后自动继续':pending?'无需重复点击，准备好后自动开始':hint);
+  document.body.dataset.waiting=String(waitingForStartNetwork);
+  $('start').textContent=uiText(waitingForStartNetwork?'等待联网':pending?preparing||!prepared?'正在准备…':'正在启动…':'开始');
+  $('start').setAttribute('aria-label',$('start').textContent);
+  $('end').textContent=uiText(current?.state==='closing'?'正在结束':'结束');
+  if(waitingForStartNetwork){$('readyBadge').textContent=uiText('等待联网');$('statusTitle').textContent=uiText('等待联网');}
+
+}
+let voiceMeterAt=0;
+function updateVoiceMeter(buffer){
+  if(!gate||document.hidden)return;
+  const now=performance.now();if(now-voiceMeterAt<80)return;voiceMeterAt=now;
+  const samples=buffer instanceof Float32Array?buffer:new Float32Array(buffer);let energy=0;
+  for(let i=0;i<samples.length;i+=4){const value=Number.isFinite(samples[i])?samples[i]:0;energy+=value*value;}
+  const level=Math.max(.14,Math.min(1,Math.sqrt(energy/Math.max(1,Math.ceil(samples.length/4)))*7));
+  document.body.style.setProperty('--meter',level.toFixed(3));
+}
 function renderControls(){
   const busy=starting||startRequested||!bootReady||appBlocked;
   $('start').disabled=busy||isLive();$('end').disabled=current?.state!=='active'&&!startRequested&&!starting;
   $('prompt').disabled=isLive()||busy;for(const element of $('languageRows').querySelectorAll('select'))element.disabled=isLive()||busy;
   const preparationBadge=progressState?.status==='blocked'?'准备受阻':progressState?.status==='retrying'?'正在自动恢复':progressState?.status==='failed'?'运行中断':'自动连接中';
   $('readyBadge').textContent=uiText(appBlocked?'等待可用':isLive()?'对话中':preparing?'自动准备中':prepared?'已就绪':navigator.onLine===false?'等待联网':preparationBadge);
-  syncIdleLearning();syncCooperation();updateDiagnostics();
+  if(!isLive()&&!starting&&!startRequested){
+    const state=preparing?'自动准备中':!prepared&&progressState?.status==='blocked'?'准备受阻':!prepared&&progressState?.status==='retrying'?'正在自动恢复':null;
+    $('statusTitle').textContent=state?uiText(state):tr(phase);$('orb').className='orb'+(preparing?' busy':state==='准备受阻'?' blocked':'');
+  }
+  renderPresence();syncIdleLearning();syncCooperation();updateDiagnostics();
 }
 function applyLanguage(){
   language=uiLanguageChoice||browserDisplayLocale();document.documentElement.lang=language;
   for(const element of document.querySelectorAll('[data-i18n]'))element.textContent=uiText(element.dataset.i18n);
   for(const element of document.querySelectorAll('[data-i18n-aria]'))element.setAttribute('aria-label',uiText(element.dataset.i18nAria));
+  for(const element of document.querySelectorAll('[data-i18n-placeholder]'))element.setAttribute('placeholder',uiText(element.dataset.i18nPlaceholder));
   $('displayLanguage').value=uiLanguageChoice;renderLanguageSettings();setPhase(phase);paintProgress();renderCooperation();
   if(!progressState)$('progressText').textContent=uiText(navigator.onLine===false?'等待联网':'自动准备');
   if(lastNotice)notice(lastNotice.errorObject?readableError(lastNotice.errorObject):lastNotice.text,true,lastNotice.errorObject);
@@ -2957,21 +3109,23 @@ function notice(text,error=false,errorObject=null){
 }
 function recordEvent(kind,error){diag.lastFault={at:Date.now(),kind,detail:errText(error)};}
 function readableError(error){
-  const text=errText(error),outcome=error?.diagnostic?.outcome??errorOutcome(error),stage=error?.diagnostic?.stage||preparationState?.lastWorkerStage?.key||'';
+  const text=errText(error),outcome=error?.diagnostic?.outcome??errorOutcome(error),stage=preparationFailureStage(error);
   if(text==='AUDIO_BACKLOG')return tr('audioBacklog');
   if(text==='MICROPHONE_TRACK_ENDED')return tr('micLost');
   if(/NotAllowed|Permission|MICROPHONE_PERMISSION/i.test(text))return '麦克风未获授权';
   if(/NotFound|NotReadable|MICROPHONE|Overconstrained/.test(text))return '麦克风暂不可用';
   if(/ASR_LANGUAGE_UNSUPPORTED/.test(text))return '所选语言暂不支持识别';
   if(/LOCAL_VOICE|NEURAL_|SPEECH_/.test(text))return '语音暂不可用';
-  if(/STORAGE|QuotaExceeded|IDB|Indexed.?Database|IndexedDB/i.test(text))return '本机存储暂不可用';
+  if(outcome==='storage'||/STORAGE|QuotaExceeded|IDB|Indexed.?Database|IndexedDB/i.test(text))return '本机存储暂不可用';
   if(/BROWSER|SECURE|SecurityError/.test(text))return '当前浏览器未开放运行权限';
-  if(stage==='loadASR'&&['resource-exhausted','runtime-fault'].includes(outcome))return ACTIVE_ASR_MODE==='low'?'低内存模式仍无法启动识别模型':asrLoadFailures>=1?'模型正在切换到低内存模式':'可用内存不足';
+  if(/EXECUTABLE_INTEGRITY|EXECUTABLE_NOT_ALLOWED|CACHE_DAMAGED/.test(text))return '资源校验失败';
+  if(outcome==='network'||/NETWORK|HTTP|DOWNLOAD|fetch|OFFLINE_ASSET/i.test(text))return navigator.onLine===false?'等待网络恢复':'资源连接中断';
+  if(outcome==='timeout')return '运行响应超时';
+  if(['loadASR','asr-self-test'].includes(stage))return ACTIVE_ASR_MODE==='low'?'低内存模式仍无法启动识别模型':'识别模型启动失败';
+  if(/ASR_/.test(text))return '识别模型暂不可用';
   if(outcome==='resource-exhausted')return '可用内存不足';
-  if(/WORKER_RESPONSE_TIMEOUT/.test(text)&&error?.diagnostic?.operation==='init')return '模型初始化耗时较长，正在继续准备';
   if(/PROMPT_TOO_LONG/.test(text))return '当前内容超出模型容量';
-  if(/NETWORK|HTTP|DOWNLOAD|fetch|CACHE_DAMAGED|OFFLINE_ASSET/i.test(text))return navigator.onLine===false?'等待网络恢复':'资源连接中断，正在自动重连';
-  return '运行中断，正在自动恢复';
+  return '运行中断';
 }
 function fail(error,{pause=true}={}){
   recordEvent('error',error);notice(readableError(error),true,error);
@@ -3079,7 +3233,11 @@ async function requestMic({registerCancel=null}={}){
     const stop=stream=>{for(const track of stream?.getTracks()||[])try{track.stop();}catch{}};
     const finish=(error,stream)=>{
       if(settled){stop(stream);return;}settled=true;clearTimeout(timer);
-      if(error){stop(stream);checkRow('checkMic',errText(error)==='CANCELLED'?'cancelled':false);reject(error);}
+      if(error){
+        const code={NotAllowedError:'MICROPHONE_PERMISSION_DENIED',SecurityError:'MICROPHONE_PERMISSION_DENIED',NotFoundError:'MICROPHONE_NOT_FOUND',NotReadableError:'MICROPHONE_NOT_READABLE',OverconstrainedError:'MICROPHONE_CONSTRAINT_UNAVAILABLE'}[error.name];
+        if(code)error=new Error(code,{cause:error});
+        stop(stream);checkRow('checkMic',errText(error)==='CANCELLED'?'cancelled':false);reject(error);
+      }
       else{checkRow('checkMic',true);resolve(stream);}
     };
     timer=setTimeout(()=>finish(new Error('MICROPHONE_PERMISSION_TIMEOUT')),SAFETY.micPermissionMs);
@@ -3110,63 +3268,80 @@ class Peer{
       if(!m||typeof m!=='object'){fatal(new Error('WORKER_MESSAGE_INVALID'));return;}
       if((m.loadId&&m.loadId!==this.loadId)||(m.attemptId&&m.attemptId!==this.attemptId))return;
       if(m.type==='worker-ready'){this.ready=true;clearTimeout(this.startupTimer);return;}
-      if(m.type==='request-started'){const pending=this.pending.get(m.requestId);if(pending){pending.started=performance.now();pending.state='running';this.arm(m.requestId,pending);}return;}
+      if(m.type==='request-started'){
+        const pending=this.pending.get(m.requestId);if(pending&&pending.state==='queued'){pending.started=performance.now();pending.state='running';pending.lastProgress=pending.started;pending.stageStarted=pending.started;this.arm(m.requestId,pending);}return;
+      }
       if(m.type==='init-stage')this.lastStage=m.key;else if(m.stage)this.lastStage=m.stage;
       this.observe(m);
       if(m.id){
         const pending=this.pending.get(m.id);if(!pending)return;this.pending.delete(m.id);clearTimeout(pending.timer);if(!this.pending.size)this.activity.clear();
         if(m.ok===true)pending.resolve(m.result);
-        else pending.reject(restoreError(m.error,m.diagnostic||serializeError(m.error,this.context(pending.op,{requestId:m.id,elapsedMs:performance.now()-pending.started}))));
+        else pending.reject(restoreError(m.error,m.diagnostic||serializeError(m.error,this.context(pending.op,{requestId:m.id,elapsedMs:performance.now()-(pending.started??pending.queuedAt)}))));
       }else onEvent({...m,stage:m.stage??this.lastStage,role:m.role??this.role,attemptId:m.attemptId??this.attemptId,loadId:m.loadId??this.loadId});
     };
     this.onTimeout=error=>onEvent({type:'fatal',error:errText(error),diagnostic:error.diagnostic});
-    this.worker.onerror=e=>fatal(diagnosticError(e.error??e.message??'WORKER_FAILED',this.context('worker-error',{filename:e.filename??null,line:e.lineno??null,column:e.colno??null})));
+    this.worker.onerror=e=>{e.preventDefault();fatal(diagnosticError(e.error??e.message??'WORKER_FAILED',this.context('worker-error',{filename:e.filename??null,line:e.lineno??null,column:e.colno??null})));};
     this.worker.onmessageerror=()=>fatal(new Error('WORKER_MESSAGE_FAILED'));
     this.startupTimer=setTimeout(()=>{if(!this.ready)fatal(new Error('WORKER_START_TIMEOUT'));},SAFETY.workerStartupMs);
   }
   arm(id,pending){
-    if(pending.state!=='running')return;clearTimeout(pending.timer);pending.lastProgress=performance.now();
-    const timeout=pending.op==='init'?SAFETY.workerInitIdleMs:SAFETY.workerRequestIdleMs;
-    pending.timer=setTimeout(()=>{if(this.dead||this.pending.get(id)!==pending)return;const error=diagnosticError(new Error('WORKER_RESPONSE_TIMEOUT'),this.context(pending.op,{requestId:id,elapsedMs:performance.now()-pending.started,idleMs:performance.now()-pending.lastProgress}));this.stop(error);this.onTimeout?.(error);},timeout);
+    clearTimeout(pending.timer);const now=performance.now(),queued=pending.state==='queued',initializing=pending.op==='init';
+    const deadlines=queued?[[pending.queuedAt+SAFETY.workerQueueWaitMs,'queue']]:[
+      [pending.lastProgress+(initializing?SAFETY.workerInitIdleMs:SAFETY.workerRequestIdleMs),'idle'],
+      [pending.started+(pending.downloading?SAFETY.workerDownloadMaxMs:initializing?SAFETY.workerInitMaxMs:SAFETY.workerRequestMaxMs),'absolute'],
+      ...(initializing&&!pending.downloading?[[pending.stageStarted+SAFETY.workerStageMaxMs,'stage']]:[])
+    ];
+    const [deadline,timeoutKind]=deadlines.reduce((a,b)=>a[0]<=b[0]?a:b);
+    pending.timer=setTimeout(()=>{
+      if(this.dead||this.pending.get(id)!==pending)return;
+      const at=performance.now(),error=diagnosticError(new Error(queued?'WORKER_QUEUE_TIMEOUT':'WORKER_RESPONSE_TIMEOUT'),this.context(pending.op,{requestId:id,stage:pending.stage||this.lastStage,elapsedMs:at-(pending.started??pending.queuedAt),idleMs:at-(pending.lastProgress??pending.queuedAt),heartbeatAgeMs:pending.lastHeartbeat==null?null:at-pending.lastHeartbeat,timeoutKind}));
+      this.stop(error);this.onTimeout?.(error);
+    },Math.max(0,deadline-now));
   }
   observe(message){
-    if(message.type==='init-stage'&&message.status==='running'){
-      for(const [id,pending] of this.pending)if(pending.state==='running'&&(!message.requestId||message.requestId===id))this.arm(id,pending);
-      return;
-    }
+    if(message.type==='init-stage'&&message.heartbeat===true){for(const [id,pending] of this.pending)if(pending.state==='running'&&(!message.requestId||message.requestId===id))pending.lastHeartbeat=performance.now();return;}
     let key=null,value=null;
     if(message.type==='init-stage'){key='stage';value=message.key+':'+message.status;}
+    else if(message.type==='download-retry'){key=message.type+':'+message.url;value=message.attempt;}
+    else if(message.type==='asset-complete'){key=message.type+':'+message.url;value='done';}
     else if(['download','asset-progress'].includes(message.type)){key=message.type+':'+message.url;value=message.loaded+':'+!!message.done;}
     else if(message.type==='inference-progress'){key='tokens:'+message.stage;value=message.generatedTokens+':'+message.inputTokens;}
     else if(['policy-progress','delivery-progress','lm-progress'].includes(message.type)){key=message.type;value=message.completed;}
     else if(message.type==='model-progress'){key='model:'+String(message.file||message.name||'model');value=[message.status,message.progress,message.loaded].join(':');}
     if(key===null||this.activity.get(key)===value)return;this.activity.set(key,value);
-    for(const [id,pending] of this.pending)if(pending.state==='running'&&(!message.requestId||message.requestId===id))this.arm(id,pending);
+    for(const [id,pending] of this.pending)if(pending.state==='running'&&(!message.requestId||message.requestId===id)){
+      const now=performance.now();pending.lastProgress=now;
+      if(message.type==='init-stage'&&pending.stage!==message.key){pending.stage=message.key;pending.stageStarted=now;}
+      this.arm(id,pending);
+    }
   }
   context(operation,extra={}){return {role:this.role,operation,stage:this.lastStage,stageEvidence:'last-reported-stage',attemptId:this.attemptId,loadId:this.loadId,...extra};}
   call(op,args={},transfer=[]){
     if(this.dead)return Promise.reject(diagnosticError(new Error('WORKER_STOPPED'),this.context(op)));if(this.pending.size>=SAFETY.workerQueue)return Promise.reject(diagnosticError(new Error('WORKER_QUEUE_FULL'),this.context(op)));const id=++this.id;
     return new Promise((resolve,reject)=>{
-      const pending={resolve,reject,op,queuedAt:performance.now(),started:null,state:'queued'};if(!this.pending.size)this.lastStage=op;this.pending.set(id,pending);
+      const pending={resolve,reject,op,downloading:op==='init'&&(args.downloadOnly===true||args.capabilities?.downloadOnly===true),queuedAt:performance.now(),started:null,state:'queued',lastProgress:null,lastHeartbeat:null,stage:null,stageStarted:null};if(!this.pending.size)this.lastStage=op;this.pending.set(id,pending);this.arm(id,pending);
       try{this.worker.postMessage({...args,id,op,attemptId:this.attemptId,loadId:this.loadId},transfer);}catch(e){this.pending.delete(id);clearTimeout(pending.timer);reject(diagnosticError(e,this.context(op,{requestId:id})));}
     });
   }
   send(op,args={},transfer=[]){if(!this.dead)this.worker.postMessage({...args,op,attemptId:this.attemptId,loadId:this.loadId},transfer);}
-  rejectAll(error){for(const [id,pending] of this.pending){clearTimeout(pending.timer);pending.reject(diagnosticError(error,this.context(pending.op,{requestId:id,elapsedMs:performance.now()-pending.started})));}this.pending.clear();this.activity.clear();}
+  rejectAll(error){for(const [id,pending] of this.pending){clearTimeout(pending.timer);pending.reject(diagnosticError(error,this.context(pending.op,{requestId:id,elapsedMs:performance.now()-(pending.started??pending.queuedAt)})));}this.pending.clear();this.activity.clear();}
   stop(error=new Error('WORKER_STOPPED')){
-    this.dead=true;clearTimeout(this.startupTimer);if(this.worker){this.worker.onmessage=this.worker.onerror=this.worker.onmessageerror=null;this.worker.terminate();}
+    if(this.dead)return;this.dead=true;clearTimeout(this.startupTimer);if(this.worker){this.worker.onmessage=this.worker.onerror=this.worker.onmessageerror=null;this.worker.terminate();}
     if(this.url){URL.revokeObjectURL(this.url);this.url=null;}this.rejectAll(error);
   }
 }
 const DOWNLOAD_STAGE_KEYS=['worker-storage','cache-download'];
-const PRELOAD_STAGE_KEYS=['vad-storage','vad-runtime','vad-model','vad-self-test','worker-storage','engine-runtime','loadDialogue','loadASR','model-config'];
+const PRELOAD_STAGE_KEYS=['vad-storage','vad-runtime','vad-model','vad-self-test','asr-storage','asr-runtime','loadASR','asr-config','worker-storage','engine-runtime','loadDialogue','model-config'];
 const LOAD_STAGE_KEYS=[...PRELOAD_STAGE_KEYS,'dialogue-self-test','asr-self-test','context-budget','controller-test','delivery-test'];
 const PREPARATION_PROGRESS_KEYS=['cleanup','environment','storageBefore','neuralSpeech',...DOWNLOAD_STAGE_KEYS.map(key=>'initialization:'+key),...LOAD_STAGE_KEYS.map(key=>'offlineColdStart:'+key),'speechPlayback','cacheVerify','savePrepared'];
 let progressState=null,progressClock=null;
 function ensureProgressClock(){if(!progressClock)progressClock=setInterval(paintProgress,1000);}
 function paintProgress(){
   if(!progressState)return;const state=progressState,p=$('progress');
-  p.max=100;p.value=state.value;p.setAttribute('aria-valuenow',String(Math.floor(state.value)));$('progressPercent').textContent=Math.floor(state.value)+'%';
+  const unknown=state.status==='running'&&state.indeterminate===true;
+  p.max=100;
+  if(unknown){p.removeAttribute('value');p.removeAttribute('aria-valuenow');$('progressPercent').textContent='…';}
+  else{p.value=state.value;p.setAttribute('aria-valuenow',String(Math.floor(state.value)));$('progressPercent').textContent=Math.floor(state.value)+'%';}
   const title=state.status==='passed'?'已就绪':state.status==='blocked'?(state.label||'准备受阻'):state.status==='retrying'?(state.label||'正在自动恢复'):state.label||'自动准备';
   $('progressText').textContent=uiText(title);
   const detail=[],clean=String(state.detail||'').replace(/\s*·?\s*https?:\/\/\S+/g,'').slice(0,100),elapsed=Math.max(0,Math.floor((performance.now()-state.started)/1000));
@@ -3174,15 +3349,19 @@ function paintProgress(){
     const stage=state.mode==='prepare'?(preparationState?.lastWorkerStage?.key||preparationState?.stage||''):'';
     if(stage&&stageLabel(stage)!==uiText(title))detail.push(stageLabel(stage));
     if(clean)detail.push(clean);
-    if(elapsed)detail.push(uiText('已等待')+' '+elapsed+' '+uiText('秒'));
+    if(elapsed)detail.push(uiText('已用时')+' '+elapsed+' '+uiText('秒'));
   }else if(state.status==='retrying'){
     const remaining=Math.max(0,Math.ceil(((state.retryAt||Date.now())-Date.now())/1000));
-    detail.push(remaining+' '+uiText('秒后重试'));
-  }else if(clean)detail.push(clean);
+    if(state.failureStage)detail.push(stageLabel(state.failureStage));detail.push(remaining+' '+uiText('秒后重试'));if(state.retryCount)detail.push(uiText('重试')+' '+state.retryCount);
+  }else if(state.status==='blocked'){if(state.failureStage)detail.push(stageLabel(state.failureStage));detail.push(uiText('自动重试已暂停'));}else if(state.status==='waiting-network')detail.push(uiText('联网后自动继续'));else if(clean)detail.push(clean);
   $('progressDetail').textContent=detail.join(' · ').slice(0,140);
+  p.setAttribute('aria-valuetext',(unknown?'':Math.floor(state.value)+'% · ')+$('progressText').textContent+($('progressDetail').textContent?' · '+$('progressDetail').textContent:''));
+  p.closest('.progress-card').dataset.indeterminate=String(unknown);
+  p.closest('.progress-card').dataset.state=state.status;
+
 }
 function beginProgress(mode,keys){
-  clearInterval(progressClock);progressClock=null;progressState={mode,keys:Array.from(new Set(keys)),fractions:new Map(),assets:new Map(),value:0,label:tr('checking'),detail:'',status:'running',started:performance.now(),retryAt:0};
+  clearInterval(progressClock);progressClock=null;progressState={mode,keys:Array.from(new Set(keys)),fractions:new Map(),assets:new Map(),assetBytes:new Map(),assetPlans:new Map(),completedAssets:new Set(),indeterminate:false,value:0,label:tr('checking'),detail:'',status:'running',started:performance.now(),retryAt:0};
   paintProgress();ensureProgressClock();
 }
 function reportProgress(key,fraction,label,detail=''){
@@ -3193,15 +3372,16 @@ function reportProgress(key,fraction,label,detail=''){
 }
 function finishProgress(status,label){
   if(!progressState)return;clearInterval(progressClock);progressClock=null;
-  progressState.status=status;progressState.ended=performance.now();progressState.retryAt=0;if(status==='passed')progressState.value=100;
+  progressState.status=status;progressState.indeterminate=false;progressState.ended=performance.now();progressState.retryAt=0;if(status==='passed')progressState.value=100;
   if(label)progressState.label=label;if(status==='passed')progressState.detail='';paintProgress();
 }
 function setPreparationRetryState(error,delay,label=''){
   if(!progressState)return;
   clearInterval(progressClock);progressClock=null;
-  if(delay===null){progressState.status='blocked';progressState.retryAt=0;progressState.label=label||readableError(error);progressState.detail='';}
+  progressState.failureStage=preparationFailureStage(error);progressState.retryCount=autoFailures;
+  if(delay===null){progressState.status='blocked';progressState.retryAt=0;progressState.label='准备受阻';progressState.detail='';}
   else{progressState.status='retrying';progressState.retryAt=Date.now()+delay;progressState.label=label||'正在自动恢复';progressState.detail='';ensureProgressClock();}
-  paintProgress();renderControls();
+  notice(label||readableError(error),true,label?null:error);paintProgress();renderControls();
 }
 function preparationStepProgress(key,passed=false){
   const children=key==='initialization'?DOWNLOAD_STAGE_KEYS:key==='offlineColdStart'?LOAD_STAGE_KEYS:null;
@@ -3211,37 +3391,65 @@ function preparationStepProgress(key,passed=false){
 function workerProgressKey(key){return preparing?preparationState?.stage+':'+key:key;}
 function stageAssets(key){
   const all=requiredAssets();
-  if(key==='engine-runtime')return all.filter(url=>url.startsWith(PACK.transformers));
+  if(key==='cache-download')return progressState?.assetPlans.get(workerProgressKey(key))||all;
+  if(key==='engine-runtime'||key==='asr-runtime')return all.filter(url=>url.startsWith(PACK.transformers));
   if(key==='vad-runtime')return all.filter(url=>url.startsWith(PACK.ort));
   if(key==='vad-model')return [PACK.vad];
   if(key==='loadDialogue')return all.filter(url=>url.startsWith('https://huggingface.co/'+PACK.llm+'/'));
   if(key==='loadASR')return all.filter(url=>url.startsWith('https://huggingface.co/'+asrSpec().model+'/'));
   return [];
 }
+function assetDisplayName(url){
+  let name;try{name=decodeURIComponent(String(url).split('/').pop());}catch{return '';}
+  if(String(url).startsWith('https://huggingface.co/'+PACK.llm+'/'))return uiText(/\.onnx(?:_data(?:_\d+)?)?$/.test(name)?'对话模型':'对话模型配置');
+  if(Object.values(ASR_MODES).some(spec=>String(url).startsWith('https://huggingface.co/'+spec.model+'/')))return uiText(/\.onnx(?:_data(?:_\d+)?)?$/.test(name)?'识别模型':'识别模型配置');
+  if(url===PACK.vad)return uiText('语音检测模型');
+  if(String(url).startsWith(PACK.transformers))return uiText('对话运行库');
+  if(String(url).startsWith(PACK.ort))return uiText('语音检测运行库');
+  return name;
+}
 function assetProgress(message){
   const state=progressState;if(!state||state.status!=='running')return;
   const stage=message.stage,key=workerProgressKey(stage),assets=stageAssets(stage);
-  const fraction=message.done?1:message.total>0?Math.min(.99,Math.max(0,message.loaded/message.total)):0;
+  const previous=state.assetBytes.get(message.url);
+  const loaded=message.type==='asset-complete'?(previous?.loaded||0):Number.isFinite(message.loaded)?Math.max(0,message.loaded):0;
+  const offered=message.type==='asset-complete'?(previous?.total||loaded):message.total;
+  const total=Number.isFinite(offered)&&offered>=loaded&&offered>0?offered:0;
+  state.assetBytes.set(message.url,{loaded,total});
+  const fraction=message.done?1:total?Math.min(.99,loaded/total):0;
   state.assets.set(key+'|'+message.url,Math.max(state.assets.get(key+'|'+message.url)||0,fraction));
-  const completed=assets.length?Math.min(.99,assets.reduce((sum,url)=>sum+(state.assets.get(key+'|'+url)||0),0)/assets.length):0;
-  const bytes=(message.loaded/1024/1024).toLocaleString(language,{maximumFractionDigits:1});
-  const total=message.total>0?' / '+(message.total/1024/1024).toLocaleString(language,{maximumFractionDigits:1}):'';
-  let name;try{name=decodeURIComponent(message.url.split('/').pop());}catch{name='';}
-  reportProgress(key,completed,stage?stageLabel(stage):tr(message.type==='download'?'download':'packVerifying'),name+' · '+bytes+total+' MiB');
+  if(message.done)state.completedAssets.add(message.url);
+  const completed=assets.length?Math.min(.99,assets.reduce((sum,url)=>sum+(state.completedAssets.has(url)?1:state.assets.get(key+'|'+url)||0),0)/assets.length):0;
+  state.indeterminate=!message.done&&!total;
+  const bytes=(loaded/1048576).toLocaleString(language,{maximumFractionDigits:1});
+  const size=bytes+(total?' / '+(total/1048576).toLocaleString(language,{maximumFractionDigits:1}):'')+' MiB';
+  const count=stage==='cache-download'&&assets.length?assets.filter(url=>state.completedAssets.has(url)).length+'/'+assets.length+' '+uiText('个文件')+' · ':'';
+  const name=assetDisplayName(message.url);$('progressDetail').title=String(message.url);
+  reportProgress(key,completed,stage?stageLabel(stage):tr(message.type==='download'?'download':'packVerifying'),count+name+(loaded?' · '+size:''));
 }
 function workerEvent(m){
   if(m.type==='lm-progress'){lmUI.tokens=m.completed;renderCooperation();return;}
   if(m.type==='lm-warning'){lmUI.status='error';coopState.lastError=m.code;recordEvent('lm-inference',m.code);renderCooperation();return;}
   if(m.type==='lm-recovered'){lmUI.activeRound=m.round;lmUI.source=m.source;lmUI.validation=lmUI.audit=lmUI.retention=null;lmUI.recovery={at:Date.now(),reason:m.reason};recordEvent('lm-recovered',m.reason);renderCooperation();return;}
   if(preparing&&m.attemptId&&m.attemptId!==preparationState?.attemptId)return;
+  if(m.type==='asset-plan'){
+    const state=progressState;if(state&&Array.isArray(m.urls))state.assetPlans.set(workerProgressKey(m.stage),m.urls.filter(url=>typeof url==='string'));return;
+  }
+  if(m.type==='asset-complete'){
+    if(progressState?.status==='running')assetProgress({...m,done:true});return;
+  }
+  if(m.type==='download-retry'){
+    if(progressState?.status==='running'){progressState.indeterminate=true;reportProgress(null,0,'正在切换资源连接',uiText('第{n}次连接').replace('{n}',m.attempt));}return;
+  }
   if(m.type==='init-stage'){
+    if(progressState&&!m.heartbeat)progressState.indeterminate=false;
     diag.workerStages??={};const key=m.loadId+':'+m.role+':'+m.key;diag.workerStages[key]=m;
     const keys=Object.keys(diag.workerStages);while(keys.length>120)delete diag.workerStages[keys.shift()];
     if(preparing&&preparationState?.attemptId===m.attemptId)preparationState.lastWorkerStage=m;
-    reportProgress(workerProgressKey(m.key),m.status==='passed'?1:0,stageLabel(m.key));updateDiagnostics();
+    if(!m.heartbeat)reportProgress(workerProgressKey(m.key),m.status==='passed'?1:0,stageLabel(m.key));updateDiagnostics();
   }else if(m.type==='model-progress'){
     const raw=Number(m.progress),fraction=Number.isFinite(raw)?Math.min(.99,raw>1?raw/100:raw):(['done','ready'].includes(m.status)?0.99:0);
-    const loaded=Number(m.loaded),total=Number(m.total),detail=Number.isFinite(loaded)&&loaded>0?(loaded/1048576).toLocaleString(language,{maximumFractionDigits:1})+(Number.isFinite(total)&&total>0?' / '+(total/1048576).toLocaleString(language,{maximumFractionDigits:1}):'')+' MiB':'';
+    const loaded=Number(m.loaded),total=Number(m.total),detail=Number.isFinite(loaded)&&loaded>0?(loaded/1048576).toLocaleString(language,{maximumFractionDigits:1})+(Number.isFinite(total)&&total>=loaded&&total>0?' / '+(total/1048576).toLocaleString(language,{maximumFractionDigits:1}):'')+' MiB':'';
     reportProgress(workerProgressKey(m.stage||preparationState?.lastWorkerStage?.key||''),fraction,m.stage?stageLabel(m.stage):null,detail);
   }else if(m.type==='runtime-log'){
     diag.runtimeLogs??=[];diag.runtimeLogs.push(m);if(diag.runtimeLogs.length>120)diag.runtimeLogs.shift();updateDiagnostics();
@@ -3295,7 +3503,7 @@ function vadEvent(m){
 }
 function stopWorkers(error=new Error('WORKER_STOPPED')){
   lmTrainingLoaded=false;
-  const loadIds=new Set([engine?.loadId,vad?.loadId].filter(Boolean)),status=errorOutcome(error)==='cancelled'?'cancelled':'failed';
+  const loadIds=new Set([engine?.loadId,vad?.loadId,recognizer?.loadId].filter(Boolean)),status=errorOutcome(error)==='cancelled'?'cancelled':'failed';
   for(const entry of Object.values(diag.workerStages||{}))if(loadIds.has(entry.loadId)&&entry.status==='running'){
     entry.status=status;entry.endedAt=new Date().toISOString();entry.completion='worker-terminated';entry.diagnostic=serializeError(error,{role:entry.role,operation:entry.operation,stage:entry.key,attemptId:entry.attemptId,loadId:entry.loadId,requestId:entry.requestId});
   }
@@ -3304,21 +3512,26 @@ function stopWorkers(error=new Error('WORKER_STOPPED')){
     diag.contextProbe={...probe,status,outcome:status==='cancelled'?'cancelled':'unknown',endedAt:new Date().toISOString(),completion:'worker-terminated',diagnostic:serializeError(error,{role:probe.role,operation:probe.operation,stage:probe.stage,attemptId:probe.attemptId,loadId:probe.loadId,probeId:probe.probeId})};
     diag.contextProbeEvents??=[];diag.contextProbeEvents.push(diag.contextProbe);if(diag.contextProbeEvents.length>120)diag.contextProbeEvents.shift();
   }
-  workerLoadEpoch++;vadGeneration++;activeTurns.clear();engine?.stop(error);vad?.stop(error);engine=vad=null;loaded=false;workerNetwork.engine=workerNetwork.vad=false;frameBacklog=0;renderControls();
+  workerLoadEpoch++;vadGeneration++;activeTurns.clear();engine?.stop(error);vad?.stop(error);recognizer?.stop(error);engine=vad=recognizer=null;loaded=false;workerNetwork.engine=workerNetwork.vad=workerNetwork.asr=false;frameBacklog=0;renderControls();
 }
 async function loadWorkers(allowNetwork,options={}){
   if(allowNetwork&&isLive())throw new Error('NETWORK_DURING_CONVERSATION');if(allowNetwork)networkSealed=false;
   const speechEpoch=workerLoadEpoch;await prepareLocalSpeech(allowNetwork);if(speechEpoch!==workerLoadEpoch)throw new Error('CANCELLED');await getLocalVoices();if(speechEpoch!==workerLoadEpoch)throw new Error('CANCELLED');
-  if(!options.downloadOnly&&loaded&&engine&&!engine.dead&&vad&&!vad.dead)return;
+  if(!options.downloadOnly&&loaded&&engine&&!engine.dead&&vad&&!vad.dead&&recognizer&&!recognizer.dead)return;
   stopWorkers();const ownProgress=!preparing&&!packBusy;if(ownProgress)beginProgress('load',LOAD_STAGE_KEYS);
   let lastLimit=Infinity,backendRetried=false,loadEpoch=workerLoadEpoch;const attemptId=options.attemptId??(preparing?preparationState?.attemptId:null)??uid();
   const guard=()=>{if(loadEpoch!==workerLoadEpoch)throw new Error('WORKER_STOPPED');};
   try{for(;;){
     try{
       guard();
-      const loadId=uid(),generation=++vadGeneration;if(!options.downloadOnly){vad=new Peer($('vadCode').textContent,m=>{if(generation===vadGeneration)vadEvent(m);},{role:'vad',attemptId,loadId});await vad.call('init',{allowNetwork,diagnosticMode});guard();}
+      const loadId=uid(),generation=++vadGeneration;let asrLimits=null;
+      if(!options.downloadOnly){
+        vad=new Peer($('vadCode').textContent,m=>{if(generation===vadGeneration)vadEvent(m);},{role:'vad',attemptId,loadId});await vad.call('init',{allowNetwork,diagnosticMode});guard();
+        const recognitionPeer=new Peer($('asrCode').textContent,m=>{if(recognizer===recognitionPeer)workerEvent(m);},{role:'asr',attemptId,loadId});recognizer=recognitionPeer;
+        asrLimits=await recognizer.call('init',{allowNetwork,diagnosticMode,asrMode:ACTIVE_ASR_MODE,preloadOnly:options.preloadOnly===true});guard();
+      }
       const peer=new Peer($('engineCode').textContent,m=>{if(engine===peer)workerEvent(m);},{role:'engine',attemptId,loadId});engine=peer;
-      limits=await engine.call('init',{allowNetwork,capabilities:{voices:localVoices.map(v=>({id:voiceIdentity(v),name:v.name,lang:v.lang})),speechLanguage,languagePriority:languagePriority.slice(),diagnosticMode,preloadOnly:options.preloadOnly===true,downloadOnly:options.downloadOnly===true,asrMode:ACTIVE_ASR_MODE}});
+      limits=await engine.call('init',{allowNetwork,capabilities:{voices:localVoices.map(v=>({id:voiceIdentity(v),name:v.name,lang:v.lang})),speechLanguage,languagePriority:languagePriority.slice(),diagnosticMode,preloadOnly:options.preloadOnly===true,downloadOnly:options.downloadOnly===true,asrMode:ACTIVE_ASR_MODE,asrLimits}});
       guard();renderLanguageSettings();loaded=options.preloadOnly!==true&&options.downloadOnly!==true;if(ownProgress)finishProgress('passed',tr('preparationDone'));updateDiagnostics();return;
     }catch(e){
       guard();stopWorkers(e);loadEpoch=workerLoadEpoch;if(errText(e)==='DIALOGUE_BACKEND_RETRY'&&!backendRetried){backendRetried=true;recordEvent('backend-recovery',e);continue;}if(errText(e)!=='ENGINE_CONTEXT_RETRY')throw e;recordEvent('context-recovery',e);
@@ -3347,8 +3560,8 @@ async function engineCall(op,args={}){
   }
 }
 function sealNetwork(){
-  void stopCooperation();closeNetwork();engine?.send('network-off');vad?.send('network-off');networkSealed=true;
-  workerNetwork.engine=workerNetwork.vad=false;updateDiagnostics();
+  void stopCooperation();closeNetwork();engine?.send('network-off');vad?.send('network-off');recognizer?.send('network-off');networkSealed=true;
+  workerNetwork.engine=workerNetwork.vad=workerNetwork.asr=false;updateDiagnostics();
 }
 async function loadPreparedOffline(allowNetwork,attemptId,guard){
   const repaired=new Set();
@@ -3438,7 +3651,7 @@ async function captureStart(stream){
   sourceNode=audioContext.createMediaStreamSource(stream);lowpass=audioContext.createBiquadFilter();lowpass.type='lowpass';lowpass.frequency.value=AUDIO_SPEC.rate/2;
   zeroGain=audioContext.createGain();zeroGain.gain.value=0;sourceNode.connect(lowpass);
   const deliver=audio=>{if(!captureAccept||!vad||current!==owner||owner.finalized||!['active','closing'].includes(owner.state))return;
-    const sequence=++captureSequence;captureJournal.set(sequence,{sessionId:owner.id,audio:new Float32Array(audio.slice(0))});frameBacklog++;
+    updateVoiceMeter(audio);const sequence=++captureSequence;captureJournal.set(sequence,{sessionId:owner.id,audio:new Float32Array(audio.slice(0))});frameBacklog++;
     try{vad.send('frame',{audio,captureSequence:sequence},[audio]);}catch(e){captureFaulted=true;fail(e);return;}
     if(gate&&frameBacklog*AUDIO_SPEC.frame>AUDIO_SPEC.rate*limits.windowSeconds){
       captureFaulted=true;fail(new Error('AUDIO_BACKLOG'));
@@ -3473,7 +3686,7 @@ function setGate(value,{keepDecision=false}={}){
   }else if(changed){
     if(!gate)resampler?.flush();captureAccept=gate;
   }
-  if(!gate&&!keepDecision)clearQuiet();$('orb').style.removeProperty('opacity');
+  if(!gate){document.body.style.setProperty('--meter','.14');if(!keepDecision)clearQuiet();}$('orb').style.removeProperty('opacity');
 }
 function captureStop(){
   setGate(false);
@@ -3691,21 +3904,81 @@ async function clearStreamCheckpoint(s,m){
 }
 async function flushSave(s){await saveSession(s);}
 function chatPageSize(){return SAFETY.renderMessages;}
-let chatHistoryRows=null,chatPageEpoch=0;
+let chatHistoryRows=null,chatPageEpoch=0,chatPagingTask=null,chatScrollFrame=0,chatRendering=false;
 function visibleChatMessages(){return !chatFollowLatest&&chatHistoryRows?chatHistoryRows:(current?.messages||[]).slice(-chatPageSize());}
-function renderChatWindow(){const chat=$('chat');chat.replaceChildren();bubbleMap.clear();const rows=visibleChatMessages();$('empty').hidden=!!rows.length;for(const m of rows)renderMessage(m);}
+function renderChatWindow(){
+  chatRendering=true;
+  try{const chat=$('chat');chat.replaceChildren();bubbleMap.clear();const rows=visibleChatMessages();$('empty').hidden=!!rows.length;chat.setAttribute('aria-busy',String(rows.some(row=>row.state==='generating')));for(const m of rows)renderMessage(m);}
+  finally{chatRendering=false;}
+}
+function anchorChat(){
+  const chat=$('chat'),top=chat.getBoundingClientRect().top;
+  const node=Array.from(bubbleMap.values()).find(element=>element.getBoundingClientRect().bottom>top+2);
+  return node?{id:node.dataset.messageId,offset:node.getBoundingClientRect().top-top}:null;
+}
+function restoreChatAnchor(anchor){
+  const chat=$('chat'),node=anchor&&bubbleMap.get(anchor.id);
+  if(node)chat.scrollTop+=node.getBoundingClientRect().top-chat.getBoundingClientRect().top-anchor.offset;
+}
+async function loadChatPage(direction){
+  if(chatPagingTask||!current)return;
+  const owner=current,epoch=chatPageEpoch,visible=visibleChatMessages().slice(),edge=direction==='older'?visible[0]:visible.at(-1),sequence=edge?.storageSequence;
+  if(!Number.isSafeInteger(sequence)||direction==='older'&&sequence===0)return;
+  const task=(async()=>{
+    const stored=await sessionPartPage(owner.id,'sessionMessages',direction==='older'?{before:sequence,limit:chatPageSize(),direction:'prev'}:{after:sequence,limit:chatPageSize(),direction:'next'});
+    if(owner!==current||epoch!==chatPageEpoch)return;
+    const relevant=row=>Number.isSafeInteger(row.storageSequence)&&(direction==='older'?row.storageSequence<sequence:row.storageSequence>sequence);
+    const extra=Array.from(new Map([...stored,...owner.messages.filter(relevant)].map(row=>[row.id,row])).values()).filter(relevant).sort((a,b)=>a.storageSequence-b.storageSequence);
+    const page=direction==='older'?extra.slice(-chatPageSize()):extra.slice(0,chatPageSize());
+    if(!page.length)return;
+    const anchor=anchorChat(),combined=direction==='older'?[...page,...visible]:[...visible,...page],limit=chatPageSize()*2;
+    chatHistoryRows=direction==='older'?combined.slice(0,limit):combined.slice(-limit);chatFollowLatest=false;chatPageEpoch++;renderChatWindow();restoreChatAnchor(anchor);
+  })();
+  chatPagingTask=task;
+  try{await task;}catch(error){recordEvent('chat-history',error);}finally{if(chatPagingTask===task)chatPagingTask=null;}
+}
+function onChatScroll(){
+  if(chatRendering||chatScrollFrame)return;
+  chatScrollFrame=requestAnimationFrame(()=>{
+    chatScrollFrame=0;if(!current||chatRendering||chatPagingTask)return;
+    const chat=$('chat'),rows=visibleChatMessages(),nearBottom=chat.scrollHeight-chat.scrollTop-chat.clientHeight<28;
+    if(chat.scrollHeight<=chat.clientHeight+8)return;
+    if(nearBottom){
+      if(rows.at(-1)?.id===current.messages.at(-1)?.id){
+        if(!chatFollowLatest){chatFollowLatest=true;chatHistoryRows=null;chatPageEpoch++;renderChatWindow();chat.scrollTop=chat.scrollHeight;}
+      }else void loadChatPage('newer');
+    }else if(chatFollowLatest){chatHistoryRows=rows.slice();chatFollowLatest=false;chatPageEpoch++;}
+    if(chat.scrollTop<48)void loadChatPage('older');
+  });
+}
+
 function renderMessage(m){
   if(!current)return;const rows=visibleChatMessages(),ids=new Set(rows.map(row=>row.id));
   for(const [id,node] of bubbleMap)if(!ids.has(id)){node.remove();bubbleMap.delete(id);}if(!ids.has(m.id))return;
-  let element=bubbleMap.get(m.id);const chat=$('chat'),stick=chat.scrollHeight-chat.scrollTop-chat.clientHeight<90;
-  if(!element){element=document.createElement('article');element.className='bubble '+(m.role==='user'?'user':'assistant');const label=document.createElement('div');label.className='bubble-label';label.textContent=m.role==='user'?tr('user'):'Yuan';const body=document.createElement('div');body.className='bubble-text';element.append(label,body);chat.append(element);bubbleMap.set(m.id,element);}
+  let element=bubbleMap.get(m.id);const chat=$('chat'),stick=chatFollowLatest&&chat.scrollHeight-chat.scrollTop-chat.clientHeight<90;
+  if(!element){element=document.createElement('article');element.dataset.messageId=m.id;element.className='bubble '+(m.role==='user'?'user':'assistant');const label=document.createElement('div');label.className='bubble-label';label.textContent=m.role==='user'?tr('user'):'Yuan';const body=document.createElement('div');body.className='bubble-text';element.append(label,body);chat.append(element);bubbleMap.set(m.id,element);}
   element.querySelector('.bubble-text').textContent=[m.text,...(m.recoveredAudio||[]).map(row=>row.text)].filter(Boolean).join('\n')||(m.audioKeys?.length?uiText('正在识别…'):'…');
-  element.classList.toggle('pending',m.state==='generating');$('empty').hidden=true;if(stick)chat.scrollTop=chat.scrollHeight;
+  element.classList.toggle('pending',m.state==='generating');$('empty').hidden=true;chat.setAttribute('aria-busy',String(rows.some(row=>row.state==='generating')));if(stick)chat.scrollTop=chat.scrollHeight;
 }
-function renderConversation(){chatFollowLatest=true;chatHistoryRows=null;chatPageEpoch++;renderChatWindow();}
+function renderConversation(){chatFollowLatest=true;chatHistoryRows=null;chatPageEpoch++;renderChatWindow();$('chat').scrollTop=$('chat').scrollHeight;}
+function waitForStartConnection(signal){
+  return new Promise((resolve,reject)=>{
+    let settled=false;
+    const finish=error=>{
+      if(settled)return;settled=true;window.removeEventListener('online',online);signal.removeEventListener('abort',cancel);
+      waitingForStartNetwork=false;renderControls();error?reject(error):resolve();
+    };
+    const online=()=>{if(navigator.onLine!==false){autoRetryAt=0;finish();}};
+    const cancel=()=>finish(new Error('CANCELLED'));
+    if(signal.aborted){reject(new Error('CANCELLED'));return;}
+    waitingForStartNetwork=true;
+    if(progressState){clearInterval(progressClock);progressClock=null;progressState.status='waiting-network';progressState.label='等待联网';progressState.detail=uiText('联网后自动继续');paintProgress();}
+    notice('等待网络恢复',true);renderControls();window.addEventListener('online',online);signal.addEventListener('abort',cancel,{once:true});online();
+  });
+}
 async function beginConversation(){
   if(startRequested||starting||isLive()||appBlocked||!bootReady)return;
-  const request=++startRequestEpoch,controller=new AbortController();startRequestController=controller;startRequested=true;endedBeforeSession=false;let primed;
+  const request=++startRequestEpoch,controller=new AbortController();startRequestController=controller;startRequested=true;endedBeforeSession=false;autoFailures=0;asrLoadFailures=0;autoRetryAt=0;clearTimeout(preparationRetryTimer);preparationRetryTimer=null;let primed;
   const wait=task=>abortable(task,controller.signal);
   const guard=()=>{if(request!==startRequestEpoch||!startRequested||document.hidden||appBlocked)throw new Error('CANCELLED');};
   try{
@@ -3714,16 +3987,29 @@ async function beginConversation(){
     if(automaticPreparation){await wait(automaticPreparation);guard();}
     if(storeBroken){await checkStorage();guard();}
     if(prepared&&!await verifyAssetManifest(modelsProof?.manifest||[])){prepared=false;modelsProof=null;}guard();
-    if(!prepared){const result=await wait(prepare());guard();if(result?.status!=='passed')return;}
+    while(!prepared){
+      if(autoRetryAt===Infinity)return;
+      if(storeBroken){await wait(checkStorage());guard();}
+
+      const remaining=Math.max(0,autoRetryAt-Date.now());
+      if(remaining)await wait(new Promise(resolve=>{const timer=setTimeout(done,remaining);function done(){clearTimeout(timer);controller.signal.removeEventListener('abort',done);resolve();}controller.signal.addEventListener('abort',done,{once:true});}));guard();
+      const result=await wait(autoPrepare({force:true,cacheOnly:navigator.onLine===false}));guard();
+      if(prepared)break;
+      if(result?.status==='cancelled')return;
+      if(navigator.onLine===false){await wait(waitForStartConnection(controller.signal));guard();continue;}
+      if(autoRetryAt===Infinity)return;
+      if(!result)throw new Error('PREPARATION_UNAVAILABLE');
+
+    }
     await wait(prepareLocalSpeech(navigator.onLine!==false));guard();await wait(getLocalVoices());guard();requireVoiceForStart();
-    if($('endDialog').open)await wait(new Promise(resolve=>startConfirmationResolve=resolve));guard();
+    await wait(waitForEndConfirmation(guard));guard();
     startRequested=false;await wait(startConversation());
   }catch(error){if(request===startRequestEpoch&&errText(error)!=='CANCELLED')fail(error,{pause:false});}
-  finally{if(startRequestController===controller)startRequestController=null;if(request===startRequestEpoch){startRequested=false;releaseReservedMic();if(!isLive()&&!preparing&&!starting&&phase==='starting')setPhase('idle');}if(primed&&audioContext===primed&&!isLive()&&!preparing&&!starting){audioContext=null;await primed.close().catch(()=>{});}renderControls();}
+  finally{if(startRequestController===controller)startRequestController=null;if(request===startRequestEpoch){startRequested=false;releaseReservedMic();if(!isLive()&&!preparing&&!starting&&phase==='starting')setPhase('idle');}if(request===startRequestEpoch&&primed&&audioContext===primed&&!isLive()&&!preparing&&!starting&&!startRequested){audioContext=null;await primed.close().catch(()=>{});}renderControls();}
 }
 function cancelPendingStart(){
   if(startRequested||startRequestController){startRequestEpoch++;startRequested=false;startRequestController?.abort(new Error('CANCELLED'));startRequestController=null;releaseReservedMic();cancelSpeech();}
-  startConfirmationResolve?.();startConfirmationResolve=null;
+  settleEndConfirmation();
   if(preparing)cancelPreparation();
   if(starting&&!isLive()){startEpoch++;starting=false;releaseReservedMic();cancelSpeech();}
   if(!isLive()&&$('endDialog').open)closeEndDialog();
@@ -3736,9 +4022,14 @@ async function startConversation(){
   try{checkBrowser();startAudio=audioContext??=new AudioContext({latencyHint:'interactive'});audioUnlock=resumeAudioContext(startAudio);audioUnlock.catch(()=>{});}
   catch(error){fail(error,{pause:false});return;}
   const epoch=++startEpoch;starting=true;stopIdleLearning();notice('');setPhase('starting');let stream;
-  try{await quiesceCooperation();if(epoch!==startEpoch||document.hidden||appBlocked)throw new Error('CANCELLED');}catch(error){
-    starting=false;if(audioContext===startAudio)audioContext=null;await startAudio.close().catch(()=>{});
-    setPhase('idle');if(errText(error)!=='CANCELLED'){notice(tr('coopStopFailed'),true);recordEvent('cooperation-stop',error);}renderControls();return;
+  try{
+    await quiesceCooperation();
+    await waitForEndConfirmation(()=>{if(epoch!==startEpoch||document.hidden||appBlocked)throw new Error('CANCELLED');});
+  }catch(error){
+    if(epoch===startEpoch)starting=false;
+    if(audioContext===startAudio&&!isLive()&&!starting&&!startRequested){audioContext=null;await startAudio.close().catch(()=>{});}
+    if(!isLive()&&!starting&&!startRequested)setPhase(endedBeforeSession?'ended':'idle');
+    if(errText(error)!=='CANCELLED'){notice(tr('coopStopFailed'),true);recordEvent('cooperation-stop',error);}renderControls();return;
   }
   const s={id:uid(),language,uiLanguage:language,speechLanguage,languagePriority:languagePriority.slice(),useExperience,prompt:$('prompt').value.trim(),createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),state:'active',build:BUILD,messages:[],decisions:[],notes:[],policy:null,paused:document.hidden,finalized:false,revision:0,storageFormat:2,messageSeq:0,decisionSeq:0};
   current=s;pendingSegments=new Set();asrQueue=Promise.resolve();turnTask=Promise.resolve();activeTurns.clear();voiceInProgress=false;
@@ -3752,7 +4043,7 @@ async function startConversation(){
     stream=await takeReservedMic();stream.getAudioTracks().forEach(t=>t.enabled=false);guard();
     await audioUnlock;guard();await loadWorkers(false);guard();
     if(!plannedVoiceLanguages().every(tag=>modelsProof?.voiceTests?.some(test=>test.registered===true&&(!test.neural||test.synthesis==='passed')&&test.language===tag&&test.voices?.every(id=>localVoices.some(voice=>voiceIdentity(voice)===id))))){await testPlannedSpeech(guard);guard();modelsProof={...modelsProof,voiceTests:cloneSmall(diag.voiceTests),languagePriority:languagePriority.slice()};await dbPut('meta','prepared',modelsProof);guard();}
-    await captureStart(stream);stream=null;guard();await wake();guard();
+    await captureStart(stream);stream=null;guard();await wake();guard();await waitForEndConfirmation(guard);guard();
     starting=false;renderControls();
     if(s.paused)setPhase('paused');else{turnTask=decide(s,'start');await turnTask;}
   }catch(e){
@@ -3795,7 +4086,8 @@ async function transcribeStoredAudio(s,message,key,{allowFinalized=false}={}){
   }
   let result;
   try{
-    result=await engine.call('transcribe',{sessionId:s.id,audio:buffer,speechLanguage:recognition},[buffer]);
+    if(!recognizer||recognizer.dead)throw new Error('ASR_WORKER_UNAVAILABLE');
+    result=await recognizer.call('transcribe',{sessionId:s.id,audio:buffer,speechLanguage:recognition},[buffer]);
     if(typeof result?.text!=='string')throw new Error('ASR_RESULT_INVALID');
   }catch(e){
     if(!s.finalized||allowFinalized){segment.attempts=(segment.attempts||0)+1;segment.lastError=errText(e);observeRuntime(s,'transcription',{success:false,elapsed_ms:performance.now()-started,audio_seconds:pcm.size/4/AUDIO_SPEC.rate,error:errText(e),messageId:message.id});markMessage(s,message);await saveSession(s);}
@@ -3829,7 +4121,7 @@ async function retryPendingAudio(s,{allowFinalized=false}={}){
     for(const key of pending){
       if(s.finalized&&!allowFinalized)break;
       try{if(await transcribeStoredAudio(s,message,key,{allowFinalized}))done++;}
-      catch(e){recordEvent('audio-retry',e);if(storeBroken||!engine||engine.dead)throw e;}
+      catch(e){recordEvent('audio-retry',e);if(storeBroken||!engine||engine.dead||!recognizer||recognizer.dead)throw e;}
     }
   }
   return {done,pending:s.messages.reduce((n,m)=>n+(m.audioKeys?.length||0),0)};
@@ -4042,16 +4334,19 @@ function requestEnd(){
   const s=current;if($('endDialog').open)return;if(s?.state!=='active'){if(startRequested||starting)showEndDialog();return;}
   clearTimeout(recoveryTimer);confirmationStates.set(s,{wasPaused:s.paused});showEndDialog();
   if(phase==='speaking'){const m=s.messages.filter(m=>m.role==='assistant').at(-1);if(m){m.delivery='paused_for_confirmation';markMessage(s,m);}}
-  void pauseConversation(s);
+  if(starting){s.paused=true;s.pauseReason='confirmation';s.pauseRevision=(s.pauseRevision||0)+1;setGate(false);setPhase('paused');return;}
+  void pauseConversation(s).catch(error=>recordEvent('confirmation-pause',error));
 }
 async function cancelEnd(){
-  if(!$('endDialog').open)return;const s=current,hold=s&&confirmationStates.get(s);closeEndDialog();startConfirmationResolve?.();startConfirmationResolve=null;if(s)confirmationStates.delete(s);
-  if(s?.state==='active'&&!document.hidden)await resumeConversation();else if(s?.state==='active'&&!hold?.wasPaused)visibleResume={id:s.id,revision:s.pauseRevision||0};renderControls();
+  if(!$('endDialog').open)return;const s=current,hold=s&&confirmationStates.get(s);
+  if(s?.state==='active'&&starting&&!hold?.wasPaused&&!document.hidden){s.paused=false;delete s.pauseReason;pausedTasks.delete(s);}
+  closeEndDialog();if(s)confirmationStates.delete(s);
+  if(s?.state==='active'&&!document.hidden&&!starting)await resumeConversation();else if(s?.state==='active'&&document.hidden&&!hold?.wasPaused)visibleResume={id:s.id,revision:s.pauseRevision||0};renderControls();
 }
 async function confirmEnd(){
-  const s=current;if(s?.state!=='active'){if(!startRequested&&!starting)return;endedBeforeSession=true;cancelPendingStart();releaseReservedMic();cancelSpeech();closeEndDialog();if(audioContext&&!media){const context=audioContext;audioContext=null;void context.close().catch(()=>{});}setPhase('ended');return;}
+  if(!$('endDialog').open)return;const s=current;if(s?.state!=='active'){endedBeforeSession=true;cancelPendingStart();releaseReservedMic();cancelSpeech();closeEndDialog();if(audioContext&&!media){const context=audioContext;audioContext=null;void context.close().catch(()=>{});}setPhase('ended');return;}
   closeEndDialog();clearTimeout(recoveryTimer);recoveryTimer=null;recoveryAttempts=0;confirmationStates.delete(s);pausedTasks.delete(s);decisionEvents.delete(s);
-  const wasStarting=starting;startRequestController?.abort(new Error('CANCELLED'));startRequestController=null;startEpoch++;starting=false;clearQuiet();s.state='closing';s.endedAt=new Date().toISOString();s.endConfirmedAt=s.endedAt;s.paused=false;s.bargeIn=false;
+  const wasStarting=starting;startRequested=false;startRequestController?.abort(new Error('CANCELLED'));startRequestController=null;releaseReservedMic();startEpoch++;starting=false;clearQuiet();s.state='closing';s.endedAt=new Date().toISOString();s.endConfirmedAt=s.endedAt;s.paused=false;s.bargeIn=false;
   setPhase('closing');const captureStopped=captureStop();cancelSpeech();for(const key of neuralPlaybackBookmarks.keys())if(key.startsWith(s.id+':'))neuralPlaybackBookmarks.delete(key);void releaseWake();
   for(const message of s.messages){let changed=false;if(message.state==='generating'){message.state='interrupted';changed=true;}if(['speaking','paused_for_confirmation'].includes(message.delivery)){message.delivery='interrupted';changed=true;}if(changed)markMessage(s,message);}
   emergencySave(s);engine?.send('interrupt',{sessionId:s.id});if(wasStarting)stopWorkers();renderConversation();let timer;
@@ -4514,6 +4809,8 @@ function initializeMeshHost(){
 }
 function renderCooperation(){
   const connected=coopState.connections>0,available=cooperationIdle()&&navigator.onLine!==false&&navigator.connection?.saveData!==true;
+  $('cooperationStatus').closest('.activity').dataset.state=available&&(lmJob||connected)?'active':'paused';
+
   const stage=lmUI.status==='validation'||lmUI.status==='audit'?'正在验证':lmUI.status==='retention'?'保持能力检查':lmUI.status==='loading'?'准备训练':'正在训练';
   const status=appBlocked?'等待运行':storeBroken?'等待存储':!bootReady?'初始化':isLive()||starting||startRequested?'对话中':navigator.onLine===false?'等待联网':document.hidden||coopPageHidden?'后台已暂停':navigator.connection?.saveData===true?'节省流量':preparing?'自动准备':lmJob?stage:lmBattery&&!lmBattery.charging&&lmBattery.level<0.25?'低电量暂停':connected?coopState.peers>0?'协作已连接':'等待空闲同伴':'协作连接中';
   $('cooperationStatus').textContent=uiText(status);
@@ -4698,11 +4995,12 @@ let automaticPreparation=null,autoRetryAt=0,autoFailures=0,preparationRetryTimer
 function preparationFailureStage(error){return error?.diagnostic?.stage||preparationState?.lastWorkerStage?.key||preparationState?.stage||'';}
 function preparationRetryDelay(error,attempts){
   const text=errText(error),outcome=error?.diagnostic?.outcome??errorOutcome(error),stage=preparationFailureStage(error);
-  if(/BROWSER_|SECURE_CONTEXT|EXECUTABLE_INTEGRITY_FAILED|EXECUTABLE_NOT_ALLOWED|MODEL_.*(?:INVALID|UNSUPPORTED)|ASR_AUDIO_CONFIG_UNSUPPORTED|LLM_CONTEXT_CONFIG_MISSING|NotAllowed|Permission|MICROPHONE_PERMISSION/i.test(text))return null;
-  if(outcome==='storage'||/QuotaExceeded|STORAGE|IndexedDB|IDB/i.test(text))return 60000;
-  if(stage==='loadASR'&&['resource-exhausted','runtime-fault'].includes(outcome))return ACTIVE_ASR_MODE==='low'&&asrLoadFailures>=2?null:10000;
-  if(outcome==='resource-exhausted'||outcome==='runtime-fault'||/out of memory|allocation failed|failed to allocate|MODEL_CONTROLLER_MEMORY_UNAVAILABLE/i.test(text))return 300000;
-  return Math.min(300000,3000*2**Math.min(attempts,7));
+  if(/BROWSER_|SECURE_CONTEXT|EXECUTABLE_INTEGRITY_FAILED|EXECUTABLE_NOT_ALLOWED|(?:MODEL|ASR|LLM)_.*(?:INVALID|UNSUPPORTED|CONFIG_MISSING)|NotAllowed|Permission|MICROPHONE_PERMISSION/i.test(text))return null;
+  if(outcome==='cancelled')return null;
+  if(outcome==='storage'||outcome==='network')return Math.min(180000,2000*2**Math.min(attempts-1,7));
+  if(['loadASR','asr-self-test'].includes(stage)&&ACTIVE_ASR_MODE==='low'&&asrLoadFailures>=2)return null;
+  if(attempts>=3)return null;
+  return Math.min(15000,2000*3**Math.max(0,attempts-1));
 }
 function schedulePreparationRetry(delay){
   clearTimeout(preparationRetryTimer);preparationRetryTimer=null;
@@ -4710,27 +5008,31 @@ function schedulePreparationRetry(delay){
   preparationRetryTimer=setTimeout(()=>{preparationRetryTimer=null;void autoPrepare();},Math.max(0,delay));
 }
 async function maybeSwitchLowMemoryAsr(error){
-  const outcome=error?.diagnostic?.outcome??errorOutcome(error),stage=preparationFailureStage(error);
-  if(stage!=='loadASR'||!['resource-exhausted','runtime-fault'].includes(outcome)){asrLoadFailures=0;return false;}
+  const text=errText(error),outcome=error?.diagnostic?.outcome??errorOutcome(error),stage=preparationFailureStage(error);
+  if(!['loadASR','asr-self-test'].includes(stage)||!['resource-exhausted','runtime-fault','timeout','unknown'].includes(outcome)||/CONFIG|INVALID|UNSUPPORTED|INTEGRITY|CANCELLED|STORAGE|NETWORK|HTTP|DOWNLOAD|fetch|OFFLINE_ASSET/i.test(text))return false;
   asrLoadFailures++;
-  if(ACTIVE_ASR_MODE!=='base'||asrLoadFailures<2)return false;
+  if(ACTIVE_ASR_MODE!=='base')return false;
   setAsrMode('low');asrLoadFailures=0;await dbPut('meta','asr-mode-v1',{mode:'low',model:asrSpec().model,revision:asrSpec().revision,at:new Date().toISOString()}).catch(fault=>recordEvent('asr-mode',fault));
   return true;
 }
-async function autoPrepare(){
+async function autoPrepare({force=false,cacheOnly=false}={}){
   if(automaticPreparation)return automaticPreparation;
-  if(!bootReady||appBlocked||storeBroken||isLive()||starting||document.hidden||navigator.onLine===false||Date.now()<autoRetryAt||prepared)return;
-  const task=prepare();automaticPreparation=task;
-  try{
-    const result=await task;
-    if(result?.status==='passed'){autoFailures=0;autoRetryAt=0;asrLoadFailures=0;clearTimeout(preparationRetryTimer);preparationRetryTimer=null;return result;}
+  if(!bootReady||appBlocked||storeBroken||isLive()||starting||document.hidden||!force&&(navigator.onLine===false||Date.now()<autoRetryAt)||prepared)return;
+  clearTimeout(preparationRetryTimer);preparationRetryTimer=null;
+  const task=(async()=>{
+    let result;
+    try{result=await prepare({cacheOnly:cacheOnly||navigator.onLine===false});}
+    catch(error){closeNetwork();stopWorkers(error);preparing=false;prepared=false;cancelPrepWait=null;if(!startRequested)releaseReservedMic();if(!progressState)beginProgress('prepare',PREPARATION_PROGRESS_KEYS);result={status:errorOutcome(error)==='cancelled'?'cancelled':'failed',error:serializeError(error,{role:'page',operation:'prepare',stage:preparationState?.stage||'prepare'})};finishProgress(result.status,readableError(error));}
+
+    if(result?.status==='passed'){autoFailures=0;autoRetryAt=0;asrLoadFailures=0;clearTimeout(preparationRetryTimer);preparationRetryTimer=null;notice('');return result;}
     if(result?.status==='cancelled'){autoRetryAt=0;clearTimeout(preparationRetryTimer);preparationRetryTimer=null;return result;}
     if(result){
       autoFailures++;const error=restoreError(result.error?.message||'PREPARATION_FAILED',result.error),switched=await maybeSwitchLowMemoryAsr(error),delay=switched?1500:preparationRetryDelay(error,autoFailures);
       autoRetryAt=delay===null?Infinity:Date.now()+delay;setPreparationRetryState(error,delay,switched?'模型正在切换到低内存模式':'');schedulePreparationRetry(delay);
     }
     return result;
-  }finally{if(automaticPreparation===task)automaticPreparation=null;}
+  })();automaticPreparation=task;
+  try{return await task;}finally{if(automaticPreparation===task)automaticPreparation=null;}
 }
 function scheduleRecovery(error){
   clearTimeout(recoveryTimer);recoveryTimer=null;
@@ -4746,8 +5048,18 @@ function scheduleRecovery(error){
     catch(fault){if(current===owner&&owner.state==='active'&&owner.paused)fail(fault);}
   },Math.min(30000,1500*2**Math.min(recoveryAttempts,5)));
 }
-function showEndDialog(){const d=$('endDialog');if(typeof d.showModal==='function')d.showModal();else{d.setAttribute('open','');d.setAttribute('aria-modal','true');document.body.classList.add('confirming');}$('cancelEnd').focus();}
-function closeEndDialog(){const d=$('endDialog');if(typeof d.close==='function')d.close();else d.removeAttribute('open');document.body.classList.remove('confirming');if(!$('end').disabled)$('end').focus();else if(!$('start').disabled)$('start').focus();}
+function showEndDialog(){
+  const dialog=$('endDialog');if(dialog.open)return;
+  if(typeof dialog.showModal==='function')dialog.showModal();
+  else{dialog.setAttribute('open','');dialog.setAttribute('aria-modal','true');document.body.classList.add('confirming');document.querySelector('main').inert=true;}
+  $('cancelEnd').focus({preventScroll:true});renderPresence();
+}
+function closeEndDialog(){
+  const dialog=$('endDialog');if(dialog.open){if(typeof dialog.close==='function')dialog.close();else dialog.removeAttribute('open');}
+  dialog.removeAttribute('aria-modal');document.body.classList.remove('confirming');document.querySelector('main').inert=false;
+  settleEndConfirmation();renderPresence();
+  if(!$('end').disabled)$('end').focus({preventScroll:true});else if(!$('start').disabled)$('start').focus({preventScroll:true});
+}
 function nativeVoices(){try{return globalThis.SpeechSynthesisUtterance?Array.from(globalThis.speechSynthesis?.getVoices()||[]).filter(voice=>(voice.localService===true||navigator.onLine!==false)&&canonicalLanguage(voice.lang)&&voiceQuality(voice)>0):[];}catch{return [];}}
 async function neuralDescriptor(allowNetwork){
   const valid=value=>value&&/^[a-f0-9]{40}$/.test(value.revision)&&['runtime','api','wasm','data'].every(key=>typeof value[key]==='string'&&isNeuralAsset(value[key])&&value[key].includes('/'+value.revision+'/'));
@@ -4781,6 +5093,7 @@ $('languageRows').addEventListener('change',event=>{
 $('displayLanguage').addEventListener('change',()=>{uiLanguageChoice=['zh-CN','zh-TW','en'].includes($('displayLanguage').value)?$('displayLanguage').value:'';try{localStorage.setItem('aichat-display-language',uiLanguageChoice);}catch{}applyLanguage();});
 window.addEventListener('languagechange',()=>{if(!uiLanguageChoice)applyLanguage();});
 $('prompt').addEventListener('input',()=>{try{localStorage.setItem('aichat-prompt',$('prompt').value);}catch{}});
+$('chat').addEventListener('scroll',onChatScroll,{passive:true});
 $('start').addEventListener('click',beginConversation);
 $('end').addEventListener('click',requestEnd);
 $('cancelEnd').addEventListener('click',()=>cancelEnd().catch(error=>fail(error)));
@@ -4788,16 +5101,24 @@ $('confirmEnd').addEventListener('click',()=>confirmEnd().catch(error=>fail(erro
 $('endDialog').addEventListener('cancel',event=>{event.preventDefault();void cancelEnd().catch(error=>fail(error));});
 if(globalThis.speechSynthesis?.addEventListener)speechSynthesis.addEventListener('voiceschanged',()=>void getLocalVoices().catch(error=>recordEvent('voices',error)));
 navigator.mediaDevices?.addEventListener?.('devicechange',()=>{if(current?.state==='active'&&media&&!media.getAudioTracks().some(track=>track.readyState==='live'))fail(new Error('MICROPHONE_STREAM_UNAVAILABLE'));else if(current?.paused&&current.pauseReason==='error')scheduleRecovery(new Error('MICROPHONE_CHANGED'));});
-window.addEventListener('online',()=>{void getLocalVoices();autoRetryAt=lmNextAt=meshConnectAt=0;clearTimeout(preparationRetryTimer);preparationRetryTimer=null;trainingEligibilityChanged();syncCooperation();void autoPrepare();if(current?.paused&&current.pauseReason==='error')scheduleRecovery(new Error('NETWORK_RESTORED'));});
+window.addEventListener('online',()=>{void getLocalVoices();autoFailures=0;asrLoadFailures=0;autoRetryAt=lmNextAt=meshConnectAt=0;clearTimeout(preparationRetryTimer);preparationRetryTimer=null;trainingEligibilityChanged();syncCooperation();void autoPrepare();if(current?.paused&&current.pauseReason==='error')scheduleRecovery(new Error('NETWORK_RESTORED'));});
 window.addEventListener('offline',()=>{void getLocalVoices();void stopCooperation('offline');trainingEligibilityChanged();renderControls();if(!progressState)$('progressText').textContent=uiText('等待联网');});
-document.addEventListener('visibilitychange',()=>{if(document.hidden){void stopCooperation();syncIdleWake();}else{lmNextAt=0;syncCooperation();void autoPrepare();}syncIdleLearning();void pauseForVisibility().catch(error=>recordEvent('visibility',error));});
+document.addEventListener('visibilitychange',()=>{document.body.dataset.pageHidden=String(document.hidden);if(document.hidden){void stopCooperation();syncIdleWake();}else{lmNextAt=0;syncCooperation();void autoPrepare();}syncIdleLearning();void pauseForVisibility().catch(error=>recordEvent('visibility',error));});
 window.addEventListener('pagehide',()=>{coopPageHidden=true;cancelPendingStart();releaseReservedMic();cancelSpeech();resetLocalSpeech();resetMeshSupervisor();void releaseWriterLease();clearInterval(maintenanceTimer);maintenanceTimer=null;clearInterval(meshLeaseTimer);meshLeaseTimer=null;clearTimeout(recoveryTimer);clearTimeout(preparationRetryTimer);preparationRetryTimer=null;clearInterval(progressClock);progressClock=null;stopIdleLearning();syncIdleWake();void releaseWake();clearQuiet();if(current&&!current.finalized){current.paused=true;current.updatedAt=new Date().toISOString();current.revision=(current.revision||0)+1;emergencySave(current);}void captureStop();});
 window.addEventListener('pageshow',event=>{coopPageHidden=false;if(event.persisted&&!WRITE_LEASE){location.reload();return;}startMaintenance();syncCooperation();syncIdleLearning();void autoPrepare();if(current?.state==='active'&&current.paused)scheduleRecovery(new Error('PAGE_RESTORED'));});
 window.addEventListener('beforeunload',()=>{if(current&&!current.finalized){current.updatedAt=new Date().toISOString();current.revision=(current.revision||0)+1;emergencySave(current);}});
 window.addEventListener('unhandledrejection',event=>{recordEvent('unhandled-rejection',event.reason);if(current?.state==='active')fail(event.reason);});
 navigator.connection?.addEventListener?.('change',trainingEligibilityChanged);
 if(navigator.getBattery)navigator.getBattery().then(battery=>{lmBattery=battery;battery.addEventListener('levelchange',trainingEligibilityChanged);battery.addEventListener('chargingchange',trainingEligibilityChanged);}).catch(()=>{});
-let startConfirmationResolve=null;
+const endConfirmationWaiters=new Set();
+function settleEndConfirmation(){for(const resolve of endConfirmationWaiters)resolve();endConfirmationWaiters.clear();}
+async function waitForEndConfirmation(guard=()=>{}){guard();while($('endDialog').open){await new Promise(resolve=>endConfirmationWaiters.add(resolve));guard();}}
+$('endDialog').addEventListener('close',settleEndConfirmation);
+$('endDialog').addEventListener('keydown',event=>{
+  if(!document.body.classList.contains('confirming'))return;
+  if(event.key==='Escape'){event.preventDefault();void cancelEnd().catch(error=>fail(error));}
+  if(event.key==='Tab'){const first=$('cancelEnd'),last=$('confirmEnd');if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}
+});
 const neuralPreloads=new Map();
 function neuralAudio(text,rate,epoch=playbackEpoch){
   const speed=Math.max(.92,Math.min(1.08,Number(rate)||1)),key=JSON.stringify([epoch,text,speed]);
@@ -4806,11 +5127,15 @@ function neuralAudio(text,rate,epoch=playbackEpoch){
   while(neuralPreloads.size>2)neuralPreloads.delete(neuralPreloads.keys().next().value);return task;
 }
 NET.notify=message=>{
-  if(message.type!=='download'||!isNeuralAsset(message.url)||!preparing||!progressState)return;
-  const key='neural:'+message.url,fraction=message.done?1:message.total>0?Math.min(.99,message.loaded/message.total):0;
+  if(!isNeuralAsset(message.url)||!preparing||!progressState)return;
+  if(message.type==='download-retry'){progressState.indeterminate=true;reportProgress(null,0,'正在切换资源连接',uiText('第{n}次连接').replace('{n}',message.attempt));return;}
+  if(message.type!=='download')return;
+  const total=Number.isFinite(message.total)&&message.total>=message.loaded&&message.total>0?message.total:0;
+  progressState.indeterminate=!message.done&&!total;
+  const key='neural:'+message.url,fraction=message.done?1:total?Math.min(.99,message.loaded/total):0;
   progressState.assets.set(key,Math.max(progressState.assets.get(key)||0,fraction));
   const completed=Array.from(progressState.assets.entries()).filter(([key])=>key.startsWith('neural:')).reduce((sum,[,value])=>sum+value,0)/4;
-  reportProgress('neuralSpeech',completed,'语音模型',(message.loaded/1048576).toFixed(1)+(message.total>0?' / '+(message.total/1048576).toFixed(1):'')+' MiB');
+  reportProgress('neuralSpeech',completed,'语音模型',(message.loaded/1048576).toFixed(1)+(total?' / '+(total/1048576).toFixed(1):'')+' MiB');
 };
 startMaintenance();
 boot();
